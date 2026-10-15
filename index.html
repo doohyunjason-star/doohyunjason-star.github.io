@@ -33,7 +33,7 @@
     <!-- ── 테마 ───────────────────────────────────────────────── -->
     <meta
       name="theme-color"
-      content="#F5F0EB"
+      content="#F6F7F9"
       media="(prefers-color-scheme: light)"
     />
     <meta
@@ -66,7 +66,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,700;1,500&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/style.css" />
@@ -261,15 +261,8 @@
               aria-label="Hover or tap to reveal email"
             >
               <canvas id="particleCanvas" aria-hidden="true"></canvas>
-              <!-- 이메일이 숨어 있다는 안내. 문구는 main.js 가 기기(마우스/터치)에 맞게 바꿉니다. -->
-              <span class="particle-hint" aria-hidden="true">
-                <span class="particle-hint-pill">
-                  <svg><use href="#icon-mail"></use></svg>
-                  <span class="particle-hint-text"
-                    >Hover here to reveal email</span
-                  >
-                </span>
-              </span>
+              <!-- 흐릿한 이메일 = 가려진 것이 있다는 신호. 텍스트는 main.js 가 SITE.email 로 채웁니다. -->
+              <span class="particle-hint" aria-hidden="true"><span class="particle-hint-text"></span></span>
               <div class="email-3d-reveal" id="email3dReveal">
                 <!-- 텍스트는 main.js 가 SITE.email 로 덮어씁니다. -->
                 <button class="email-3d-text" id="email3dText" type="button">
@@ -348,18 +341,18 @@
               type="button"
               data-goto="publications"
             >
-              <span class="snapshot-card-icon" aria-hidden="true">✍️</span>
-              <span class="snapshot-number" id="snap-first">0</span>
-              <span class="snapshot-label">1st / Co-1st Authored</span>
+              <span class="snapshot-card-icon" aria-hidden="true">🎤</span>
+              <span class="snapshot-number" id="snap-conf">0</span>
+              <span class="snapshot-label">Conferences</span>
             </button>
             <button
               class="snapshot-card"
               type="button"
               data-goto="publications"
             >
-              <span class="snapshot-card-icon" aria-hidden="true">🎤</span>
-              <span class="snapshot-number" id="snap-conf">0</span>
-              <span class="snapshot-label">Conferences</span>
+              <span class="snapshot-card-icon" aria-hidden="true">✍️</span>
+              <span class="snapshot-number" id="snap-pending">0</span>
+              <span class="snapshot-label">In Preparation</span>
             </button>
           </div>
 

@@ -16,13 +16,13 @@
 :root {
   color-scheme: light;
 
-  --bg: #F5F0EB;
-  --bg-rgb: 245, 240, 235;
+  --bg: #F6F7F9;              /* 차가운 밝은 회색 (크림색 대신) */
+  --bg-rgb: 246, 247, 249;
   --bg-card: #FFFFFF;
   --bg-elevated: #FFFFFF;
   --text-primary: #1A1A1A;
-  --text-secondary: #514F4D;
-  --text-muted: #8E8882;
+  --text-secondary: #4B525C;
+  --text-muted: #78808B;
 
   --accent: #003057;            /* Georgia Tech navy */
   --accent-rgb: 0, 48, 87;
@@ -33,10 +33,10 @@
   --yonsei: #1565C0;
   --yonsei-rgb: 21, 101, 192;
 
-  --border: #E0DAD4;
-  --border-light: #EDE8E3;
+  --border: #E0E3E8;
+  --border-light: #ECEEF1;
 
-  --header-bg: rgba(245, 240, 235, 0.82);
+  --header-bg: rgba(246, 247, 249, 0.85);
   --card-veil: rgba(255, 255, 255, 0.75);
   --card-veil-strong: rgba(255, 255, 255, 0.4);
   --glass: rgba(255, 255, 255, 0.55);
@@ -45,9 +45,9 @@
   --tag-award-fg: #9A6F00;  --tag-award-bg: #FBF3DA;
   --tag-pub-fg: #2E7D32;    --tag-pub-bg: #E8F5E9;
 
-  --serif: 'Libre Baskerville', 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
-  --display: 'Cormorant Garamond', 'Libre Baskerville', Georgia, serif;
-  --sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans KR', sans-serif;
+  /* 글꼴은 IBM Plex Sans 한 가지로 통일. 예전 세리프/디스플레이 변수는 호환용으로 같은 글꼴을 가리킨다 */
+  --sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans KR', sans-serif;
+  --serif: var(--sans);
 
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
   --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.06);
@@ -189,10 +189,10 @@ main {
 
 .page-header { margin-bottom: 48px; }
 .page-header h2 {
-  font-family: var(--display);
-  font-size: 2.8rem;
+  font-family: var(--sans);
+  font-size: 2.3rem;
   font-weight: 300;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
   margin-bottom: 8px;
   line-height: 1.15;
 }
@@ -241,7 +241,7 @@ main {
 
 .logo {
   font-family: var(--serif);
-  font-size: 1.6rem;
+  font-size: 1.3rem;
   font-weight: 600;
   color: var(--text-primary);
   letter-spacing: -0.02em;
@@ -313,10 +313,10 @@ main {
 
 .home-hero h1 {
   font-family: var(--serif);
-  font-size: 3.8rem;
-  font-weight: 400;
+  font-size: 3.2rem;
+  font-weight: 300;
   line-height: 1.15;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.025em;
   margin-bottom: 24px;
 }
 .home-hero h1 strong { font-weight: 700; }
@@ -718,9 +718,9 @@ main {
 }
 .pcc-role.first { color: var(--gold-light); }
 .pcc-title {
-  font-family: var(--display);
-  font-size: 1.05rem;
-  font-weight: 700;
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  font-weight: 600;
   line-height: 1.35;
   color: var(--text-primary);
   display: -webkit-box;
@@ -730,10 +730,10 @@ main {
   overflow: hidden;
 }
 .pcc-venue {
-  font-family: var(--display);
-  font-size: 0.9rem;
+  font-family: var(--sans);
+  font-size: 0.82rem;
   font-style: italic;
-  font-weight: 600;
+  font-weight: 400;
   color: var(--text-secondary);
   margin-top: auto;
   white-space: nowrap;
@@ -775,9 +775,9 @@ main {
 
 .pub-year-group { margin-bottom: 40px; }
 .pub-year {
-  font-family: var(--display);
-  font-size: 2.5rem;
-  font-weight: 700;
+  font-family: var(--sans);
+  font-size: 1.9rem;
+  font-weight: 600;
   color: var(--accent);
   margin-bottom: 16px;
   letter-spacing: -0.02em;
@@ -809,7 +809,7 @@ main {
 
 .pub-item h3 {
   font-family: var(--serif);
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 600;
   margin-bottom: 6px;
   line-height: 1.35;
@@ -1279,9 +1279,9 @@ main {
 
 .news-year-label {
   position: relative;
-  font-family: var(--display);
-  font-size: 1.7rem;
-  font-weight: 700;
+  font-family: var(--sans);
+  font-size: 1.35rem;
+  font-weight: 600;
   color: var(--accent);
   margin: 40px 0 20px;
   padding-left: 20px;
@@ -1384,7 +1384,7 @@ main {
 
 .news-content h3 {
   font-family: var(--serif);
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 600;
   margin-bottom: 6px;
   line-height: 1.4;
@@ -1532,11 +1532,11 @@ main {
   justify-self: center;
   position: relative;
   z-index: 1;
-  font-family: var(--display);
-  font-size: 2.2rem;
-  font-style: italic;
+  font-family: var(--sans);
+  font-size: 1.7rem;
+  
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: -0.01em;
   line-height: 1;
   padding: 4px 16px;
   color: var(--affil-color-start, var(--accent));
@@ -1593,7 +1593,7 @@ main {
   padding: 0 8px;
   background: var(--bg); /* 뒤를 지나는 spine 을 가림 */
 }
-.nj-chapter-period { font-family: var(--display); font-style: italic; font-weight: 500; font-size: 0.85rem; letter-spacing: 0.04em; text-transform: none; color: var(--text-muted); margin-top: 2px; }
+.nj-chapter-period { font-weight: 500; font-size: 0.78rem; letter-spacing: 0.04em; text-transform: none; color: var(--text-muted); margin-top: 2px; }
 
 /* 뉴스 항목: spine 위의 node + lane 카드 */
 .nj-item { padding: 9px 0; }
@@ -1681,10 +1681,10 @@ main {
 }
 .nj-meta { display: flex; align-items: center; gap: 12px; }
 .nj-month {
-  font-family: var(--display);
-  font-size: 1.05rem;
-  font-style: italic;
-  font-weight: 600;
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  
+  font-weight: 500;
   line-height: 1;
   color: var(--affil-color-start, var(--accent));
 }
@@ -1701,7 +1701,7 @@ main {
 .nj-title {
   grid-column: 1;
   font-family: var(--serif);
-  font-size: 1.02rem;
+  font-size: 0.98rem;
   font-weight: 600;
   line-height: 1.45;
 }
@@ -1894,7 +1894,7 @@ main {
 @media (hover: none) {
   .particle-zone { cursor: default; }
 }
-/* 이메일이 숨어 있음을 알려주는 안내 pill — 이메일이 나타나면 사라진다 */
+/* 이메일을 흐릿하게 미리 보여줘서 '가려진 것이 있다'는 걸 문구 없이 알린다 — 이메일이 나타나면 사라진다 */
 .particle-hint {
   position: absolute;
   inset: 0;
@@ -1905,28 +1905,14 @@ main {
   z-index: 1;
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
-.particle-hint-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--accent);
-  border: 1px dashed rgba(var(--accent-rgb), 0.4);
-  border-radius: 100px;
-  background: rgba(var(--bg-rgb), 0.75);
-  -webkit-backdrop-filter: blur(4px);
-          backdrop-filter: blur(4px);
-  animation: hint-pulse 2.4s ease-out infinite;
-}
-.particle-hint-pill svg { width: 14px; height: 14px; flex-shrink: 0; }
-@keyframes hint-pulse {
-  0%   { box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0.28); }
-  70%  { box-shadow: 0 0 0 10px rgba(var(--accent-rgb), 0); }
-  100% { box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0); }
+.particle-hint-text {
+  font-size: 1rem;           /* 나타날 이메일(.email-3d-text)과 같은 크기·굵기 */
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--text-secondary);
+  filter: blur(4px);
+  opacity: 0.7;
+  user-select: none;
 }
 .particle-zone.is-revealed .particle-hint,
 .particle-zone:has(.email-3d-reveal.active) .particle-hint { opacity: 0; transform: scale(0.96); }

@@ -137,8 +137,8 @@
 
   function renderSnapshot() {
     $('#snap-total').textContent = stats.total;
-    $('#snap-first').textContent = stats.first;
     $('#snap-conf').textContent = stats.conferences;
+    $('#snap-pending').textContent = pending.length; // 투고 + 준비 중 원고
 
     // 본인 이름(**…**)에 † 가 붙어 있으면 공동 1저자, 아니면 단독 1저자
     const roleLabel = (p) =>
@@ -510,6 +510,10 @@
   }
   window.addEventListener('hashchange', onHashChange);
   window.addEventListener('popstate', onHashChange);
+  // #publications 같은 주소로 들어오면 브라우저가 그 섹션으로 스크롤해 제목이 헤더에 가려지므로 맨 위로 되돌린다
+  window.addEventListener('load', () => {
+    if (PAGES.includes(location.hash.slice(1))) window.scrollTo(0, 0);
+  });
 
   document.addEventListener('click', (e) => {
     const link = e.target.closest('[data-goto]');
@@ -705,10 +709,8 @@
     }
     // 터치 기기: 탭 → 이메일 표시, 다시 탭 → 복사 (안내 문구 표시)
     const touchMode = noHover.matches;
-    if (touchMode) {
-      zone.classList.add('particle-zone--touch');
-      $('.particle-hint-text', zone).textContent = 'Tap here to reveal email';
-    }
+    if (touchMode) zone.classList.add('particle-zone--touch');
+    $('.particle-hint-text', zone).textContent = SITE.email;
 
     const ctx = canvas.getContext('2d');
     const PARTICLE_COUNT = 60, MOUSE_RADIUS = 120, REPEL_RADIUS = 220, REPEL_FORCE = 10, CONNECT_DIST = 110, MAX_TRAIL = 8;
@@ -719,7 +721,7 @@
 
     function readTheme() {
       const css = getComputedStyle(document.documentElement);
-      const [r, g, b] = hexToRgb(css.getPropertyValue('--bg') || '#F5F0EB');
+      const [r, g, b] = hexToRgb(css.getPropertyValue('--bg') || '#F6F7F9');
       fadeColor = `rgba(${r},${g},${b},0.3)`;
       accentRgb = css.getPropertyValue('--accent-rgb').trim() || '0,48,87'; // 다크모드에서는 밝은 하늘색
 
