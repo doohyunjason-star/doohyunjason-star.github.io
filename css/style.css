@@ -1724,16 +1724,15 @@ main {
   /* 뒤로 지나가는 파티클 선에 묻히지 않도록 바탕색 후광 */
   filter: drop-shadow(0 0 4px var(--bg)) drop-shadow(0 0 10px var(--bg));
 }
-/* 설명 문구는 호버가 없는 터치 기기에서만 */
+/* 아이콘 아래 한 줄 설명 — 표시된 뒤의 'click to copy'(.email-3d-copy)와 같은 스타일.
+   문구는 main.js 가 기기에 맞게 넣는다 (마우스: hover / 터치: tap) */
 .particle-hint-label {
-  display: none;
   font-size: 0.7rem;
   color: var(--text-muted);
-  margin-top: 6px;
+  margin-top: 8px;
   letter-spacing: 0.05em;
   text-shadow: 0 0 6px var(--bg), 0 0 12px var(--bg), 0 0 18px var(--bg);
 }
-.particle-zone--touch .particle-hint-label { display: block; }
 .particle-zone.is-revealed .particle-hint,
 .particle-zone:has(.email-3d-reveal.active) .particle-hint { opacity: 0; transform: scale(0.96); }
 .particle-zone--static .particle-hint { display: none; } /* 모션 최소화: 이메일이 항상 보이므로 안내 불필요 */

@@ -680,7 +680,8 @@
     }
     // 터치 기기: 탭 → 이메일 표시, 다시 탭 → 복사 (안내 문구 표시)
     const touchMode = noHover.matches;
-    if (touchMode) zone.classList.add('particle-zone--touch'); // CSS 가 'tap to reveal email' 문구를 보여줌
+    if (touchMode) zone.classList.add('particle-zone--touch');
+    $('.particle-hint-label', zone).textContent = touchMode ? 'tap to reveal email' : 'hover to reveal email';
 
     const ctx = canvas.getContext('2d');
     const PARTICLE_COUNT = 60, MOUSE_RADIUS = 120, REPEL_RADIUS = 220, REPEL_FORCE = 10, CONNECT_DIST = 110, MAX_TRAIL = 8;
