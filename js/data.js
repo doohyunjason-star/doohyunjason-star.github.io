@@ -42,7 +42,7 @@ const HERO_PARAGRAPHS = [
    @ Georgia Institute of Technology</a>, advised by Professor
    <a href="https://ece.gatech.edu/directory/muhannad-s-bakir" target="_blank" rel="noopener">Muhannad S. Bakir</a>.
    My research centers on advanced packaging and 2.5D/3D heterogeneous integration for semiconductors,
-   spanning packaging technologies from the materials and device level to the system level,
+   spanning packaging technologies all the way from materials and devices to the system level,
    along with system-technology co-optimization (STCO) for next-generation electronic systems.`,
 
   `I received my B.S. from the School of Electrical and Electronic Engineering at
