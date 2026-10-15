@@ -226,39 +226,9 @@
     $('#barsType').innerHTML = row('research', 'Research', stats.research) + row('review', 'Review', stats.review);
   }
 
+  /* News — trajectory 레이아웃. 소속이 바뀌는 지점마다 era 패널을 열고, 왼쪽 spine 을 따라 카드가 한 열로 흐른다.
+     카드는 접이식. */
   function renderNews() {
-    const years = [...new Set(news.map((n) => n.year))];
-    $('#newsTimeline').innerHTML = years
-      .map(
-        (year) => `
-        <h3 class="news-year-label" data-reveal="left">${year}</h3>
-        ${news.filter((n) => n.year === year)
-          .map((n) => {
-            const af = AFFILIATIONS[n.affil] || {};
-            return `
-          <article class="news-item" data-reveal="left" data-affil="${n.affil || ''}" ${affilStyle(n.affil)}>
-            ${af.logo ? `<span class="news-affil" aria-hidden="true"><img src="${af.logo}" alt="" width="120" height="120" loading="lazy" decoding="async"></span>` : ''}
-            <div class="news-item-header">
-              <span class="news-month">${escapeHtml(n.month)}</span>
-              <span class="news-tag" data-tag="${n.tag}">${escapeHtml(NEWS_TAGS[n.tag] || n.tag)}</span>
-            </div>
-            <div class="news-content">
-              <h3><span class="news-icon" aria-hidden="true">${n.icon || ''}</span> ${n.title}</h3>
-              <p>${n.body}</p>
-            </div>
-          </article>`;
-          })
-          .join('')}`
-      )
-      .join('');
-  }
-
-  /* News 2 — trajectory 레이아웃 (실험). NEWS 데이터를 그대로 사용한다.
-     중앙 spine = 커리어 경로(소속 색). Position/Education 은 spine 위에 얹히고,
-     Publications 는 왼쪽 lane, Honors 는 오른쪽 lane 에 고정 배치. 카드는 접이식. */
-  function renderNews2() {
-    // lane 은 카테고리로 고정: 논문/발표 = 왼쪽, 커리어(position) = spine 위 중앙, 수상 = 오른쪽
-    const LANE = { publication: 'left', position: 'center', award: 'right' };
     // EDUCATION 의 period ("Sep. 2026 – Present") 에서 월을 떼어 연도 범위만 사용
     const eraPeriod = (affil) => {
       const edu = EDUCATION.find((e) => e.affil === affil);
@@ -280,7 +250,7 @@
     if (news.length) $('#njJourney').style.cssText = affilVars(news[0].affil);
 
     const card = (n, af) => `
-      <article class="nj-item nj-item--${LANE[n.tag] || 'right'}" data-tag="${n.tag}" data-affil="${n.affil || ''}" data-year="${n.year}" ${affilStyle(n.affil)} data-reveal>
+      <article class="nj-item" data-tag="${n.tag}" data-affil="${n.affil || ''}" data-year="${n.year}" ${affilStyle(n.affil)} data-reveal>
         <span class="nj-node" data-tag="${n.tag}" aria-hidden="true"></span>
         <div class="nj-card">
           <button class="nj-toggle" type="button" aria-expanded="false">
@@ -325,12 +295,12 @@
     $('#njJourney').innerHTML = html;
   }
 
-  function bindNews2Interactions() {
-    const page = $('#news2');
+  function bindNewsInteractions() {
+    const page = $('#news');
     if (!page) return;
     const filters = { tag: 'all', affil: null };
 
-    function applyNews2Filters() {
+    function applyNewsFilters() {
       $$('.nj-chip[data-filter-tag]', page).forEach((c) => c.setAttribute('aria-pressed', c.dataset.filterTag === filters.tag));
       $$('.nj-chip[data-filter-affil]', page).forEach((c) => c.setAttribute('aria-pressed', c.dataset.filterAffil === filters.affil));
 
@@ -347,12 +317,12 @@
 
     page.addEventListener('click', (e) => {
       const tagChip = e.target.closest('.nj-chip[data-filter-tag]');
-      if (tagChip) { filters.tag = tagChip.dataset.filterTag; applyNews2Filters(); return; }
+      if (tagChip) { filters.tag = tagChip.dataset.filterTag; applyNewsFilters(); return; }
 
       const affilChip = e.target.closest('.nj-chip[data-filter-affil]');
       if (affilChip) {
         filters.affil = filters.affil === affilChip.dataset.filterAffil ? null : affilChip.dataset.filterAffil;
-        applyNews2Filters();
+        applyNewsFilters();
         return;
       }
 
@@ -377,7 +347,7 @@
       }
     });
 
-    applyNews2Filters();
+    applyNewsFilters();
   }
 
   function renderCV() {
@@ -512,7 +482,8 @@
   window.addEventListener('popstate', onHashChange);
   // #publications 같은 주소로 들어오면 브라우저가 그 섹션으로 스크롤해 제목이 헤더에 가려지므로 맨 위로 되돌린다
   window.addEventListener('load', () => {
-    if (PAGES.includes(location.hash.slice(1))) window.scrollTo(0, 0);
+    // 브라우저의 해시 스크롤이 load 직후에 일어나므로 한 박자 늦춰서 되돌린다
+    if (PAGES.includes(location.hash.slice(1))) setTimeout(() => window.scrollTo(0, 0), 0);
   });
 
   document.addEventListener('click', (e) => {
@@ -921,10 +892,9 @@
   renderSnapshot();
   renderPublications();
   renderNews();
-  renderNews2();
   renderCV();
   bindPublicationInteractions();
-  bindNews2Interactions();
+  bindNewsInteractions();
 
   $('#themeToggle').setAttribute(
     'aria-label',

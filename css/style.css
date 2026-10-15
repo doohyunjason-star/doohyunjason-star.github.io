@@ -1267,135 +1267,8 @@ main {
   border-radius: 100px;
 }
 
-/* ---------- 7. News ---------- */
-.news-timeline { position: relative; padding-left: 40px; }
-.news-timeline::before {
-  content: '';
-  position: absolute;
-  left: 15px; top: 0; bottom: 0;
-  width: 2px;
-  background: linear-gradient(to bottom, var(--accent), var(--accent-light), transparent);
-}
-
-.news-year-label {
-  position: relative;
-  font-family: var(--sans);
-  font-size: 1.35rem;
-  font-weight: 600;
-  color: var(--accent);
-  margin: 40px 0 20px;
-  padding-left: 20px;
-}
-.news-year-label:first-child { margin-top: 0; }
-.news-year-label::before {
-  content: '';
-  position: absolute;
-  left: -32px; top: 50%;
-  transform: translateY(-50%);
-  width: 14px; height: 14px;
-  background: var(--accent);
-  border-radius: 50%;
-  border: 3px solid var(--bg);
-  box-shadow: 0 0 0 3px var(--accent);
-}
-
-.news-item {
-  position: relative;
-  margin: 0 0 16px 20px;
-  padding: 22px 28px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.4s var(--ease), box-shadow 0.4s ease, border-color 0.4s ease, opacity 0.6s var(--ease);
-}
-.news-item::before {
-  content: '';
-  position: absolute;
-  left: -27px; top: 28px;
-  width: 10px; height: 10px;
-  background: var(--bg-card);
-  border: 2px solid var(--accent-light);
-  border-radius: 50%;
-  transition: all 0.3s ease;
-  z-index: 1;
-}
-.news-item::after {
-  content: '';
-  position: absolute;
-  left: -17px; top: 32px;
-  width: 17px; height: 2px;
-  background: var(--accent-light);
-  transition: all 0.3s ease;
-}
-.news-item:hover {
-  box-shadow: 0 8px 30px var(--affil-shadow, rgba(0, 0, 0, 0.1));
-  border-color: var(--affil-color-mid, var(--accent));
-  transform: translateX(4px);
-}
-.news-item:hover::before { background: var(--affil-color-start, var(--accent)); border-color: var(--affil-color-start, var(--accent)); box-shadow: 0 0 8px var(--affil-shadow, rgba(var(--accent-rgb), 0.4)); }
-.news-item:hover::after { background: var(--affil-color-start, var(--accent)); }
-.news-item > .news-item-header,
-.news-item > .news-content { position: relative; z-index: 1; }
-
-/* 소속 학교 표시 — hover 시 카드 우측 상단에 학교 색 tint + 큰 로고가 은은하게 떠오름 (로고는 모서리에 살짝 잘리게 배치)
-   (.news-item 자체에 overflow:hidden 을 걸면 타임라인 점(::before)이 잘리므로 내부 레이어에서 클리핑) */
-.news-affil {
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 0;
-  background: radial-gradient(circle at 100% 0%, var(--affil-color-end, transparent) 0%, transparent 55%);
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-.news-affil img {
-  position: absolute;
-  right: -18px;
-  top: -18px;
-  width: 120px;
-  height: 120px;
-  object-fit: contain;
-  opacity: 0;
-  transform: translate(10px, -10px) scale(0.9);
-  transition: opacity 0.5s ease, transform 0.5s var(--ease);
-}
-/* Georgia Tech 로고는 원본에 여백이 있어 모서리 안쪽에 두면 거의 잘리지 않음 (Yonsei 인장은 여백이 없어 일부러 잘리게 둠) */
-.news-item[data-affil="gatech"] .news-affil img { right: -12px; top: 2px; }
-.news-item:hover .news-affil { opacity: 0.55; }
-.news-item:hover .news-affil img { opacity: 0.45; transform: none; }
-
-.news-item-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; flex-wrap: wrap; }
-.news-month { font-family: var(--serif); font-size: 0.85rem; color: var(--text-muted); font-weight: 600; }
-.news-tag {
-  display: inline-block;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 3px 10px;
-  border-radius: 100px;
-}
-.news-tag[data-tag="position"]    { color: var(--accent); background: var(--accent-light); }
-.news-tag[data-tag="award"]       { color: var(--tag-award-fg); background: var(--tag-award-bg); }
-.news-tag[data-tag="publication"] { color: var(--tag-pub-fg); background: var(--tag-pub-bg); }
-
-.news-content h3 {
-  font-family: var(--serif);
-  font-size: 1.05rem;
-  font-weight: 600;
-  margin-bottom: 6px;
-  line-height: 1.4;
-}
-.news-icon { font-size: 1.3rem; line-height: 1; margin-right: 4px; }
-.news-content p { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; }
-.news-content a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
-
-
-/* ---------- 7b. News 2 — trajectory 레이아웃 (실험) ----------
-   레이아웃 그리드: [왼쪽 lane: 논문/발표] [spine 56px: 커리어 경로] [오른쪽 lane: 수상]
+/* ---------- 7. News — trajectory 레이아웃 ----------
+   레이아웃 그리드: [spine 칸 --nj-rail] [내용]
    spine 은 각 블록(.nj-year / .nj-chapter / .nj-item)의 ::before 세그먼트가 이어져 만들어지며,
    세그먼트 색은 인라인 --affil-color-start (소속 색) 를 따른다. */
 
@@ -1459,32 +1332,18 @@ main {
 }
 .nj-expand-all:hover { color: var(--accent); text-decoration-color: var(--accent); }
 
-/* lane 안내 라벨 */
-.nj-lanes {
-  display: grid;
-  grid-template-columns: 1fr 56px 1fr;
-  margin: 30px 0 0;
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--text-muted);
+/* 본문 — 왼쪽 spine 칸(--nj-rail) + 오른쪽 내용 칸, 한 열로 흐른다 */
+.nj-journey {
+  --nj-rail: 56px;          /* spine 이 지나가는 왼쪽 칸 폭 */
+  --nj-era-pad: 22px;       /* era 패널 좌우 안쪽 여백 */
+  position: relative;
+  padding: 22px 0 48px;
 }
-.nj-lane { display: flex; align-items: center; gap: 8px; }
-.nj-lane--left   { justify-content: flex-end; padding-right: 26px; }
-.nj-lane--center { justify-content: center; }
-.nj-lane--right  { padding-left: 26px; }
-.nj-lane i { width: 7px; height: 7px; border-radius: 50%; }
-.nj-lane--left i   { background: var(--tag-pub-fg); }
-.nj-lane--center i { background: var(--accent); }
-.nj-lane--right i  { background: var(--tag-award-fg); }
-
-/* 본문 */
-.nj-journey { position: relative; padding: 22px 0 48px; }
+/* spine 의 x 위치 = era 테두리(1px) + era 안쪽 여백 + spine 칸의 절반 */
 .nj-journey::before { /* spine 의 시작점 ("now") */
   content: '';
   position: absolute;
-  left: 50%; top: 4px;
+  left: calc(1px + var(--nj-era-pad) + var(--nj-rail) / 2); top: 4px;
   width: 8px; height: 8px;
   transform: translateX(-50%);
   border-radius: 50%;
@@ -1495,7 +1354,7 @@ main {
 .nj-journey::after { /* spine 의 끝 (과거 방향으로 흐려짐) */
   content: '';
   position: absolute;
-  left: 50%; bottom: 6px;
+  left: calc(1px + var(--nj-era-pad) + var(--nj-rail) / 2); bottom: 6px;
   width: 2px; height: 42px;
   transform: translateX(-50%);
   background: linear-gradient(to bottom, var(--border), transparent);
@@ -1503,13 +1362,14 @@ main {
 .nj-year, .nj-chapter, .nj-item {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 56px 1fr;
+  grid-template-columns: var(--nj-rail) 1fr;
+  column-gap: 18px;
   align-items: start;
 }
 .nj-year::before, .nj-chapter::before, .nj-item::before {
   content: '';
   position: absolute;
-  left: 50%; top: 0; bottom: 0;
+  left: calc(var(--nj-rail) / 2); top: 0; bottom: 0;
   width: 2px;
   transform: translateX(-50%);
   background: var(--affil-color-start, var(--border));
@@ -1517,30 +1377,27 @@ main {
   z-index: 0;
 }
 
-/* 연도 — 가로 구분선 위에 얹힌 이탤릭 세리프 숫자 */
-.nj-year { padding: 34px 0 18px; }
+/* 연도 — 내용 칸 왼쪽에 숫자, 오른쪽으로 가는 선 */
+.nj-year { padding: 28px 0 12px; align-items: center; }
 .nj-year::after {
   content: '';
   position: absolute;
-  left: 0; right: 0;
+  left: calc(var(--nj-rail) + 18px + 4.5rem); right: 0;
   top: calc(50% + 8px);
   height: 1px;
-  background: linear-gradient(to right, transparent, var(--border) 12%, var(--border) 88%, transparent);
+  background: linear-gradient(to right, var(--border), transparent);
 }
 .nj-year-badge {
   grid-column: 2;
-  justify-self: center;
+  justify-self: start;
   position: relative;
   z-index: 1;
   font-family: var(--sans);
   font-size: 1.7rem;
-  
   font-weight: 600;
   letter-spacing: -0.01em;
   line-height: 1;
-  padding: 4px 16px;
   color: var(--affil-color-start, var(--accent));
-  background: var(--bg);
   transition: opacity 0.3s ease;
 }
 .nj-year--empty .nj-year-badge { opacity: 0.3; }
@@ -1548,7 +1405,7 @@ main {
 /* era — 소속별로 항목을 감싸는 연한 색 패널 (소속 색 tint + 테두리). spine 은 패널을 관통해 이어진다 */
 .nj-era {
   position: relative;
-  padding: 6px 22px 18px;
+  padding: 6px var(--nj-era-pad) 18px;
   border-radius: var(--radius-lg);
   background: color-mix(in srgb, var(--affil-color-start, var(--accent)) 5%, transparent);
   border: 1px solid color-mix(in srgb, var(--affil-color-start, var(--accent)) 22%, transparent);
@@ -1558,48 +1415,42 @@ main {
 .nj-era + .nj-era::before { /* era 사이를 잇는 짧은 중립색 spine */
   content: '';
   position: absolute;
-  left: 50%; top: -19px;
+  left: calc(var(--nj-era-pad) + var(--nj-rail) / 2); top: -19px;
   width: 2px; height: 18px;
   transform: translateX(-50%);
   background: var(--border);
 }
 .nj-era--empty { opacity: 0.35; }
-.nj-era .nj-year-badge { background: color-mix(in srgb, var(--affil-color-start, var(--accent)) 5%, var(--bg)); }
-.nj-era .nj-chapter-name, .nj-era .nj-chapter-period { background: color-mix(in srgb, var(--affil-color-start, var(--accent)) 5%, var(--bg)); }
 
-/* chapter — era 의 머리(로고 + 소속명 + 기간) */
-.nj-chapter { padding: 10px 0 12px; transition: opacity 0.3s ease; }
-.nj-chapter > * { grid-column: 2; position: relative; z-index: 1; }
+/* chapter — era 의 머리: spine 위에 로고, 오른쪽에 소속명 + 기간 */
+.nj-chapter { padding: 12px 0 4px; align-items: center; transition: opacity 0.3s ease; }
 .nj-chapter img {
+  grid-column: 1;
+  grid-row: 1 / span 2;
   justify-self: center;
-  width: 40px; height: 40px;
+  position: relative;
+  z-index: 1;
+  width: 44px; height: 44px;
   padding: 5px;
   object-fit: contain;
   border-radius: 50%;
   background: var(--bg-card);
   border: 2px solid var(--affil-color-start, var(--border));
-  box-shadow: 0 0 0 5px var(--bg);
 }
-.nj-chapter-name, .nj-chapter-period {
-  justify-self: center;
-  white-space: nowrap;
-  text-align: center;
-  font-size: 0.64rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--affil-color-start, var(--text-muted));
-  margin-top: 8px;
-  padding: 0 8px;
-  background: var(--bg); /* 뒤를 지나는 spine 을 가림 */
+.nj-chapter-name, .nj-chapter-period { grid-column: 2; }
+.nj-chapter-name {
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--affil-color-start, var(--text-primary));
 }
-.nj-chapter-period { font-weight: 500; font-size: 0.78rem; letter-spacing: 0.04em; text-transform: none; color: var(--text-muted); margin-top: 2px; }
+.nj-chapter-period { font-size: 0.82rem; font-weight: 500; color: var(--text-muted); }
 
-/* 뉴스 항목: spine 위의 node + lane 카드 */
-.nj-item { padding: 9px 0; }
+/* 뉴스 항목: spine 위의 node + 오른쪽 카드 */
+.nj-item { padding: 8px 0; }
 .nj-item[hidden] { display: none; }
 .nj-node {
-  grid-column: 2;
+  grid-column: 1;
   grid-row: 1;
   justify-self: center;
   position: relative;
@@ -1607,15 +1458,14 @@ main {
   width: 11px; height: 11px;
   margin-top: 21px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--affil-color-start, var(--accent));
   box-shadow: 0 0 0 3px var(--bg);
   transition: transform 0.3s var(--ease);
 }
-.nj-node[data-tag="award"]       { background: var(--tag-award-fg); }
-.nj-node[data-tag="publication"] { background: var(--tag-pub-fg); }
 .nj-item:hover .nj-node { transform: scale(1.4); }
 
 .nj-card {
+  grid-column: 2;
   grid-row: 1;
   position: relative;
   z-index: 1;
@@ -1625,45 +1475,22 @@ main {
   box-shadow: var(--shadow-sm);
   transition: transform 0.4s var(--ease), box-shadow 0.4s ease, border-color 0.4s ease;
 }
-.nj-item--left  .nj-card { grid-column: 1; }
-.nj-item--right .nj-card { grid-column: 3; }
 .nj-card::after { /* node 와 카드를 잇는 연결선 */
   content: '';
   position: absolute;
   top: 26px;
-  width: 22px; height: 1px;
+  left: calc(-18px - var(--nj-rail) / 2 + 6px);
+  width: calc(18px + var(--nj-rail) / 2 - 6px);
+  height: 1px;
   background: var(--border);
   transition: background 0.3s ease;
 }
-.nj-item--left  .nj-card::after { right: -22px; }
-.nj-item--right .nj-card::after { left: -22px; }
 .nj-item:hover .nj-card {
   transform: translateY(-2px);
   border-color: var(--affil-color-mid, var(--accent));
   box-shadow: 0 10px 28px var(--affil-shadow, rgba(0, 0, 0, 0.08));
 }
 .nj-item:hover .nj-card::after { background: var(--affil-color-start, var(--accent)); }
-
-/* 커리어(position) 항목: spine 을 꿰뚫고 앉는 중앙 카드 — 구슬처럼 위쪽 테두리에 ring node 가 걸림 */
-.nj-item--center .nj-card {
-  grid-column: 1 / -1;
-  justify-self: center;
-  width: min(640px, 100%);
-  margin-top: 12px;
-  border-top: 2px solid var(--affil-color-start, var(--accent));
-  border-top-left-radius: var(--radius-sm);
-  border-top-right-radius: var(--radius-sm);
-}
-.nj-item--center .nj-card::after { display: none; }
-.nj-item--center .nj-node {
-  z-index: 2;
-  width: 16px; height: 16px;
-  margin-top: 4px;
-  background: var(--bg-card);
-  border: 3px solid var(--affil-color-start, var(--accent));
-  box-shadow: 0 0 0 3px var(--bg);
-}
-.nj-item--center .nj-toggle { padding-top: 22px; }
 
 .nj-toggle {
   display: grid;
@@ -1763,7 +1590,6 @@ main {
 [data-reveal].reveal-quick { transform: translateY(8px); transition-duration: 0.3s; }
 [data-reveal="left"].reveal-quick { transform: translateX(-8px); }
 [data-reveal].is-visible { opacity: 1; transform: none; }
-.news-item[data-reveal].is-visible:hover { transform: translateX(4px); }
 .interest-card[data-reveal].is-visible:hover { transform: translateY(-4px); }
 .interest-card--cv[data-reveal].is-visible:hover { transform: translateY(-6px); }
 .cv-profile-card[data-reveal].is-visible:hover { transform: translateY(-6px); }
@@ -1858,31 +1684,16 @@ main {
   .page-header h2 { font-size: 2rem; }
   .cv-download { padding: 14px 22px; font-size: 0.8rem; }
 
-  .news-timeline { padding-left: 30px; }
-  .news-timeline::before { left: 10px; }
-  .news-year-label::before { left: -27px; width: 12px; height: 12px; }
-  .news-item { padding: 18px 20px; margin-left: 14px; }
-  .news-item::before { left: -21px; top: 24px; width: 8px; height: 8px; }
-  .news-item::after { left: -13px; top: 27px; width: 13px; }
   .scroll-top { right: 16px; bottom: 16px; width: 42px; height: 42px; }
 
-  /* News 2: 좁은 화면에서는 spine 을 왼쪽에 두고 카드를 한 열로 (lane 구분은 node 색으로만) */
+  /* News: 좁은 화면에서는 spine 칸과 era 여백을 줄인다 */
   .nj-expand-all { margin-left: 0; }
-  .nj-lanes { display: none; }
-  .nj-year, .nj-chapter, .nj-item { grid-template-columns: 40px 1fr; }
-  .nj-era { padding: 4px 12px 12px; }
-  .nj-era + .nj-era::before { left: 32px; }
-  .nj-year::before, .nj-chapter::before, .nj-item::before { left: 20px; }
-  .nj-journey::before, .nj-journey::after { left: 32px; }
-  .nj-year::after { left: 40px; background: var(--border-light); }
-  .nj-year-badge { grid-column: 1 / -1; justify-self: start; font-size: 1.7rem; padding: 4px 12px 4px 0; margin-left: 40px; }
-  .nj-chapter > * { grid-column: 1 / -1; justify-self: start; text-align: left; }
-  .nj-chapter img { justify-self: start; }
-  .nj-node { grid-column: 1; }
-  .nj-item--left .nj-card, .nj-item--right .nj-card, .nj-item--center .nj-card { grid-column: 2; width: auto; justify-self: stretch; margin-top: 0; }
-  .nj-item--center .nj-node { margin-top: 19px; width: 12px; height: 12px; }
-  .nj-item--center .nj-toggle { padding-top: 14px; }
-  .nj-item--left .nj-card::after, .nj-item--right .nj-card::after, .nj-item--center .nj-card::after { display: block; left: -14px; right: auto; width: 14px; }
+  .nj-journey { --nj-rail: 36px; --nj-era-pad: 10px; }
+  .nj-year, .nj-chapter, .nj-item { column-gap: 12px; }
+  .nj-year::after { left: calc(var(--nj-rail) + 12px + 4rem); }
+  .nj-card::after { left: calc(-12px - var(--nj-rail) / 2 + 6px); width: calc(12px + var(--nj-rail) / 2 - 6px); }
+  .nj-chapter img { width: 34px; height: 34px; padding: 4px; }
+  .nj-year-badge { font-size: 1.4rem; }
   .nj-toggle { padding: 14px 16px; }
 }
 

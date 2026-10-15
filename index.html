@@ -27,7 +27,10 @@
          GitHub 아이디나 도메인이 바뀌면 아래 세 곳의 주소를 함께 바꾸세요. -->
     <link rel="canonical" href="https://doohyunjason-star.github.io/" />
     <meta property="og:url" content="https://doohyunjason-star.github.io/" />
-    <meta property="og:image" content="https://doohyunjason-star.github.io/assets/img/profile.jpg" />
+    <meta
+      property="og:image"
+      content="https://doohyunjason-star.github.io/assets/img/profile.jpg"
+    />
     <meta name="twitter:card" content="summary" />
 
     <!-- ── 테마 ───────────────────────────────────────────────── -->
@@ -202,16 +205,6 @@
               aria-controls="news"
               >News</a
             >
-            <a
-              class="nav-link"
-              role="tab"
-              id="tab-news2"
-              href="#news2"
-              data-goto="news2"
-              aria-selected="false"
-              aria-controls="news2"
-              >News 2</a
-            >
           </nav>
 
           <button
@@ -262,7 +255,9 @@
             >
               <canvas id="particleCanvas" aria-hidden="true"></canvas>
               <!-- 흐릿한 이메일 = 가려진 것이 있다는 신호. 텍스트는 main.js 가 SITE.email 로 채웁니다. -->
-              <span class="particle-hint" aria-hidden="true"><span class="particle-hint-text"></span></span>
+              <span class="particle-hint" aria-hidden="true"
+                ><span class="particle-hint-text"></span
+              ></span>
               <div class="email-3d-reveal" id="email3dReveal">
                 <!-- 텍스트는 main.js 가 SITE.email 로 덮어씁니다. -->
                 <button class="email-3d-text" id="email3dText" type="button">
@@ -352,7 +347,7 @@
             >
               <span class="snapshot-card-icon" aria-hidden="true">✍️</span>
               <span class="snapshot-number" id="snap-pending">0</span>
-              <span class="snapshot-label">In Preparation</span>
+              <span class="snapshot-label">Manuscripts in Progress</span>
             </button>
           </div>
 
@@ -465,28 +460,12 @@
         </div>
       </section>
 
-      <!-- ════════════════ NEWS ════════════════ -->
+      <!-- ════════════════ NEWS (trajectory 레이아웃 — 소속별 구간 + 세로 줄) ════════════════ -->
       <section
         id="news"
         class="page"
         role="tabpanel"
         aria-labelledby="tab-news"
-      >
-        <div class="page-header">
-          <h2>Latest <strong>News</strong></h2>
-          <p class="desc">Updates, talks, and recent activities</p>
-        </div>
-        <div class="news-timeline" id="newsTimeline">
-          <!-- data.js → NEWS -->
-        </div>
-      </section>
-
-      <!-- ════════════════ NEWS 2 (실험적 trajectory 레이아웃 — 같은 NEWS 데이터 사용) ════════════════ -->
-      <section
-        id="news2"
-        class="page"
-        role="tabpanel"
-        aria-labelledby="tab-news2"
       >
         <div class="page-header">
           <h2>Research <strong>Trajectory</strong></h2>
@@ -522,14 +501,6 @@
           </button>
         </div>
 
-        <!-- lane 안내: 왼쪽 = 논문/발표, 가운데 spine = 커리어 경로, 오른쪽 = 수상 -->
-        <div class="nj-lanes" aria-hidden="true">
-          <span class="nj-lane nj-lane--left"
-            ><i></i>Publications &amp; Talks</span
-          >
-          <span class="nj-lane nj-lane--center"><i></i>Path</span>
-          <span class="nj-lane nj-lane--right"><i></i>Honors &amp; Awards</span>
-        </div>
         <div class="nj-journey" id="njJourney"><!-- data.js → NEWS --></div>
       </section>
     </main>
