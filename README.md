@@ -1,6 +1,6 @@
-# Doohyun Jason Lee — Personal Homepage
+# Personal Homepage
 
-https://doohyunjason-star.github.io
+검색엔진 비노출 설정: `index.html` 의 `<meta name="robots" content="noindex…">` + `robots.txt`
 
 ## 내용 수정
 

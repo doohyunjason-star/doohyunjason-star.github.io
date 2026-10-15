@@ -1,0 +1,5 @@
+# 페이지 자체(/)는 막지 않는다 — 검색엔진이 index.html 의 noindex 표시를 읽어야 검색 결과에서 빠지기 때문.
+# CV PDF 는 noindex 표시를 넣을 수 없으므로 수집 자체를 막는다.
+# (이미지는 막지 않음 — 막으면 LinkedIn 등에서 링크 미리보기 사진이 안 뜰 수 있음)
+User-agent: *
+Disallow: /assets/Doohyun_Jason_Lee_CV.pdf
