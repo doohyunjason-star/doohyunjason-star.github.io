@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- ── SEO / 공유 ─────────────────────────────────────────────
+       실제 값은 js/data.js 의 SITE 에서 렌더링됩니다.
+       아래 값은 JS 실행 전(또는 크롤러용) 폴백이므로 SITE 와 함께 갱신하세요. -->
+    <title>Doohyun Jason Lee — Georgia Tech</title>
+    <meta
+      name="description"
+      content="Doohyun Jason Lee — PhD student at Georgia Tech (I3DS, Prof. Muhannad S. Bakir) working on advanced packaging, 2.5D/3D heterogeneous integration, and co-packaged optics."
+    />
+    <meta name="author" content="Doohyun Jason Lee" />
+
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content="Doohyun Jason Lee — Georgia Tech" />
+    <meta
+      property="og:description"
+      content="PhD student at Georgia Tech working on advanced packaging, heterogeneous integration, and co-packaged optics."
+    />
+    <!-- 링크 미리보기(카카오톡·Slack·LinkedIn 등)는 절대 URL 이어야 뜹니다.
+         GitHub 아이디나 도메인이 바뀌면 아래 세 곳의 주소를 함께 바꾸세요. -->
+    <link rel="canonical" href="https://doohyunjason-star.github.io/" />
+    <meta property="og:url" content="https://doohyunjason-star.github.io/" />
+    <meta property="og:image" content="https://doohyunjason-star.github.io/assets/img/profile.jpg" />
+    <meta name="twitter:card" content="summary" />
+
+    <!-- ── 테마 ───────────────────────────────────────────────── -->
+    <meta
+      name="theme-color"
+      content="#F5F0EB"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#0F1216"
+      media="(prefers-color-scheme: dark)"
+    />
+
+    <!-- 다크모드 깜빡임(FOUC) 방지: CSS 로드 전에 저장된 테마를 적용.
+       저장 키는 js/main.js 의 THEME_KEY 와 반드시 같아야 합니다. -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("djl-theme");
+          if (!t)
+            t = window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+          document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {}
+      })();
+    </script>
+
+    <!-- 파비콘: Georgia Tech 네이비 바탕의 이니셜 -->
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23003057'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-family='Georgia,serif' font-size='28' font-weight='700' fill='%23B3A369'%3EDJ%3C/text%3E%3C/svg%3E"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,700;1,500&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- ════════════════ 아이콘 스프라이트 ════════════════
+       본문에서는 <svg class="…"><use href="#icon-…"></use></svg> 로 참조합니다.
+       크기·색은 CSS(.theme-toggle svg 등)가 결정하므로 여기서는 모양만 정의합니다. -->
+    <svg class="icon-sprite" aria-hidden="true" focusable="false">
+      <symbol
+        id="icon-sun"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <circle cx="12" cy="12" r="4" />
+        <path
+          d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+        />
+      </symbol>
+      <symbol
+        id="icon-moon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+      </symbol>
+      <symbol
+        id="icon-mail"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <rect x="2" y="4" width="20" height="16" rx="2" />
+        <path d="M22 4L12 13 2 4" />
+      </symbol>
+      <symbol id="icon-scholar" viewBox="0 0 24 24" fill="currentColor">
+        <path
+          d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-3a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM1.5 4.5L12 13.5 22.5 4.5 12 0z"
+        />
+      </symbol>
+      <symbol id="icon-linkedin" viewBox="0 0 24 24" fill="currentColor">
+        <path
+          d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"
+        />
+      </symbol>
+      <symbol
+        id="icon-download"
+        viewBox="0 0 16 16"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M8 1v10M8 11L4 7M8 11l4-4M2 14h12" />
+      </symbol>
+      <symbol
+        id="icon-chevron-up"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <polyline points="18 15 12 9 6 15" />
+      </symbol>
+    </svg>
+
+    <!-- ════════════════ Header ════════════════ -->
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="logo" href="#home" data-goto="home"
+          >Doohyun <span class="hl">Jason</span> Lee</a
+        >
+
+        <div class="header-right">
+          <!-- 탭 목록의 단일 출처(Single Source of Truth).
+             main.js 가 이 링크들에서 페이지 순서와 문서 제목을 읽어가므로,
+             탭을 추가하려면 여기 링크 + 같은 id 의 <section class="page"> 만 추가하면 됩니다. -->
+          <nav id="nav" class="nav" role="tablist" aria-label="Site sections">
+            <a
+              class="nav-link"
+              role="tab"
+              id="tab-home"
+              href="#home"
+              data-goto="home"
+              aria-selected="true"
+              aria-controls="home"
+              >Home</a
+            >
+            <a
+              class="nav-link"
+              role="tab"
+              id="tab-cv"
+              href="#cv"
+              data-goto="cv"
+              aria-selected="false"
+              aria-controls="cv"
+              >Personal / CV</a
+            >
+            <a
+              class="nav-link"
+              role="tab"
+              id="tab-publications"
+              href="#publications"
+              data-goto="publications"
+              aria-selected="false"
+              aria-controls="publications"
+              >Publications</a
+            >
+            <a
+              class="nav-link"
+              role="tab"
+              id="tab-news"
+              href="#news"
+              data-goto="news"
+              aria-selected="false"
+              aria-controls="news"
+              >News</a
+            >
+            <a
+              class="nav-link"
+              role="tab"
+              id="tab-news2"
+              href="#news2"
+              data-goto="news2"
+              aria-selected="false"
+              aria-controls="news2"
+              >News 2</a
+            >
+          </nav>
+
+          <button
+            id="themeToggle"
+            class="theme-toggle"
+            type="button"
+            aria-label="Switch to dark mode"
+          >
+            <svg class="icon-sun" aria-hidden="true">
+              <use href="#icon-sun"></use>
+            </svg>
+            <svg class="icon-moon" aria-hidden="true">
+              <use href="#icon-moon"></use>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <noscript>
+        <p class="noscript-note">
+          This site renders its content with JavaScript. Please enable
+          JavaScript, or email <strong>d.jason@gatech.edu</strong>.
+        </p>
+      </noscript>
+
+      <!-- ════════════════ HOME ════════════════ -->
+      <section
+        id="home"
+        class="page active"
+        role="tabpanel"
+        aria-labelledby="tab-home"
+      >
+        <div class="home-hero">
+          <div class="home-intro">
+            <h1>
+              Hello, I'm<br /><strong id="heroName"
+                >Doohyun <span class="hl">Jason</span> Lee</strong
+              >
+            </h1>
+            <div id="heroText"><!-- data.js → HERO_PARAGRAPHS --></div>
+
+            <div
+              class="particle-zone"
+              id="particleZone"
+              aria-label="Hover or tap to reveal email"
+            >
+              <canvas id="particleCanvas" aria-hidden="true"></canvas>
+              <!-- 이메일이 숨어 있다는 안내. 문구는 main.js 가 기기(마우스/터치)에 맞게 바꿉니다. -->
+              <span class="particle-hint" aria-hidden="true">
+                <span class="particle-hint-pill">
+                  <svg><use href="#icon-mail"></use></svg>
+                  <span class="particle-hint-text"
+                    >Hover here to reveal email</span
+                  >
+                </span>
+              </span>
+              <div class="email-3d-reveal" id="email3dReveal">
+                <!-- 텍스트는 main.js 가 SITE.email 로 덮어씁니다. -->
+                <button class="email-3d-text" id="email3dText" type="button">
+                  d.jason@gatech.edu
+                </button>
+                <span class="email-3d-copy">click to copy</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="profile-section">
+            <div
+              class="profile-photo profile-photo--placeholder"
+              id="profilePhoto"
+            >
+              <!-- data.js → SITE.photo -->
+            </div>
+            <!-- href 는 main.js 가 SITE.links 로 채웁니다. -->
+            <div class="profile-links">
+              <button
+                class="profile-link-btn"
+                id="emailBtn"
+                type="button"
+                title="Copy email"
+                aria-label="Copy email address"
+              >
+                <svg aria-hidden="true"><use href="#icon-mail"></use></svg>
+              </button>
+              <a
+                class="profile-link-btn"
+                id="scholarLink"
+                href="#"
+                target="_blank"
+                rel="noopener"
+                title="Google Scholar"
+                aria-label="Google Scholar profile"
+              >
+                <svg aria-hidden="true"><use href="#icon-scholar"></use></svg>
+              </a>
+              <a
+                class="profile-link-btn"
+                id="linkedinLink"
+                href="#"
+                target="_blank"
+                rel="noopener"
+                title="LinkedIn"
+                aria-label="LinkedIn profile"
+              >
+                <svg aria-hidden="true"><use href="#icon-linkedin"></use></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="section-label">Research Interests</h2>
+        <div class="interests-grid" id="homeInterests">
+          <!-- data.js → INTERESTS -->
+        </div>
+
+        <h2 class="section-label section-label--spaced">
+          Publications at a Glance
+        </h2>
+        <div class="pub-snapshot">
+          <div class="snapshot-stats">
+            <button
+              class="snapshot-card"
+              type="button"
+              data-goto="publications"
+            >
+              <span class="snapshot-card-icon" aria-hidden="true">📄</span>
+              <span class="snapshot-number" id="snap-total">0</span>
+              <span class="snapshot-label">Publications</span>
+            </button>
+            <button
+              class="snapshot-card"
+              type="button"
+              data-goto="publications"
+            >
+              <span class="snapshot-card-icon" aria-hidden="true">✍️</span>
+              <span class="snapshot-number" id="snap-first">0</span>
+              <span class="snapshot-label">1st / Co-1st Authored</span>
+            </button>
+            <button
+              class="snapshot-card"
+              type="button"
+              data-goto="publications"
+            >
+              <span class="snapshot-card-icon" aria-hidden="true">🎤</span>
+              <span class="snapshot-number" id="snap-conf">0</span>
+              <span class="snapshot-label">Conferences</span>
+            </button>
+          </div>
+
+          <div class="pub-carousel" aria-label="Publication highlights">
+            <div class="pub-carousel-track" id="carouselTrack">
+              <!-- data.js → PUBLICATIONS -->
+            </div>
+          </div>
+
+          <div class="snapshot-actions">
+            <a class="btn-outline" href="#publications" data-goto="publications"
+              >View All Publications →</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════════ PERSONAL / CV ════════════════ -->
+      <section id="cv" class="page" role="tabpanel" aria-labelledby="tab-cv">
+        <div class="page-header page-header--row">
+          <h2>Personal Information<br />&amp; Curriculum Vitae</h2>
+          <!-- href 는 main.js 가 SITE.cvUrl 로 채웁니다(없으면 안내 토스트). -->
+          <a class="cv-download" id="cvDownload" href="#cv">
+            <svg aria-hidden="true"><use href="#icon-download"></use></svg>
+            Download Full CV
+          </a>
+        </div>
+
+        <h2 class="section-label">Academic Background</h2>
+        <div class="cv-grid">
+          <div class="cv-profile-card" data-reveal>
+            <div class="card-icon" aria-hidden="true"><span>🎓</span></div>
+            <h3 class="card-label">Education</h3>
+            <div id="eduTimeline"><!-- data.js → EDUCATION --></div>
+          </div>
+          <div class="cv-profile-card" data-reveal>
+            <div class="card-icon" aria-hidden="true"><span>🔬</span></div>
+            <h3 class="card-label">Research Experience</h3>
+            <div id="expTimeline"><!-- data.js → EXPERIENCE --></div>
+          </div>
+        </div>
+
+        <h2 class="section-label">Research Interests</h2>
+        <div class="interests-grid interests-grid--cv" id="cvInterests">
+          <!-- data.js → INTERESTS -->
+        </div>
+      </section>
+
+      <!-- ════════════════ PUBLICATIONS ════════════════ -->
+      <section
+        id="publications"
+        class="page"
+        role="tabpanel"
+        aria-labelledby="tab-publications"
+      >
+        <div class="page-header">
+          <h2>Selected <strong>Publications</strong></h2>
+          <p class="desc">
+            Peer-Reviewed Papers, Manuscripts in Progress, and Conference
+            Presentations
+          </p>
+          <p class="desc small">
+            <sup>†</sup> co-first authors &nbsp;·&nbsp;
+            <sup>*</sup> corresponding authors
+          </p>
+        </div>
+
+        <div class="pub-layout">
+          <div class="pub-list" id="pubList">
+            <!-- data.js → PUBLICATIONS -->
+          </div>
+
+          <aside
+            class="pub-stats"
+            id="pubStats"
+            aria-label="Publication statistics"
+          >
+            <h3 class="pub-stats-title">Overview</h3>
+            <div class="pub-stat-block">
+              <div class="pub-stat-item">
+                <span class="pub-stat-label">Publications</span
+                ><span class="pub-stat-value" id="stat-total">0</span>
+              </div>
+              <div class="pub-stat-item">
+                <span class="pub-stat-label">Conferences</span
+                ><span class="pub-stat-value" id="stat-conf">0</span>
+              </div>
+            </div>
+
+            <!-- Overview 와 위상이 다른 하위 분석 영역 -->
+            <div class="pub-breakdown">
+              <div class="pub-bar-section">
+                <h4>By Role</h4>
+                <div id="barsRole"><!-- main.js → 통계 행 --></div>
+              </div>
+              <div class="pub-bar-section">
+                <h4>By Type</h4>
+                <div id="barsType"><!-- main.js → 통계 행 --></div>
+              </div>
+              <p class="pub-filter-hint" id="pubFilterHint" aria-live="polite">
+                Click a row to filter the list.
+              </p>
+            </div>
+            <div class="pub-links-section">
+              <a id="scholarLinkPanel" href="#" target="_blank" rel="noopener"
+                >→ Google Scholar</a
+              >
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- ════════════════ NEWS ════════════════ -->
+      <section
+        id="news"
+        class="page"
+        role="tabpanel"
+        aria-labelledby="tab-news"
+      >
+        <div class="page-header">
+          <h2>Latest <strong>News</strong></h2>
+          <p class="desc">Updates, talks, and recent activities</p>
+        </div>
+        <div class="news-timeline" id="newsTimeline">
+          <!-- data.js → NEWS -->
+        </div>
+      </section>
+
+      <!-- ════════════════ NEWS 2 (실험적 trajectory 레이아웃 — 같은 NEWS 데이터 사용) ════════════════ -->
+      <section
+        id="news2"
+        class="page"
+        role="tabpanel"
+        aria-labelledby="tab-news2"
+      >
+        <div class="page-header">
+          <h2>Research <strong>Trajectory</strong></h2>
+          <p class="desc">
+            Milestones along the way, grouped by year and affiliation
+          </p>
+        </div>
+
+        <div class="nj-toolbar">
+          <div
+            class="nj-filters"
+            id="njFilters"
+            role="group"
+            aria-label="Filter by category"
+          >
+            <!-- main.js → NEWS_TAGS -->
+          </div>
+          <div
+            class="nj-legend"
+            id="njLegend"
+            role="group"
+            aria-label="Filter by affiliation"
+          >
+            <!-- main.js → AFFILIATIONS -->
+          </div>
+          <button
+            class="nj-expand-all"
+            id="njExpandAll"
+            type="button"
+            aria-pressed="false"
+          >
+            Expand all
+          </button>
+        </div>
+
+        <!-- lane 안내: 왼쪽 = 논문/발표, 가운데 spine = 커리어 경로, 오른쪽 = 수상 -->
+        <div class="nj-lanes" aria-hidden="true">
+          <span class="nj-lane nj-lane--left"
+            ><i></i>Publications &amp; Talks</span
+          >
+          <span class="nj-lane nj-lane--center"><i></i>Path</span>
+          <span class="nj-lane nj-lane--right"><i></i>Honors &amp; Awards</span>
+        </div>
+        <div class="nj-journey" id="njJourney"><!-- data.js → NEWS --></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      © <span id="footerYear">2026</span>
+      <span id="footerName">Doohyun Jason Lee</span>
+    </footer>
+
+    <button
+      class="scroll-top"
+      id="scrollTop"
+      type="button"
+      aria-label="Scroll to top"
+    >
+      <svg aria-hidden="true"><use href="#icon-chevron-up"></use></svg>
+    </button>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
