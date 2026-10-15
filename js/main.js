@@ -682,6 +682,7 @@
     const touchMode = noHover.matches;
     if (touchMode) zone.classList.add('particle-zone--touch');
     $('.particle-hint-text', zone).textContent = SITE.email;
+    $('.particle-hint-label', zone).textContent = touchMode ? 'tap to reveal email' : 'hover to reveal email';
 
     const ctx = canvas.getContext('2d');
     const PARTICLE_COUNT = 60, MOUSE_RADIUS = 120, REPEL_RADIUS = 220, REPEL_FORCE = 10, CONNECT_DIST = 110, MAX_TRAIL = 8;

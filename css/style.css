@@ -1705,17 +1705,21 @@ main {
 @media (hover: none) {
   .particle-zone { cursor: default; }
 }
-/* 이메일을 흐릿하게 미리 보여줘서 '가려진 것이 있다'는 걸 문구 없이 알린다 — 이메일이 나타나면 사라진다 */
+/* 이메일이 가려져 있다는 안내 — 봉투 아이콘 + 흐릿한 이메일 + 한 줄 설명. 이메일이 나타나면 사라진다.
+   설명 문구는 표시된 뒤에 나오는 'click to copy'(.email-3d-copy)와 같은 스타일로 맞춘다. */
 .particle-hint {
   position: absolute;
   inset: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   pointer-events: none;
   z-index: 1;
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
+.particle-hint-line { display: inline-flex; align-items: center; gap: 8px; }
+.particle-hint-icon { width: 16px; height: 16px; color: var(--text-muted); flex-shrink: 0; }
 .particle-hint-text {
   font-size: 1rem;           /* 나타날 이메일(.email-3d-text)과 같은 크기·굵기 */
   font-weight: 700;
@@ -1724,6 +1728,14 @@ main {
   filter: blur(4px);
   opacity: 0.7;
   user-select: none;
+}
+.particle-hint-label {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+  letter-spacing: 0.05em;
+  /* 뒤로 지나가는 파티클 선이 글자를 가리지 않도록 바탕색 후광 */
+  text-shadow: 0 0 6px var(--bg), 0 0 12px var(--bg), 0 0 18px var(--bg);
 }
 .particle-zone.is-revealed .particle-hint,
 .particle-zone:has(.email-3d-reveal.active) .particle-hint { opacity: 0; transform: scale(0.96); }
