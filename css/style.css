@@ -1718,25 +1718,22 @@ main {
   z-index: 1;
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
-.particle-hint-line { display: inline-flex; align-items: center; gap: 8px; }
-.particle-hint-icon { width: 16px; height: 16px; color: var(--text-muted); flex-shrink: 0; }
-.particle-hint-text {
-  font-size: 1rem;           /* 나타날 이메일(.email-3d-text)과 같은 크기·굵기 */
-  font-weight: 700;
-  letter-spacing: 0.03em;
+.particle-hint-icon {
+  width: 26px; height: 26px;
   color: var(--text-secondary);
-  filter: blur(4px);
-  opacity: 0.7;
-  user-select: none;
+  /* 뒤로 지나가는 파티클 선에 묻히지 않도록 바탕색 후광 */
+  filter: drop-shadow(0 0 4px var(--bg)) drop-shadow(0 0 10px var(--bg));
 }
+/* 설명 문구는 호버가 없는 터치 기기에서만 */
 .particle-hint-label {
+  display: none;
   font-size: 0.7rem;
   color: var(--text-muted);
   margin-top: 6px;
   letter-spacing: 0.05em;
-  /* 뒤로 지나가는 파티클 선이 글자를 가리지 않도록 바탕색 후광 */
   text-shadow: 0 0 6px var(--bg), 0 0 12px var(--bg), 0 0 18px var(--bg);
 }
+.particle-zone--touch .particle-hint-label { display: block; }
 .particle-zone.is-revealed .particle-hint,
 .particle-zone:has(.email-3d-reveal.active) .particle-hint { opacity: 0; transform: scale(0.96); }
 .particle-zone--static .particle-hint { display: none; } /* 모션 최소화: 이메일이 항상 보이므로 안내 불필요 */

@@ -254,14 +254,11 @@
               aria-label="Hover or tap to reveal email"
             >
               <canvas id="particleCanvas" aria-hidden="true"></canvas>
-              <!-- 이메일이 가려져 있다는 안내: 봉투 아이콘 + 흐릿한 이메일 + 짧은 설명.
-                   이메일 텍스트는 main.js 가 SITE.email 로, 설명 문구는 기기(마우스/터치)에 맞게 채웁니다. -->
+              <!-- 이메일이 가려져 있다는 안내: 가운데 봉투 아이콘 하나.
+                   터치 기기(호버 불가)에서만 아래에 'tap to reveal email' 문구가 함께 보입니다. -->
               <span class="particle-hint" aria-hidden="true">
-                <span class="particle-hint-line">
-                  <svg class="particle-hint-icon"><use href="#icon-mail"></use></svg>
-                  <span class="particle-hint-text"></span>
-                </span>
-                <span class="particle-hint-label">hover to reveal email</span>
+                <svg class="particle-hint-icon"><use href="#icon-mail"></use></svg>
+                <span class="particle-hint-label">tap to reveal email</span>
               </span>
               <div class="email-3d-reveal" id="email3dReveal">
                 <!-- 텍스트는 main.js 가 SITE.email 로 덮어씁니다. -->
