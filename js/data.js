@@ -119,6 +119,8 @@ const PUBLICATIONS = [
   /* ---------- Published ---------- */
   {
     year: 2026,
+    id: 'device-2026-gauges',
+    short: 'Temperature-compensated silicon nanomembrane gauges for battery swelling', // 짧은 이름
     title: 'Temperature-Compensated Silicon Nanomembrane Gauges for Monitoring Lithium-Ion Battery Swelling',
     authors:
       'Taemin Kim†, Kyubeen Kim†, In Sik Min†, Ankan Dutta, Young Soo Kim, Giyoung Kim, Jongchan Han, Jongwoon Shin, Jeong Eun Ju, **Doohyun J. Lee**, Heekyeong Choi, Hokeon Lee, Myeongki Cho, Jaejin Park, Kyowon Kang, Mingyu Sang, Huanyu Cheng, Ju Young Lee*, Ki Jun Yu*',
@@ -130,6 +132,8 @@ const PUBLICATIONS = [
   },
   {
     year: 2026,
+    id: 'bios-2026-sports',
+    short: 'Flexible bioelectronics for sports wearable monitoring', // 짧은 이름
     title: 'Flexible and Stretchable Bioelectronics for Sports Wearable Monitoring: Materials, Device Engineering, and Intelligent Wearable Platforms',
     authors: 'Junseok Lee†, Yena Lee†, Jongwoon Shin†, **Doohyun J. Lee†**, Hyosang Yoon, Ju Young Lee*, Ki Jun Yu*, Mingyu Sang*',
     venue: 'Biosensors and Bioelectronics',
@@ -140,6 +144,8 @@ const PUBLICATIONS = [
   },
   {
     year: 2026,
+    id: 'bmel-2026-sinm',
+    short: 'Silicon nanomembrane bioelectronics for implantable systems', // 짧은 이름
     title: 'Advanced Silicon Nanomembrane Based Bioelectronics for Flexible and Stretchable Implantable Systems',
     authors: 'Junseok Lee†, Yena Lee†, Hanbi Woo†, Minji Hong, **Doohyun J. Lee**, Mingyu Sang*',
     venue: 'Biomedical Engineering Letters',
@@ -150,6 +156,8 @@ const PUBLICATIONS = [
   },
   {
     year: 2025,
+    id: 'ijem-2025-roadmap',
+    short: 'Roadmap of ultrathin crystalline-silicon bioelectronics', // 짧은 이름
     title: 'Technical Roadmap of Ultra-Thin Crystalline Silicon-Based Bioelectronics',
     authors: 'Mingyu Sang†, Kyubeen Kim†, **Doohyun J. Lee†**, Young Uk Cho*, Jung Woo Lee*, Ki Jun Yu*',
     venue: 'International Journal of Extreme Manufacturing',
@@ -161,6 +169,8 @@ const PUBLICATIONS = [
   },
   {
     year: 2024,
+    id: 'sciadv-2024-eskin',
+    short: 'Durable EIT-based ultrathin e-skin for 3D tactile interfaces', // 짧은 이름
     title: 'Extremely Durable Electrical Impedance Tomography-Based Soft and Ultrathin Wearable E-Skin for Three-Dimensional Tactile Interfaces',
     authors:
       'Kyubeen Kim†, Jung-Hoon Hong†, Kyubin Bae†, Kyounghun Lee, **Doohyun J. Lee**, Junsu Park, Haozhe Zhang, Mingyu Sang, Jeong Eun Ju, Young Uk Cho, Kyowon Kang, Wonkeun Park, Suah Jung, Jung Woo Lee, Baoxing Xu, Jongbaeg Kim*, Ki Jun Yu*',
@@ -172,6 +182,8 @@ const PUBLICATIONS = [
   },
   {
     year: 2024,
+    id: 'apr-2024-neuromorphic',
+    short: 'Soft neuromorphic tactile sensory systems', // 짧은 이름
     title: 'Biomimic and Bioinspired Soft Neuromorphic Tactile Sensory System',
     authors: 'Kyowon Kang†, Kiho Kim†, Junhyeong Baek, **Doohyun J. Lee**, Ki Jun Yu*',
     venue: 'Applied Physics Reviews',
@@ -184,6 +196,8 @@ const PUBLICATIONS = [
   /* ---------- Submitted ---------- */
   {
     status: 'submitted',
+    id: 'science-au-doping',
+    short: 'Laser-induced gold doping of silicon for core temperature sensing', // 짧은 이름
     title: 'Laser-Induced Gold Doping of Single-Crystalline Silicon for Wearable Core Temperature Sensing',
     authors: 'Kyubeen Kim†, **Doohyun J. Lee†**, Sang Hoon Park†, Jongwoon Shin†, ..., Mingyu Sang*, Ju Young Lee*, Ki Jun Yu*',
     venue: 'Science',
@@ -193,6 +207,8 @@ const PUBLICATIONS = [
   },
   {
     status: 'submitted',
+    id: 'advmat-ferroelectric',
+    short: 'Ferroelectric materials for flexible electronics', // 짧은 이름
     title: 'Functional Properties and Strategies of Ferroelectric Materials for Flexible Electronics',
     authors: 'Junseok Lee†, ..., **Doohyun J. Lee†**, ..., Mingyu Sang*',
     venue: 'Advanced Materials',
@@ -204,6 +220,8 @@ const PUBLICATIONS = [
   /* ---------- In preparation ---------- */
   {
     status: 'in-prep',
+    id: 'prep-aunp-gas',
+    short: 'Gas sensor on a gold-nanoparticle-decorated silicon nanomembrane', // 짧은 이름
     title: 'A Micro-Structured Flexible Gas Sensor Based on Gold Nanoparticle-Decorated Silicon Nanomembrane for Hazardous Gas Detection',
     authors: 'Jongwoon Shin†, **Doohyun J. Lee†**, ..., Ki Jun Yu*',
     type: 'research',
@@ -212,6 +230,8 @@ const PUBLICATIONS = [
   },
   {
     status: 'in-prep',
+    id: 'prep-ir-photodiode',
+    short: 'Implantable infrared photodiode for neural modulation', // 짧은 이름
     title: 'Fully Implantable Photodiode for Optoelectronic Neural Modulation with Infrared Light',
     authors: 'Ju Young Lee†, **Doohyun J. Lee†**, ..., Ki Jun Yu*',
     type: 'research',
@@ -220,6 +240,8 @@ const PUBLICATIONS = [
   },
   {
     status: 'in-prep',
+    id: 'prep-rgo-gas',
+    short: 'rGO-decorated silicon nanomembrane gas sensor', // 짧은 이름
     title: 'rGO-Decorated Silicon Nanomembrane for Hazardous Gas Detection',
     authors: 'Jongwoon Shin†, ..., **Doohyun J. Lee**, ..., Ki Jun Yu*',
     type: 'research',
@@ -228,6 +250,8 @@ const PUBLICATIONS = [
   },
   {
     status: 'in-prep',
+    id: 'prep-led-probe',
+    short: 'LED-integrated flexible neural probe', // 짧은 이름
     title: 'LED-Integrated Flexible Neural Probe for Simultaneous Stimulation and Recording of Electrophysiological Signals',
     authors: 'Ju Young Lee†, ..., **Doohyun J. Lee**, ..., Ki Jun Yu*',
     type: 'research',
@@ -236,6 +260,8 @@ const PUBLICATIONS = [
   },
   {
     status: 'in-prep',
+    id: 'prep-pd-h2-tft',
+    short: 'Palladium-gate thin-film silicon transistor for hydrogen sensing', // 짧은 이름
     title: 'Thin-Film Silicon Transistors with a Nanostructured Palladium Gate for a Wearable Hydrogen Gas Sensing System',
     authors: 'Dongjun Cho†, ..., **Doohyun J. Lee**, ..., Ki Jun Yu*',
     type: 'research',
@@ -253,6 +279,9 @@ const PUBLICATIONS = [
 const CONFERENCES = [
   {
     year: 2025,
+    id: 'kosombe-2025-brain-temp',
+    venueShort: 'KOSOMBE 2025',
+    short: 'Gold-doped silicon nanomembrane sensor for brain-surface temperature', // 짧은 이름
     title: 'Ultrathin Gold-Doped Silicon Nanomembrane Sensor for Real-Time Brain Surface Temperature Monitoring',
     authors: '**Doohyun J. Lee**, Kyubeen Kim, Ju Young Lee, Mingyu Sang*, Ki Jun Yu*',
     venue: 'Fall Conference of the Korean Society of Medical & Biological Engineering (KOSOMBE)',
@@ -262,6 +291,9 @@ const CONFERENCES = [
   },
   {
     year: 2025,
+    id: 'mrsk-2025-gas',
+    venueShort: 'MRS-K 2025',
+    short: 'Gas sensor on a gold-nanoparticle-decorated silicon nanomembrane', // 짧은 이름
     title: 'A Micro-Structured Flexible Gas Sensor Based on Gold Nanoparticle-Decorated Silicon Nanomembrane for Hazardous Gas Detection',
     authors: '**Doohyun J. Lee**, Jongwoon Shin, Yelynn Ryu, Wooyoung Lee*, Ki Jun Yu*',
     venue: 'Fall Conference of Materials Research Society of Korea (MRS-K)',
@@ -270,6 +302,9 @@ const CONFERENCES = [
   },
   {
     year: 2025,
+    id: 'kss-2025-brain-temp',
+    venueShort: 'KSS 2025',
+    short: 'Gold-doped silicon nanomembrane sensor for brain-surface temperature', // 짧은 이름
     title: 'Ultrathin Gold-Doped Silicon Nanomembrane Sensor for Real-Time Brain Surface Temperature Monitoring',
     authors: '**Doohyun J. Lee**, Kyubeen Kim, Ju Young Lee, Mingyu Sang*, Ki Jun Yu*',
     venue: 'Fall Conference of Korean Sensors Society (KSS)',
@@ -278,6 +313,9 @@ const CONFERENCES = [
   },
   {
     year: 2025,
+    id: 'kss-2025-sweat-thermal',
+    venueShort: 'KSS 2025',
+    short: 'Wearable sweat sensor with a porous active thermal layer', // 짧은 이름
     title: 'Wearable Sweat Sensor with a Porous Active Thermal Layer for Enhanced Signal Repolarization and Amplification',
     authors: 'Junseok Lee, **Doohyun J. Lee**, Ki Jun Yu*, Mingyu Sang*',
     venue: 'Fall Conference of Korean Sensors Society (KSS)',
@@ -286,6 +324,9 @@ const CONFERENCES = [
   },
   {
     year: 2025,
+    id: 'kosombe-2025-nacl',
+    venueShort: 'KOSOMBE 2025',
+    short: 'Temperature effects on PEDOT:PSS and graphene-oxide electrodes for NaCl sensing', // 짧은 이름
     title: 'Effect of Temperature on the Performance of PEDOT:PSS and Graphene Oxide Electrodes for a Potentiometric NaCl Concentration Sensor',
     authors: 'Junseok Lee, **Doohyun J. Lee**, Hyosang Yoon, Ki Jun Yu*, Mingyu Sang*',
     venue: 'Fall Conference of the Korean Society of Medical & Biological Engineering (KOSOMBE)',

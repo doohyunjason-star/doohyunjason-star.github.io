@@ -372,7 +372,7 @@
         <div class="page-header page-header--row">
           <h2>Personal <strong>Information</strong><br />&amp; Curriculum Vitae</h2>
           <!-- href 는 main.js 가 SITE.cvUrl 로 채웁니다(없으면 안내 토스트). -->
-          <a class="cv-download" id="cvDownload" href="#cv">
+          <a class="page-cta" id="cvDownload" href="#cv">
             <svg aria-hidden="true"><use href="#icon-download"></use></svg>
             Download Full CV
           </a>
@@ -405,16 +405,23 @@
         role="tabpanel"
         aria-labelledby="tab-publications"
       >
-        <div class="page-header">
-          <h2>Selected <strong>Publications</strong></h2>
-          <p class="desc">
-            Peer-Reviewed Papers, Manuscripts in Progress, and Conference
-            Presentations
-          </p>
-          <p class="desc small">
-            <sup>†</sup> co-first authors &nbsp;·&nbsp;
-            <sup>*</sup> corresponding authors
-          </p>
+        <div class="page-header page-header--row">
+          <div>
+            <h2>Selected <strong>Publications</strong></h2>
+            <p class="desc">
+              Peer-Reviewed Papers, Manuscripts in Progress, and Conference
+              Presentations
+            </p>
+            <p class="desc small">
+              <sup>†</sup> co-first authors &nbsp;·&nbsp;
+              <sup>*</sup> corresponding authors
+            </p>
+          </div>
+          <!-- href 는 main.js 가 SITE.links.scholar 로 채웁니다. -->
+          <a class="page-cta" id="scholarLinkPanel" href="#" target="_blank" rel="noopener">
+            <svg aria-hidden="true"><use href="#icon-scholar"></use></svg>
+            Google Scholar
+          </a>
         </div>
 
         <div class="pub-layout">
@@ -452,11 +459,6 @@
               <p class="pub-filter-hint" id="pubFilterHint" aria-live="polite">
                 Click a row to filter the list.
               </p>
-            </div>
-            <div class="pub-links-section">
-              <a id="scholarLinkPanel" href="#" target="_blank" rel="noopener"
-                >→ Google Scholar</a
-              >
             </div>
           </aside>
         </div>

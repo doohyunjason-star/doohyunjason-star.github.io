@@ -249,11 +249,14 @@ main {
   white-space: nowrap;
 }
 
-.header-right { display: flex; align-items: center; gap: 8px; }
+/* min-width: 0 — flex 자식은 기본 min-width:auto 라 내용(탭 목록)만큼 넓어지려 해서
+   좁은 화면에서 헤더가 뷰포트보다 넓어지고 페이지 전체가 가로로 넘친다. 0 으로 두어야 .nav 의 overflow-x 가 작동한다. */
+.header-right { display: flex; align-items: center; gap: 8px; min-width: 0; }
 
 .nav {
   display: flex;
   gap: 4px;
+  min-width: 0;
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -1047,31 +1050,10 @@ main {
   line-height: 1.5;
 }
 
-.pub-links-section { margin-top: 20px; }
-.pub-links-section a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  color: var(--accent);
-  text-decoration: none;
-  padding: 10px 16px;
-  border: 1.5px solid var(--accent);
-  border-radius: 100px;
-  transition: all 0.25s ease;
-}
-.pub-links-section a:hover {
-  background: var(--accent);
-  color: var(--bg);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.35);
-}
 
 /* ---------- 6. Personal / CV ---------- */
-.cv-download {
+/* 페이지 머리 오른쪽의 주요 버튼 — CV 다운로드, Google Scholar 공용 */
+.page-cta {
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -1089,9 +1071,9 @@ main {
   box-shadow: 0 4px 20px rgba(var(--accent-rgb), 0.3);
   transition: transform 0.35s var(--ease), box-shadow 0.35s ease;
 }
-.cv-download:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 10px 35px rgba(var(--accent-rgb), 0.45); }
-.cv-download:active { transform: translateY(0) scale(0.97); }
-.cv-download svg { width: 16px; height: 16px; }
+.page-cta:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 10px 35px rgba(var(--accent-rgb), 0.45); }
+.page-cta:active { transform: translateY(0) scale(0.97); }
+.page-cta svg { width: 16px; height: 16px; }
 
 .cv-grid {
   display: grid;
@@ -1682,7 +1664,7 @@ main {
 
   .cv-grid { grid-template-columns: 1fr; }
   .page-header h2 { font-size: 2rem; }
-  .cv-download { padding: 14px 22px; font-size: 0.8rem; }
+  .page-cta { padding: 14px 22px; font-size: 0.8rem; }
 
   .scroll-top { right: 16px; bottom: 16px; width: 42px; height: 42px; }
 
@@ -1755,7 +1737,7 @@ main {
 }
 
 @media print {
-  .site-header, .site-footer, .theme-toggle, .particle-zone, .toast, .cv-download, .skip-link, .scroll-top { display: none !important; }
+  .site-header, .site-footer, .theme-toggle, .particle-zone, .toast, .page-cta, .skip-link, .scroll-top { display: none !important; }
   body { background: #fff; color: #000; }
   main { padding: 0; max-width: none; }
   .page { display: block !important; animation: none; page-break-before: always; }

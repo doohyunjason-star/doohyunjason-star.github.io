@@ -70,6 +70,9 @@
   const isPublished = (p) => !p.status || p.status === 'published';
   const pubs = PUBLICATIONS.filter(isPublished).sort((a, b) => b.year - a.year);
   const pending = PUBLICATIONS.filter((p) => !isPublished(p));
+  // 본인 이름(**…**)에 † 가 붙어 있으면 공동 1저자, 아니면 단독 1저자
+  const roleLabel = (p) =>
+    p.role !== 'first' ? 'Co-author' : /\*\*[^*]*†\*\*/.test(p.authors) ? 'Co-1st Author' : '1st Author';
   const stats = {
     total: pubs.length,
     first: pubs.filter((p) => p.role === 'first').length,
@@ -140,9 +143,6 @@
     $('#snap-conf').textContent = stats.conferences;
     $('#snap-pending').textContent = pending.length; // 투고 + 준비 중 원고
 
-    // 본인 이름(**…**)에 † 가 붙어 있으면 공동 1저자, 아니면 단독 1저자
-    const roleLabel = (p) =>
-      p.role !== 'first' ? 'Co-author' : /\*\*[^*]*†\*\*/.test(p.authors) ? 'Co-1st Author' : '1st Author';
     const card = (p, hidden) => `
       <a class="pub-carousel-card" href="${escapeHtml(p.link || SITE.links.scholar)}" target="_blank" rel="noopener"
          ${hidden ? 'aria-hidden="true" tabindex="-1"' : ''}>
