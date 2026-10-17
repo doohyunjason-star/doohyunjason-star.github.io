@@ -30,17 +30,15 @@ const SITE = {
 
   // 검색엔진 / SNS 공유용 한 줄 소개
   description:
-    'Doohyun Jason Lee — PhD student at Georgia Tech (I3DS, Prof. Muhannad S. Bakir) working on advanced packaging, 2.5D/3D heterogeneous integration, and co-packaged optics.',
+    'Doohyun Jason Lee — PhD student at Georgia Tech working on advanced packaging, 2.5D/3D heterogeneous integration, and co-packaged optics.',
 
   // 논문 수·1저자 수·학회 발표 수는 PUBLICATIONS / CONFERENCES 배열에서 자동 집계됩니다.
 };
 
 /* 홈 화면 자기소개 문단 (HTML 허용) */
 const HERO_PARAGRAPHS = [
-  `I am a PhD student in the
-   <a href="https://bakirlab.gatech.edu/" target="_blank" rel="noopener">Integrated 3D Systems Group (I3DS)
-   @ Georgia Institute of Technology</a>, advised by Professor
-   <a href="https://ece.gatech.edu/directory/muhannad-s-bakir" target="_blank" rel="noopener">Muhannad S. Bakir</a>.
+  `I am a PhD student in Electrical and Computer Engineering at
+   <a href="https://ece.gatech.edu/" target="_blank" rel="noopener">Georgia Institute of Technology</a>.
    My research centers on advanced packaging and 2.5D/3D heterogeneous integration for semiconductors,
    spanning packaging technologies all the way from materials and devices to the system level,
    along with system-technology co-optimization (STCO) for next-generation electronic systems.`,
@@ -356,7 +354,7 @@ const NEWS = [
   {
     year: 2026, month: 'Aug', tag: 'position', icon: '🎉', affil: 'gatech',
     title: 'Joined <span class="hl">Georgia Institute of Technology</span> as a PhD Student!',
-    body: 'Affiliated with the <a href="https://bakirlab.gatech.edu/" target="_blank" rel="noopener">Integrated 3D Systems Group (I3DS)</a> at Georgia Tech, led by Prof. <a href="https://ece.gatech.edu/directory/muhannad-s-bakir" target="_blank" rel="noopener">Muhannad S. Bakir</a>.',
+    body: 'Started the Ph.D. program in Electrical and Computer Engineering at Georgia Institute of Technology.',
   },
   {
     year: 2026, month: 'Aug', tag: 'position', icon: '🎓', affil: 'yonsei',
@@ -415,7 +413,6 @@ const EDUCATION = [
   {
     institution: 'Georgia Institute of Technology, USA',
     degree: 'Ph.D. Student in Electrical and Computer Engineering',
-    advisor: 'Muhannad S. Bakir',
     period: 'Sep. 2026 – Present',
     logo: 'assets/img/gatech-logo.webp',
     affil: 'gatech',
@@ -435,7 +432,6 @@ const EXPERIENCE = [
   {
     position: 'Graduate Research Assistant',
     place: 'Georgia Institute of Technology',
-    lab: 'Integrated 3D Systems Group (I3DS)',
     period: 'Sep. 2026 – Present',
     logo: 'assets/img/gatech-logo.webp',
     affil: 'gatech',

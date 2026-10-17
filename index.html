@@ -10,7 +10,7 @@
     <title>Doohyun Jason Lee — Georgia Tech</title>
     <meta
       name="description"
-      content="Doohyun Jason Lee — PhD student at Georgia Tech (I3DS, Prof. Muhannad S. Bakir) working on advanced packaging, 2.5D/3D heterogeneous integration, and co-packaged optics."
+      content="Doohyun Jason Lee — PhD student at Georgia Tech working on advanced packaging, 2.5D/3D heterogeneous integration, and co-packaged optics."
     />
     <meta name="author" content="Doohyun Jason Lee" />
     <!-- 검색엔진(구글·네이버·Bing 등) 결과에 노출하지 않음. 링크를 아는 사람만 접속하도록.
@@ -73,6 +73,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/research.css" />
   </head>
 
   <body>
@@ -183,7 +184,17 @@
               data-goto="cv"
               aria-selected="false"
               aria-controls="cv"
-              >Personal / CV</a
+              ><span class="nav-long">Personal / </span>CV</a
+            >
+            <a
+              class="nav-link"
+              role="tab"
+              id="tab-research"
+              href="#research"
+              data-goto="research"
+              aria-selected="false"
+              aria-controls="research"
+              >Research</a
             >
             <a
               class="nav-link"
@@ -398,6 +409,383 @@
         </div>
       </section>
 
+      <!-- ════════════════ RESEARCH ════════════════
+           두 단면도(왼쪽: 유연 박막 소자 / 오른쪽: 글래스 코어 패키지)를 같은 재료색으로 나란히 그리고,
+           세 갈래(materials / fabrication / system) 칩을 hover 하면 두 그림의 해당 층이 함께 밝아진다. 글은 모두 data.js → RESEARCH.
+           그림의 <g data-thread="…"> 값은 RESEARCH.threads[].id 와 같아야 한다. -->
+      <section
+        id="research"
+        class="page"
+        role="tabpanel"
+        aria-labelledby="tab-research"
+      >
+        <div class="page-header">
+          <h2 id="rsTitle">Research <strong>Overview</strong></h2>
+          <p class="desc" id="rsDesc"><!-- data.js → RESEARCH.desc --></p>
+        </div>
+
+        <div class="rs-stage" id="rsStage">
+          <div class="rs-panel rs-panel--yonsei" id="rsPanel-yonsei">
+            <div class="rs-era"><!-- main.js → RESEARCH.eras.yonsei --></div>
+            <div class="rs-art-wrap">
+              <!-- 연세 단면도: 생체 표면 위 실리콘 나노멤브레인 소자 (도식, 실제 소자 아님). 재료색은 research.css 의 --rs-* -->
+              <svg class="rs-art rs-art--y" viewBox="-14 76 352 156" role="img" aria-hidden="true" preserveAspectRatio="xMidYMax meet">
+                <!-- 생체 표면: 소자 아래 좌우 대칭 둔덕 (곡률 중심 216,985) -->
+                <g class="rs-thread" data-thread="base">
+                    <path d="M100,232 C100,205 101,196 106,192.6 A800 800 0 0 1 326,192.6 C331,196 332,205 332,232 Z" class="m-tissue"/>
+                    <text class="rs-label rs-label--inside" x="216" y="214" text-anchor="middle">biological surface</text>
+                </g>
+                <!-- 유연 기판: 216 을 중심으로 대칭 -->
+                <g class="rs-thread" data-thread="base">
+                    <path d="M122.71,182.4 A808 808 0 0 1 309.29,182.4 L308.37,190.35 A800 800 0 0 0 123.63,190.35 Z" class="m-poly"/>
+                </g>
+                <!-- 소자·시스템: 곡률 중심 (160,985) 기준으로 그린 뒤, 보호막 가운데가 꼭대기(x=216)에 오도록 돌리고 옮김 -->
+                <g transform="translate(56 0) rotate(-2.78 160 985)">
+                <!-- 오른쪽 시스템의 보호막: 가운데 소자부터 칩까지 전체를 덮는다 (소자·칩보다 먼저 그려 뒤에 깔림) -->
+                <g class="rs-thread" data-thread="system">
+                    <path d="M116,178.2 C115.13,162.22 119.96,157.97 129.35,157.57 A828 828 0 0 1 270.72,164.44 C280.02,165.74 284.42,170.45 282,186.26 A808 808 0 0 0 116,178.2 Z" class="m-poly rs-enc"/>
+                </g>
+                <!-- 가운데: 실리콘 나노멤브레인 박막 소자 — 멤브레인 / 절연막 / 금속 전극을 쌓은 구조 -->
+                <g class="rs-thread" data-thread="materials" transform="rotate(6 160 985)">
+                    <path d="M38.28,180.15 A814 814 0 0 1 111.72,172.43 L112.08,178.42 A808 808 0 0 0 39.18,186.08 Z" class="m-si"/>
+                    <path d="M47.43,173.77 A819 819 0 0 1 101.44,168.1 L101.8,173.08 A814 814 0 0 0 48.12,178.73 Z" class="m-glass"/>
+                    <path d="M57.1,170.47 A821 821 0 0 1 91.3,166.88 L91.47,168.87 A819 819 0 0 0 57.35,172.46 Z" class="m-metal" stroke="none"/>
+                </g>
+                <!-- 오른쪽: 웨어러블 시스템 집적 — 소자에서 뒷단 칩(회로 부품)으로 가는 배선과 칩 -->
+                <g class="rs-thread" data-thread="system">
+                    <!-- 소자 맨 위 금속 전극에서 절연막·실리콘 턱을 타고 내려와 두 칩 아래까지 이어지는 한 층의 배선 -->
+                    <path d="M177.19,164.18 A821 821 0 0 1 189.23,164.52 L189.05,169.52 A816 816 0 0 1 199.01,169.93 L198.72,175.93 A810 810 0 0 1 274.28,183.1 L274,185.08 A808 808 0 0 0 196.65,177.83 L196.93,171.84 A814 814 0 0 0 186.99,171.45 L187.15,166.45 A819 819 0 0 0 177.15,166.18 Z" class="m-metal" stroke="none"/>
+                    <!-- 칩: 범프 두 개로 배선층 위에 올린 다이 -->
+                    <g transform="rotate(4.67 160 985)">
+                      <rect x="152" y="173.2" width="3" height="1.8" class="m-metal" stroke="none"/>
+                      <rect x="165" y="173.2" width="3" height="1.8" class="m-metal" stroke="none"/>
+                      <rect x="149" y="164" width="22" height="9.2" rx="1" class="m-si"/>
+                    </g>
+                    <g transform="rotate(7.38 160 985)">
+                      <rect x="154.5" y="173.2" width="3" height="1.8" class="m-metal" stroke="none"/>
+                      <rect x="162.5" y="173.2" width="3" height="1.8" class="m-metal" stroke="none"/>
+                      <rect x="152" y="167" width="16" height="6.2" rx="1" class="m-si"/>
+                    </g>
+                </g>
+                <!-- hover 영역 (투명): 소자 · 시스템 -->
+                <g class="rs-thread" data-thread="materials"><rect class="rs-hit" x="122" y="156" width="76" height="26"/></g>
+                <g class="rs-thread" data-thread="system"><rect class="rs-hit" x="198" y="150" width="92" height="36"/></g>
+                </g>
+                <!-- 왼쪽: CMOS 호환 공정 — 생체 표면이 아니라 공정 척 위의 SOI 웨이퍼에서 진행 (나노멤브레인의 출발점) -->
+                <!-- SOI 웨이퍼: 재료이기도 하므로 materials 에도 속함 (위 공정 표현은 fabrication 만) -->
+                <g class="rs-thread" data-thread="fabrication materials" transform="translate(-20 0)">
+                    <!-- 얇은 핸들 실리콘 / 매립 산화막 / 두꺼운 위 실리콘층(가공 대상). 바닥 = 생체 표면 바닥(232) -->
+                    <rect x="16" y="220" width="84" height="12" class="m-si rs-handle"/>
+                    <rect x="16" y="216" width="84" height="4" class="m-glass"/>
+                    <!-- 위 실리콘층: 가운데 식각 구간에 홈 두 개 -->
+                    <rect x="16" y="206" width="34" height="10" class="m-si"/>
+                    <rect x="54" y="206" width="8" height="10" class="m-si"/>
+                    <rect x="66" y="206" width="34" height="10" class="m-si"/>
+                </g>
+                <g class="rs-thread" data-thread="fabrication" transform="translate(-20 0)">
+                    <!-- 왼쪽: 증착 — 재료 입자가 떨어져 쌓임 -->
+                    <g class="rs-dep">
+                      <line class="rs-ray" x1="20" y1="178" x2="20" y2="182"/>
+                      <line class="rs-ray" x1="24" y1="152" x2="24" y2="156"/>
+                      <line class="rs-ray" x1="28" y1="166" x2="28" y2="170"/>
+                      <line class="rs-ray" x1="31" y1="142" x2="31" y2="146"/>
+                      <line class="rs-ray" x1="33" y1="186" x2="33" y2="190"/>
+                      <line class="rs-ray" x1="36" y1="159" x2="36" y2="163"/>
+                      <line class="rs-ray" x1="39" y1="146" x2="39" y2="150"/>
+                      <line class="rs-ray" x1="41" y1="174" x2="41" y2="178"/>
+                      <line class="rs-ray" x1="25" y1="191" x2="25" y2="195"/>
+                      <circle cx="20" cy="184" r="1.2" class="m-metal"/>
+                      <circle cx="24" cy="158" r="1.2" class="m-si"/>
+                      <circle cx="28" cy="172" r="1.2" class="m-si"/>
+                      <circle cx="31" cy="148" r="1.2" class="m-metal"/>
+                      <circle cx="33" cy="192" r="1.2" class="m-si"/>
+                      <circle cx="36" cy="165" r="1.2" class="m-metal"/>
+                      <circle cx="39" cy="152" r="1.2" class="m-si"/>
+                      <circle cx="41" cy="180" r="1.2" class="m-metal"/>
+                      <circle cx="25" cy="197" r="1.2" class="m-si"/>
+                    </g>
+                    <!-- 가운데: 식각 — 감광막(폴리머) 패턴 사이로 이온이 내려와 위 실리콘층에 홈을 판다 -->
+                    <rect x="46" y="203" width="4" height="3" class="m-poly"/>
+                    <rect x="54" y="203" width="8" height="3" class="m-poly"/>
+                    <rect x="66" y="203" width="4" height="3" class="m-poly"/>
+                    <g class="rs-ion">
+                      <line x1="52" y1="168" x2="52" y2="196"/>
+                      <line x1="58" y1="158" x2="58" y2="186"/>
+                      <line x1="64" y1="168" x2="64" y2="196"/>
+                      <path d="M50.4,195.5 L53.6,195.5 L52,199 Z"/>
+                      <path d="M56.4,185.5 L59.6,185.5 L58,189 Z"/>
+                      <path d="M62.4,195.5 L65.6,195.5 L64,199 Z"/>
+                    </g>
+                    <!-- 오른쪽: 레이저·노광 — 위에서 모여 박막 위 한 점에 닿는 빛 -->
+                    <defs>
+                      <linearGradient id="rsBeam" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" class="rs-beam-stop" stop-opacity="0.08"/>
+                        <stop offset="1" class="rs-beam-stop" stop-opacity="0.55"/>
+                      </linearGradient>
+                    </defs>
+                    <path d="M79,156 L93,156 L87.2,206 L84.8,206 Z" fill="url(#rsBeam)" stroke="none"/>
+                    <line class="rs-beam-edge" x1="79" y1="156" x2="84.8" y2="206"/>
+                    <line class="rs-beam-edge" x1="93" y1="156" x2="87.2" y2="206"/>
+                    <ellipse cx="86" cy="206" rx="3.2" ry="1.3" class="rs-beam-spot"/>
+                </g>
+                <!-- 공정 → 소자: 가공한 위 실리콘층을 떼어 유연 기판으로 옮기는 흐름 (fabrication 에만 속함) -->
+                <g class="rs-thread rs-flow" data-thread="fabrication">
+                    <path d="M84,198 C92,170 110,160 126.34,167.38"/>
+                    <path class="rs-flow-head" d="M130,169 L125.61,169.03 L127.07,165.73 Z"/>
+                </g>
+                <g class="rs-thread rs-labels" data-thread="fabrication">
+                    <text class="rs-label rs-label--small" x="104" y="158" text-anchor="middle">layer transfer</text>
+                </g>
+                <!-- 라벨: 세 부분의 이름 = 세 갈래 -->
+                <g class="rs-thread rs-labels" data-thread="fabrication">
+                    <text class="rs-label" x="42" y="120" text-anchor="middle">CMOS-compatible</text>
+                    <text class="rs-label" x="42" y="132" text-anchor="middle">processing techniques</text>
+                </g>
+                <g class="rs-thread rs-labels" data-thread="materials">
+                    <line class="rs-leader" x1="176.18" y1="103" x2="176.18" y2="165"/>
+                    <text class="rs-label" x="176.18" y="87" text-anchor="middle">silicon nanomembrane</text>
+                    <text class="rs-label" x="176.18" y="99" text-anchor="middle">and thin-film devices</text>
+                </g>
+                <g class="rs-thread rs-labels" data-thread="system">
+                    <line class="rs-leader" x1="267.43" y1="136" x2="267.43" y2="158.6"/>
+                    <text class="rs-label" x="267.43" y="120" text-anchor="middle">wearable system</text>
+                    <text class="rs-label" x="267.43" y="132" text-anchor="middle">integration</text>
+                </g>
+                <!-- hover 영역 (투명): 공정 장면과 라벨들 -->
+                  <g class="rs-thread" data-thread="fabrication"><rect class="rs-hit" x="-4" y="140" width="84" height="92"/></g>
+                  <g class="rs-thread" data-thread="fabrication"><rect class="rs-hit" x="-12" y="110" width="108" height="28"/></g>
+                  <g class="rs-thread" data-thread="materials"><rect class="rs-hit" x="114" y="78" width="124" height="26"/></g>
+                  <g class="rs-thread" data-thread="system"><rect class="rs-hit" x="222" y="110" width="92" height="28"/></g>
+              </svg>
+            </div>
+          </div>
+          <div class="rs-panel" id="rsPanel-gatech">
+            <div class="rs-era"><!-- main.js → RESEARCH.eras.gatech --></div>
+            <div class="rs-art-wrap">
+              <!-- 조지아텍 단면도: 글래스 코어 기판 위 2.5D/3D 패키지 (도식, 실제 소자 아님) -->
+              <svg class="rs-art rs-art--gt" viewBox="0 70 720 230" role="img" aria-hidden="true" preserveAspectRatio="xMidYMax meet">
+                <!-- 2.5D 패키지 단면 (도식): 로직 다이와 HBM 메모리가 글래스 인터포저 위에 나란히, 아래로 C4 → 패키지 기판 → BGA → PCB -->
+                <!-- 시스템 경계 (STCO): 맨 아래에 그려 다른 층 아래 깔린다 -->
+                <g class="rs-thread" data-thread="system">
+                    <rect x="12" y="80" width="556" height="212" class="m-none dash" rx="8"/>
+                </g>
+                <!-- PCB + BGA 볼 -->
+                <g class="rs-thread" data-thread="system">
+                    <rect x="24" y="274" width="532" height="12" class="m-board" rx="2"/>
+                    <circle cx="78" cy="267" r="6.5" class="m-metal"/>
+                    <circle cx="117" cy="267" r="6.5" class="m-metal"/>
+                    <circle cx="156" cy="267" r="6.5" class="m-metal"/>
+                    <circle cx="195" cy="267" r="6.5" class="m-metal"/>
+                    <circle cx="234" cy="267" r="6.5" class="m-metal"/>
+                    <circle cx="273" cy="267" r="6.5" class="m-metal"/>
+                    <circle cx="312" cy="267" r="6.5" class="m-metal"/>
+                    <circle cx="351" cy="267" r="6.5" class="m-metal"/>
+                    <circle cx="390" cy="267" r="6.5" class="m-metal"/>
+                    <circle cx="429" cy="267" r="6.5" class="m-metal"/>
+                    <circle cx="468" cy="267" r="6.5" class="m-metal"/>
+                    <circle cx="507" cy="267" r="6.5" class="m-metal"/>
+                </g>
+                <!-- 패키지 기판 (빌드업 라미네이트) -->
+                <g class="rs-thread" data-thread="system">
+                    <rect x="36" y="238" width="508" height="22" class="m-poly"/>
+                </g>
+                <!-- 기판 관통 비아: C4 와 BGA 볼을 잇는다 -->
+                <g class="rs-thread" data-thread="fabrication">
+                    <rect x="76.5" y="238" width="3" height="22" class="m-metal" stroke="none"/>
+                    <rect x="115.5" y="238" width="3" height="22" class="m-metal" stroke="none"/>
+                    <rect x="154.5" y="238" width="3" height="22" class="m-metal" stroke="none"/>
+                    <rect x="193.5" y="238" width="3" height="22" class="m-metal" stroke="none"/>
+                    <rect x="232.5" y="238" width="3" height="22" class="m-metal" stroke="none"/>
+                    <rect x="271.5" y="238" width="3" height="22" class="m-metal" stroke="none"/>
+                    <rect x="310.5" y="238" width="3" height="22" class="m-metal" stroke="none"/>
+                    <rect x="349.5" y="238" width="3" height="22" class="m-metal" stroke="none"/>
+                    <rect x="388.5" y="238" width="3" height="22" class="m-metal" stroke="none"/>
+                    <rect x="427.5" y="238" width="3" height="22" class="m-metal" stroke="none"/>
+                    <rect x="466.5" y="238" width="3" height="22" class="m-metal" stroke="none"/>
+                    <rect x="505.5" y="238" width="3" height="22" class="m-metal" stroke="none"/>
+                </g>
+                <!-- C4 범프 -->
+                <g class="rs-thread" data-thread="fabrication">
+                    <circle cx="78" cy="233.5" r="4.5" class="m-metal" style="stroke-width:.6"/>
+                    <circle cx="117" cy="233.5" r="4.5" class="m-metal" style="stroke-width:.6"/>
+                    <circle cx="156" cy="233.5" r="4.5" class="m-metal" style="stroke-width:.6"/>
+                    <circle cx="195" cy="233.5" r="4.5" class="m-metal" style="stroke-width:.6"/>
+                    <circle cx="234" cy="233.5" r="4.5" class="m-metal" style="stroke-width:.6"/>
+                    <circle cx="273" cy="233.5" r="4.5" class="m-metal" style="stroke-width:.6"/>
+                    <circle cx="312" cy="233.5" r="4.5" class="m-metal" style="stroke-width:.6"/>
+                    <circle cx="351" cy="233.5" r="4.5" class="m-metal" style="stroke-width:.6"/>
+                    <circle cx="390" cy="233.5" r="4.5" class="m-metal" style="stroke-width:.6"/>
+                    <circle cx="429" cy="233.5" r="4.5" class="m-metal" style="stroke-width:.6"/>
+                    <circle cx="468" cy="233.5" r="4.5" class="m-metal" style="stroke-width:.6"/>
+                    <circle cx="507" cy="233.5" r="4.5" class="m-metal" style="stroke-width:.6"/>
+                </g>
+                <!-- 글래스 인터포저 (재료) -->
+                <g class="rs-thread" data-thread="materials">
+                    <rect x="60" y="199" width="460" height="29" class="m-glass"/>
+                </g>
+                <!-- 위 RDL 층: 다이 사이 직접 배선(두 깊이로 겹치지 않게) + 범프에서 TGV 로 내려가는 팬아웃. 연결된 TGV 만 RDL 까지 올라온다 -->
+                <g class="rs-thread" data-thread="fabrication">
+                    <rect x="60" y="189" width="460" height="10" class="m-poly"/>
+                    <rect x="75.5" y="196.8" width="5" height="31.2" class="m-metal" stroke="none"/>
+                    <rect x="114.5" y="196.8" width="5" height="31.2" class="m-metal" stroke="none"/>
+                    <rect x="153.5" y="196.8" width="5" height="31.2" class="m-metal" stroke="none"/>
+                    <rect x="192.5" y="196.8" width="5" height="31.2" class="m-metal" stroke="none"/>
+                    <rect x="231.5" y="196.8" width="5" height="31.2" class="m-metal" stroke="none"/>
+                    <rect x="270.5" y="199" width="5" height="29" class="m-metal" stroke="none"/>
+                    <rect x="309.5" y="199" width="5" height="29" class="m-metal" stroke="none"/>
+                    <rect x="348.5" y="196.8" width="5" height="31.2" class="m-metal" stroke="none"/>
+                    <rect x="387.5" y="196.8" width="5" height="31.2" class="m-metal" stroke="none"/>
+                    <rect x="426.5" y="196.8" width="5" height="31.2" class="m-metal" stroke="none"/>
+                    <rect x="465.5" y="196.8" width="5" height="31.2" class="m-metal" stroke="none"/>
+                    <rect x="504.5" y="199" width="5" height="29" class="m-metal" stroke="none"/>
+                    <rect x="90" y="189" width="2" height="9" class="m-metal" stroke="none"/>
+                    <rect x="77" y="196.8" width="15" height="1.2" class="m-metal" stroke="none"/>
+                    <rect x="113.6" y="189" width="2" height="9" class="m-metal" stroke="none"/>
+                    <rect x="113.6" y="196.8" width="4.4" height="1.2" class="m-metal" stroke="none"/>
+                    <rect x="160.8" y="189" width="2" height="9" class="m-metal" stroke="none"/>
+                    <rect x="155" y="196.8" width="7.8" height="1.2" class="m-metal" stroke="none"/>
+                    <rect x="196.2" y="189" width="2" height="9" class="m-metal" stroke="none"/>
+                    <rect x="194" y="196.8" width="4.2" height="1.2" class="m-metal" stroke="none"/>
+                    <rect x="231.6" y="189" width="2" height="9" class="m-metal" stroke="none"/>
+                    <rect x="231.6" y="196.8" width="3.4" height="1.2" class="m-metal" stroke="none"/>
+                    <rect x="348.4" y="189" width="2" height="9" class="m-metal" stroke="none"/>
+                    <rect x="348.4" y="196.8" width="3.6" height="1.2" class="m-metal" stroke="none"/>
+                    <rect x="385" y="189" width="2" height="9" class="m-metal" stroke="none"/>
+                    <rect x="385" y="196.8" width="6" height="1.2" class="m-metal" stroke="none"/>
+                    <rect x="421.6" y="189" width="2" height="9" class="m-metal" stroke="none"/>
+                    <rect x="421.6" y="196.8" width="8.4" height="1.2" class="m-metal" stroke="none"/>
+                    <rect x="470.4" y="189" width="2" height="9" class="m-metal" stroke="none"/>
+                    <rect x="467" y="196.8" width="5.4" height="1.2" class="m-metal" stroke="none"/>
+                    <rect x="267" y="189" width="2" height="3.7" class="m-metal" stroke="none"/>
+                    <rect x="324" y="189" width="2" height="3.7" class="m-metal" stroke="none"/>
+                    <rect x="267" y="191.5" width="59" height="1.2" class="m-metal" stroke="none"/>
+                    <rect x="255.2" y="189" width="2" height="6.2" class="m-metal" stroke="none"/>
+                    <rect x="336.2" y="189" width="2" height="6.2" class="m-metal" stroke="none"/>
+                    <rect x="255.2" y="194" width="83" height="1.2" class="m-metal" stroke="none"/>
+                </g>
+                <!-- 언더필 + µ범프 -->
+                <g class="rs-thread" data-thread="fabrication">
+                    <polygon points="84,184 274,184 280,189 78,189" class="m-poly"/>
+                    <polygon points="318,184 478,184 484,189 312,189" class="m-poly"/>
+                    <circle cx="91" cy="186.5" r="2.3" class="m-metal" style="stroke-width:.5"/>
+                    <circle cx="102.8" cy="186.5" r="2.3" class="m-metal" style="stroke-width:.5"/>
+                    <circle cx="114.6" cy="186.5" r="2.3" class="m-metal" style="stroke-width:.5"/>
+                    <circle cx="126.4" cy="186.5" r="2.3" class="m-metal" style="stroke-width:.5"/>
+                    <circle cx="138.2" cy="186.5" r="2.3" class="m-metal" style="stroke-width:.5"/>
+                    <circle cx="150" cy="186.5" r="2.3" class="m-metal" style="stroke-width:.5"/>
+                    <circle cx="161.8" cy="186.5" r="2.3" class="m-metal" style="stroke-width:.5"/>
+                    <circle cx="173.6" cy="186.5" r="2.3" class="m-metal" style="stroke-width:.5"/>
+                    <circle cx="185.4" cy="186.5" r="2.3" class="m-metal" style="stroke-width:.5"/>
+                    <circle cx="197.2" cy="186.5" r="2.3" class="m-metal" style="stroke-width:.5"/>
+                    <circle cx="209" cy="186.5" r="2.3" class="m-metal" style="stroke-width:.5"/>
+                    <circle cx="220.8" cy="186.5" r="2.3" class="m-metal" style="stroke-width:.5"/>
+                    <circle cx="232.6" cy="186.5" r="2.3" class="m-metal" style="stroke-width:.5"/>
+                    <circle cx="244.4" cy="186.5" r="2.3" class="m-metal" style="stroke-width:.5"/>
+                    <circle cx="256.2" cy="186.5" r="2.3" class="m-metal" style="stroke-width:.5"/>
+                    <circle cx="325" cy="186.5" r="2.3" class="m-metal" style="stroke-width:.5"/>
+                    <circle cx="337.2" cy="186.5" r="2.3" class="m-metal" style="stroke-width:.5"/>
+                    <circle cx="349.4" cy="186.5" r="2.3" class="m-metal" style="stroke-width:.5"/>
+                    <circle cx="361.6" cy="186.5" r="2.3" class="m-metal" style="stroke-width:.5"/>
+                    <circle cx="373.8" cy="186.5" r="2.3" class="m-metal" style="stroke-width:.5"/>
+                    <circle cx="386" cy="186.5" r="2.3" class="m-metal" style="stroke-width:.5"/>
+                    <circle cx="398.2" cy="186.5" r="2.3" class="m-metal" style="stroke-width:.5"/>
+                    <circle cx="410.4" cy="186.5" r="2.3" class="m-metal" style="stroke-width:.5"/>
+                    <circle cx="422.6" cy="186.5" r="2.3" class="m-metal" style="stroke-width:.5"/>
+                    <circle cx="434.8" cy="186.5" r="2.3" class="m-metal" style="stroke-width:.5"/>
+                    <circle cx="447" cy="186.5" r="2.3" class="m-metal" style="stroke-width:.5"/>
+                    <circle cx="459.2" cy="186.5" r="2.3" class="m-metal" style="stroke-width:.5"/>
+                    <circle cx="471.4" cy="186.5" r="2.3" class="m-metal" style="stroke-width:.5"/>
+                </g>
+                <!-- 실리콘 다이: 로직 + 메모리(HBM: 베이스 다이 + DRAM 4단). 소자이자 시스템 구성 요소 -->
+                <g class="rs-thread" data-thread="materials system">
+                    <rect x="84" y="140" width="190" height="44" class="m-si" rx="1.5"/>
+                    <rect x="84" y="179" width="190" height="5" class="m-beol"/>
+                    <rect x="318" y="172" width="160" height="12" class="m-si"/>
+                    <rect x="318" y="179" width="160" height="5" class="m-beol"/>
+                    <rect x="328" y="162" width="140" height="7" class="m-si"/>
+                    <rect x="328" y="152" width="140" height="7" class="m-si"/>
+                    <rect x="328" y="142" width="140" height="7" class="m-si"/>
+                    <rect x="328" y="132" width="140" height="7" class="m-si"/>
+                    <text class="rs-label rs-label--chip" x="179" y="166" text-anchor="middle">Logic</text>
+                </g>
+                <!-- HBM 접합층 + TSV (가운데는 Memory 글자를 위해 비움) -->
+                <g class="rs-thread" data-thread="fabrication">
+                    <rect x="328" y="169" width="140" height="3" class="m-poly"/>
+                    <rect x="328" y="159" width="140" height="3" class="m-poly"/>
+                    <rect x="328" y="149" width="140" height="3" class="m-poly"/>
+                    <rect x="328" y="139" width="140" height="3" class="m-poly"/>
+                    <rect x="338.8" y="139" width="2.4" height="45" class="m-metal" stroke="none"/>
+                    <rect x="354.8" y="139" width="2.4" height="45" class="m-metal" stroke="none"/>
+                    <rect x="438.8" y="139" width="2.4" height="45" class="m-metal" stroke="none"/>
+                    <rect x="454.8" y="139" width="2.4" height="45" class="m-metal" stroke="none"/>
+                </g>
+                <!-- 메모리 이름: 접합층 줄무늬 위에 다이 색 판을 깔고 글자 (접합층보다 뒤에 그림) -->
+                <g class="rs-thread" data-thread="materials system">
+                    <rect x="370" y="143" width="56" height="15" rx="2" class="m-si" stroke="none"/>
+                    <text class="rs-label rs-label--chip" x="398" y="155" text-anchor="middle">Memory</text>
+                </g>
+                <!-- 열 관리 (추상): 로직 다이 위 열계면층 + 핀 방열판 + 위로 빠져나가는 열 -->
+                <g class="rs-thread" data-thread="system">
+                    <rect x="84" y="136" width="190" height="4" class="m-poly"/>
+                    <rect x="84" y="127" width="190" height="9" class="m-board" rx="1"/>
+                    <rect x="92" y="111" width="6" height="16" class="m-board"/>
+                    <rect x="109" y="111" width="6" height="16" class="m-board"/>
+                    <rect x="126" y="111" width="6" height="16" class="m-board"/>
+                    <rect x="143" y="111" width="6" height="16" class="m-board"/>
+                    <rect x="160" y="111" width="6" height="16" class="m-board"/>
+                    <rect x="177" y="111" width="6" height="16" class="m-board"/>
+                    <rect x="194" y="111" width="6" height="16" class="m-board"/>
+                    <rect x="211" y="111" width="6" height="16" class="m-board"/>
+                    <rect x="228" y="111" width="6" height="16" class="m-board"/>
+                    <rect x="245" y="111" width="6" height="16" class="m-board"/>
+                    <rect x="262" y="111" width="6" height="16" class="m-board"/>
+                    <path class="rs-heat" d="M132,106 c-4,-3 4,-6 0,-9 c-4,-3 4,-6 0,-9"/>
+                    <path class="rs-heat-head" d="M129,89.5 L132,84.5 L135,89.5 Z"/>
+                    <path class="rs-heat" d="M179,106 c-4,-3 4,-6 0,-9 c-4,-3 4,-6 0,-9"/>
+                    <path class="rs-heat-head" d="M176,89.5 L179,84.5 L182,89.5 Z"/>
+                    <path class="rs-heat" d="M226,106 c-4,-3 4,-6 0,-9 c-4,-3 4,-6 0,-9"/>
+                    <path class="rs-heat-head" d="M223,89.5 L226,84.5 L229,89.5 Z"/>
+                </g>
+                <!-- 라벨 (오른쪽 열) -->
+                <g class="rs-thread rs-labels" data-thread="base">
+                    <line class="rs-leader" x1="568" y1="86" x2="576" y2="86"/>
+                    <text class="rs-label" x="582" y="90" text-anchor="start">system-technology<tspan x="582" dy="1em">co-optimization</tspan></text>
+                    <line class="rs-leader" x1="278" y1="124" x2="576" y2="124"/>
+                    <text class="rs-label" x="582" y="128" text-anchor="start">thermal management</text>
+                    <line class="rs-leader" x1="472" y1="150" x2="576" y2="150"/>
+                    <text class="rs-label" x="582" y="154" text-anchor="start">HBM · TSV stack</text>
+                    <line class="rs-leader" x1="524" y1="186" x2="576" y2="186"/>
+                    <text class="rs-label" x="582" y="190" text-anchor="start">µbump · RDL · TGV</text>
+                    <line class="rs-leader" x1="524" y1="212" x2="576" y2="212"/>
+                    <text class="rs-label" x="582" y="216" text-anchor="start">glass interposer</text>
+                    <line class="rs-leader" x1="548" y1="248" x2="576" y2="248"/>
+                    <text class="rs-label" x="582" y="252" text-anchor="start">package substrate</text>
+                    <line class="rs-leader" x1="560" y1="280" x2="576" y2="280"/>
+                    <text class="rs-label" x="582" y="284" text-anchor="start">BGA · PCB</text>
+                </g>
+                <!-- hover 영역 (투명). 뒤에 올수록 위 — 좁은 영역을 마지막에 -->
+                  <g class="rs-thread" data-thread="system"><rect class="rs-hit" x="12" y="80" width="556" height="212"/></g>
+                  <g class="rs-thread" data-thread="system"><rect class="rs-hit" x="24" y="258" width="532" height="30"/></g>
+                  <g class="rs-thread" data-thread="system"><rect class="rs-hit" x="36" y="238" width="508" height="22"/></g>
+                  <g class="rs-thread" data-thread="fabrication"><rect class="rs-hit" x="60" y="228" width="460" height="10"/></g>
+                  <g class="rs-thread" data-thread="fabrication"><rect class="rs-hit" x="60" y="184" width="460" height="15"/></g>
+                  <g class="rs-thread" data-thread="materials"><rect class="rs-hit" x="60" y="199" width="460" height="29"/></g>
+                  <g class="rs-thread" data-thread="materials"><rect class="rs-hit" x="84" y="140" width="190" height="44"/></g>
+                  <g class="rs-thread" data-thread="materials"><rect class="rs-hit" x="318" y="132" width="160" height="52"/></g>
+                  <g class="rs-thread" data-thread="system"><rect class="rs-hit" x="84" y="82" width="190" height="58"/></g>
+              </svg>
+            </div>
+          </div>
+          <div class="rs-chips" id="rsChips" role="group" aria-label="Research topics"></div>
+          <p class="rs-caption" id="rsCaption" aria-live="polite"></p>
+        </div>
+
+        <h2 class="section-label section-label--spaced">Research Topics</h2>
+        <div class="rs-threads" id="rsThreads"><!-- data.js → RESEARCH.threads --></div>
+
+        <p class="rs-closing" id="rsClosing"></p>
+      </section>
+
       <!-- ════════════════ PUBLICATIONS ════════════════ -->
       <section
         id="publications"
@@ -526,6 +914,8 @@
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
     <script src="js/data.js"></script>
+    <script src="js/research-data.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/research.js"></script>
   </body>
 </html>

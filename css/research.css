@@ -1,0 +1,249 @@
+/* ---------- 10. Research ---------- */
+/* 단면도 재료색 — 소속색(GT 네이비·골드, 연세 블루)과 겹치지 않도록 실제 재료에 가까운 색을 쓴다.
+   소속색은 패널 틴트·칸 왼쪽 선·하이라이트에만. */
+:root {
+  --rs-si: #5B6878;                       /* 실리콘: 슬레이트 */
+  --rs-metal: #B87333;                    /* 금속: 구리 */
+  --rs-glass: rgba(95, 180, 200, 0.18);   /* 글래스: 옅은 시안 */
+  --rs-glass-line: rgba(55, 135, 160, 0.6);
+  --rs-poly: #E8DCC2;                     /* 폴리머: 웜 베이지 */
+  --rs-board: #C9CFC6;                    /* 보드 */
+  --rs-tissue: #EAD8D0;                   /* 생체 표면 / 조직 */
+  --rs-heat: #E07A5F;                     /* 열: 웜 코럴 */
+  --rs-light: #B39DEB;                  /* 레이저·노광 빛: 보라 (UV 노광) */
+  --rs-ink: #4B525C;                      /* 외곽선 · 라벨 */
+  --rs-bg: #FFFFFF;                       /* 라벨 뒤 후광 */
+}
+:root[data-theme="dark"] {
+  --rs-si: #8391A3;
+  --rs-metal: #D08F57;
+  --rs-glass: rgba(120, 200, 220, 0.16);
+  --rs-glass-line: rgba(130, 205, 225, 0.6);
+  --rs-poly: #51493A;
+  --rs-board: #353B36;
+  --rs-tissue: #45383A;
+  --rs-heat: #EE9278;
+  --rs-light: #B8A6EE;
+  --rs-ink: #B8B2AB;
+  --rs-bg: #171B21;
+}
+
+/* Stage — 두 단면도를 담는 카드. 왼쪽 연세(3), 오른쪽 조지아텍(7), 바닥선을 맞춰 나란히 */
+.rs-stage {
+  display: grid;
+  grid-template-columns: 9fr 14fr;   /* 두 그림의 높이가 비슷해지는 비율 (왼쪽 패널 위 빈 공간 줄이기) */
+  gap: 16px 22px;
+  padding: 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+.rs-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+  padding: 16px 18px 14px;
+  border-radius: var(--radius);
+  /* News 의 era 패널과 같은 소속색 틴트 (--affil-color-start 는 main.js 가 inline 으로 넣음) */
+  background: color-mix(in srgb, var(--affil-color-start, var(--accent)) 5%, transparent);
+  border: 1px solid color-mix(in srgb, var(--affil-color-start, var(--accent)) 22%, transparent);
+}
+.rs-era { display: grid; grid-template-columns: 30px 1fr auto; column-gap: 10px; align-items: center; }
+/* 패널 오른쪽 위 작은 메모 (예: 'Schematic, not to scale') */
+.rs-era-note { grid-column: 3; grid-row: 1 / span 2; align-self: start; font-size: 0.72rem; color: var(--text-muted); white-space: nowrap; }
+.rs-era img {
+  grid-row: 1 / span 2;
+  width: 30px; height: 30px;
+  padding: 3px;
+  object-fit: contain;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 1.5px solid var(--affil-color-start, var(--border));
+}
+/* 위치를 명시 — 메모 칸(3열)이 생겨도 제목·소속 줄이 2열 1·2행에 머물도록 */
+.rs-era-name { grid-column: 2; grid-row: 1; font-size: 0.82rem; font-weight: 700; color: var(--affil-color-start, var(--text-primary)); }
+.rs-era-caption { grid-column: 2; grid-row: 2; font-size: 0.8rem; color: var(--text-muted); }
+.rs-art-wrap { margin-top: auto; }
+
+/* 단면도 공통 규칙 */
+.rs-art {
+  display: block;
+  width: 100%;
+  height: auto;
+  font-family: var(--sans);
+  overflow: visible;
+  stroke: var(--rs-ink);
+  stroke-width: 1.1;
+  stroke-opacity: 0.55;
+  stroke-linejoin: round;
+}
+.rs-art * { vector-effect: non-scaling-stroke; }   /* 두 그림의 선 굵기를 화면 기준으로 같게 */
+.rs-art .m-si { fill: var(--rs-si); }
+.rs-art .m-metal { fill: var(--rs-metal); }
+.rs-art .m-glass { fill: var(--rs-glass); stroke: var(--rs-glass-line); stroke-opacity: 1; }
+.rs-art .m-beol { fill: var(--rs-metal); fill-opacity: 0.35; stroke: none; }   /* 다이 앞면의 배선층 */
+.rs-art .m-poly { fill: var(--rs-poly); }
+.rs-art .m-board { fill: var(--rs-board); }
+.rs-art .m-tissue { fill: var(--rs-tissue); }
+.rs-art .m-none { fill: none; }
+.rs-art .dash { stroke-dasharray: 4 3; }
+.rs-art .rs-enc { fill-opacity: 0.5; }
+.rs-art .rs-ray { stroke-width: 1; stroke-opacity: 0.6; stroke-dasharray: 2 2; }
+.rs-art .rs-handle { fill-opacity: 0.7; }   /* SOI 핸들 웨이퍼: 위 실리콘층과 구분되게 옅게 */
+.rs-art .rs-dep circle { stroke-width: 0.6; }   /* 작은 증착 입자: 테두리가 입자를 덮지 않게 */
+.rs-art .rs-dep .rs-ray { stroke-dasharray: 1.5 1.5; }
+.rs-art .rs-flow path { fill: none; stroke-width: 1; stroke-opacity: 0.6; stroke-dasharray: 3 2; }   /* 공정 → 소자 전사 화살표 */
+.rs-art .rs-flow .rs-flow-head { fill: var(--rs-ink); fill-opacity: 0.6; stroke: none; }
+.rs-art--y .rs-label--small { font-size: 9px; font-style: italic; fill-opacity: 0.75; }
+.rs-art .rs-heat { fill: none; stroke: var(--rs-heat); stroke-width: 1.6; stroke-opacity: 0.9; stroke-linecap: round; }   /* 방열판에서 빠져나가는 열 */
+.rs-art .rs-heat-head { fill: var(--rs-heat); fill-opacity: 0.9; stroke: none; }
+.rs-art .rs-ion line { stroke-width: 0.8; stroke-opacity: 0.5; }   /* 식각 이온 */
+.rs-art .rs-ion path { fill: var(--rs-ink); fill-opacity: 0.5; stroke: none; }
+.rs-art .rs-beam-stop { stop-color: var(--rs-light); }   /* 연세 그림의 레이저·노광 빛 */
+.rs-art .rs-beam-edge { stroke: var(--rs-light); stroke-width: 0.8; stroke-opacity: 0.7; }
+.rs-art .rs-beam-spot { fill: var(--rs-light); fill-opacity: 0.8; stroke: none; }
+.rs-art .rs-leader { stroke-width: 0.8; stroke-opacity: 0.45; }
+.rs-art .rs-label {
+  fill: var(--rs-ink);
+  stroke: var(--rs-bg);
+  stroke-width: 3;
+  stroke-opacity: 1;
+  paint-order: stroke;
+  font-weight: 500;
+}
+.rs-art--gt .rs-label { font-size: 13px; }   /* 화면에서 두 그림의 라벨이 비슷한 크기(약 10px)로 보이도록 */
+.rs-art--y .rs-label { font-size: 11px; }
+.rs-art .rs-label--inside { stroke: none; fill-opacity: 0.7; }   /* 그림 안쪽 글자(생체 표면)는 후광 없이 */
+/* 다이 위 이름 (Logic, Memory): 흰 글자 + 짙은 슬레이트 후광. 다크 모드에서 다이가 밝아져도, 메모리 적층 줄무늬 위에서도 읽힌다 */
+.rs-art .rs-label--chip { fill: #FFFFFF; stroke: #3F4955; stroke-width: 3.5; stroke-opacity: 0.9; paint-order: stroke; font-weight: 600; }
+
+/* 이벤트는 투명한 hover 영역(.rs-hit)만 받는다 */
+.rs-art .rs-thread > :not(.rs-hit) { pointer-events: none; }
+.rs-art .rs-hit { fill: transparent; stroke: none; pointer-events: all; cursor: pointer; }
+
+/* 하이라이트: #rsStage 의 data-active 하나로 두 그림을 함께 제어.
+   활성이면 모든 층이 --rs-dim 으로 흐려지고, 해당 주제의 층만 --rs-on 으로 남는다 */
+.rs-art .rs-thread { opacity: var(--rs-on, var(--rs-dim, 1)); transition: opacity 0.35s ease, filter 0.35s ease; }
+.rs-stage[data-active] .rs-art { --rs-dim: 0.2; }
+:root[data-theme="dark"] .rs-stage[data-active] .rs-art { --rs-dim: 0.28; }
+.rs-stage[data-active] .rs-art .rs-labels { --rs-on: 0.6; }
+.rs-stage[data-active] .rs-art--y .rs-labels { --rs-on: 0.35; }   /* 왼쪽 그림의 라벨은 갈래 이름이라, 고른 갈래의 라벨만 진하게 (아래 강조 규칙보다 먼저) */
+.rs-stage[data-active] .rs-art .rs-labels[data-thread] { filter: none; }   /* 라벨 글자에는 빛 번짐을 넣지 않음 */
+/* ~= : 한 층이 두 갈래에 속할 수 있음 (예: data-thread="materials system" — 실리콘 다이, LED) */
+.rs-stage[data-active="materials"] .rs-art [data-thread~="materials"],
+.rs-stage[data-active="fabrication"] .rs-art [data-thread~="fabrication"],
+.rs-stage[data-active="system"] .rs-art [data-thread~="system"] {
+  --rs-on: 1;
+  filter: drop-shadow(0 0 2.5px rgba(var(--accent-rgb), 0.55));
+}
+
+/* 그림 아래: 갈래 칩, 캡션 (재료 이름은 그림 라벨에 있으므로 범례는 두지 않음) */
+/* 갈래 칩: 카드 폭을 똑같이 나눠 가로로 꽉 차게 (칩 수가 바뀌어도 같은 폭으로 나뉨) */
+.rs-chips {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-light);
+}
+.rs-chip { justify-content: center; text-align: center; padding-top: 10px; padding-bottom: 8px; }
+.rs-chip.is-active { color: var(--accent); border-bottom-color: var(--accent); }
+.rs-caption { grid-column: 1 / -1; min-height: 3em; font-size: 0.86rem; line-height: 1.5; color: var(--text-secondary); }
+.rs-caption strong { color: var(--text-primary); }
+.rs-jump {
+  font: inherit;
+  padding: 0;
+  margin-left: 2px;
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+/* 주제별 행: [주제 | 연세 | 조지아텍(더 넓게)] */
+.rs-row {
+  display: grid;
+  grid-template-columns: 170px 1fr 1fr;   /* 두 분야 설명은 같은 폭 (그림 패널 비율과 별개) */
+  gap: 18px 28px;
+  margin-bottom: 14px;
+  padding: 24px 28px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  scroll-margin-top: calc(var(--header-height) + 16px);   /* 캡션의 'in detail' 로 이동했을 때 헤더에 가리지 않게 */
+  transition: transform 0.4s var(--ease), box-shadow 0.4s ease, border-color 0.4s ease;
+}
+.rs-row:hover, .rs-row[data-reveal].is-visible:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--accent-light); }
+.rs-row-name { font-size: 1.1rem; font-weight: 700; line-height: 1.3; }
+.rs-row-name:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+.rs-row-sub { margin-top: 6px; font-size: 0.84rem; line-height: 1.5; color: var(--text-muted); }
+.rs-cell { min-width: 0; padding-left: 16px; border-left: 3px solid var(--affil-color-start, var(--border)); }
+.rs-cell-label { display: block; margin-bottom: 8px; font-size: 1.08rem; font-weight: 700; line-height: 1.35; color: var(--affil-color-start, var(--text-muted)); }
+.rs-cell-summary { font-size: 0.98rem; line-height: 1.65; color: var(--text-primary); }
+.rs-refs { list-style: none; display: grid; gap: 8px; margin-top: 12px; }
+.rs-refs--more { margin-top: 8px; }
+.rs-refs[hidden] { display: none; }   /* display:grid 가 hidden 속성을 덮어쓰지 않도록 */
+.rs-ref-title { display: block; font-size: 0.86rem; font-weight: 500; line-height: 1.4; color: var(--text-primary); }
+.rs-ref-title a { color: inherit; text-decoration: underline; text-decoration-color: var(--border); text-underline-offset: 3px; }
+.rs-ref-title a:hover { color: var(--accent); text-decoration-color: currentColor; }
+.rs-ref-meta { display: block; margin-top: 1px; font-size: 0.76rem; color: var(--text-muted); }
+.rs-award { font-weight: 600; color: var(--tag-award-fg); }
+.rs-more {
+  margin-top: 10px;
+  padding: 0;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--border);
+}
+.rs-more:hover { text-decoration-color: currentColor; }
+/* 논문·발표가 아닌 활동 (다른 연구실 프로젝트, 스타트업) — 중립색 블록 + 출처 줄 */
+.rs-side { margin-top: 12px; padding: 10px 12px; background: var(--bg); border-left: 3px solid var(--border); border-radius: 0 8px 8px 0; }
+.rs-side-src { display: block; font-size: 0.74rem; color: var(--text-muted); }
+.rs-side-title { display: block; margin-top: 2px; font-size: 0.84rem; line-height: 1.45; color: var(--text-primary); }
+.rs-side-note { display: block; margin-top: 2px; font-size: 0.76rem; color: var(--text-muted); }
+
+.rs-closing { margin-top: 28px; font-size: 0.9rem; color: var(--text-secondary); }
+
+@media (max-width: 960px) {
+  .rs-row { grid-template-columns: 1fr; gap: 16px; }
+}
+@media (max-width: 768px) {
+  .rs-stage { grid-template-columns: 1fr; gap: 14px; padding: 16px; }
+  .rs-panel--yonsei .rs-art { max-width: 352px; margin: 0 auto; }   /* viewBox 폭(352)과 같게: 라벨 크기 유지 */
+  .rs-art--gt .rs-label { font-size: 18px; }   /* 한 줄로 쌓이면 패키지 그림이 작아지므로 라벨을 키움 (research.js 가 라벨 칸을 넓힘) */
+  .rs-art--gt .rs-label--chip { font-size: 13px; }   /* 다이 위 이름은 그대로 (Memory 글자가 뒤 판 밖으로 나가지 않게) */
+  .rs-row { padding: 20px; }
+  .rs-chips { gap: 4px; }
+  .rs-era-note { grid-column: 2; grid-row: auto; white-space: normal; margin-top: 2px; }
+  .rs-chip { padding-left: 4px; padding-right: 4px; font-size: 0.64rem; letter-spacing: 0.06em; line-height: 1.35; }   /* 좁은 화면에서는 칸 안에서 두 줄로 */
+}
+
+/* 헤더: 탭이 5개가 되면 좁은 화면에서 한 줄에 다 들어가지 않으므로 탭을 둘째 줄로 내린다 */
+@media (max-width: 600px) {
+  :root { --header-height: 98px; }
+  .header-inner { flex-wrap: wrap; height: auto; min-height: var(--header-height); padding: 10px 16px 4px; row-gap: 4px; }
+  .header-right { display: contents; }
+  .logo { order: 1; }
+  .theme-toggle { order: 2; margin-left: auto; }
+  .nav { order: 3; width: 100%; }
+  .nav-link { padding: 7px 9px; }
+}
+@media (max-width: 480px) {
+  .nav-long { display: none; }   /* 좁은 화면에서는 "Personal / CV" → "CV" (탭 5개가 한 줄에 들어가도록) */
+}
+
