@@ -602,7 +602,6 @@
                     <rect x="388.5" y="238" width="3" height="22" class="m-metal" stroke="none"/>
                     <rect x="427.5" y="238" width="3" height="22" class="m-metal" stroke="none"/>
                     <rect x="466.5" y="238" width="3" height="22" class="m-metal" stroke="none"/>
-                    <rect x="505.5" y="238" width="3" height="22" class="m-metal" stroke="none"/>
                 </g>
                 <!-- C4 범프 -->
                 <g class="rs-thread" data-thread="fabrication">
@@ -617,15 +616,31 @@
                     <circle cx="390" cy="233.5" r="4.5" class="m-metal" style="stroke-width:.6"/>
                     <circle cx="429" cy="233.5" r="4.5" class="m-metal" style="stroke-width:.6"/>
                     <circle cx="468" cy="233.5" r="4.5" class="m-metal" style="stroke-width:.6"/>
-                    <circle cx="507" cy="233.5" r="4.5" class="m-metal" style="stroke-width:.6"/>
                 </g>
                 <!-- 글래스 인터포저 (재료) -->
                 <g class="rs-thread" data-thread="materials">
-                    <rect x="60" y="199" width="460" height="29" class="m-glass"/>
+                    <!-- 레이저로 뚫는 TGV 자리는 마스크로 비워 둔다 (빈 구멍) -->
+                    <defs>
+                      <mask id="rsTgvHole" maskUnits="userSpaceOnUse" x="0" y="0" width="720" height="300">
+                        <rect x="0" y="0" width="720" height="300" fill="#FFFFFF" stroke="none"/>
+                        <polygon points="502.5,199 511.5,199 509,228 505,228" fill="#000000" stroke="none"/>
+                      </mask>
+                    </defs>
+                    <rect x="60" y="199" width="460" height="29" class="m-glass" mask="url(#rsTgvHole)"/>
+                    <line x1="502.5" y1="199" x2="505" y2="228" style="stroke:var(--rs-glass-line);stroke-width:1"/>
+                    <line x1="511.5" y1="199" x2="509" y2="228" style="stroke:var(--rs-glass-line);stroke-width:1"/>
+                </g>
+                <!-- 레이저 비아 가공 (공정): RDL 을 아직 올리지 않은 오른쪽 끝 글래스에 레이저가 모여 테이퍼진 비아를 뚫는 중 (연세 그림과 같은 빛 표현, #rsBeam 재사용) -->
+                <g class="rs-thread" data-thread="fabrication">
+                    <!-- 구멍 자체는 글래스 그룹의 마스크로 비워 두고, 여기서는 빔만 그린다 (아래 범프·기판 비아는 두지 않음) -->
+                    <path d="M495,156 L519,156 L508.5,199 L505.5,199 Z" fill="url(#rsBeam)" stroke="none"/>
+                    <line class="rs-beam-edge" x1="495" y1="156" x2="505.5" y2="199"/>
+                    <line class="rs-beam-edge" x1="519" y1="156" x2="508.5" y2="199"/>
+                    <ellipse cx="507" cy="199" rx="4.5" ry="1.5" class="rs-beam-spot"/>
                 </g>
                 <!-- 위 RDL 층: 다이 사이 직접 배선(두 깊이로 겹치지 않게) + 범프에서 TGV 로 내려가는 팬아웃. 연결된 TGV 만 RDL 까지 올라온다 -->
                 <g class="rs-thread" data-thread="fabrication">
-                    <rect x="60" y="189" width="460" height="10" class="m-poly"/>
+                    <rect x="60" y="189" width="426" height="10" class="m-poly"/>
                     <rect x="75.5" y="196.8" width="5" height="31.2" class="m-metal" stroke="none"/>
                     <rect x="114.5" y="196.8" width="5" height="31.2" class="m-metal" stroke="none"/>
                     <rect x="153.5" y="196.8" width="5" height="31.2" class="m-metal" stroke="none"/>
@@ -637,7 +652,6 @@
                     <rect x="387.5" y="196.8" width="5" height="31.2" class="m-metal" stroke="none"/>
                     <rect x="426.5" y="196.8" width="5" height="31.2" class="m-metal" stroke="none"/>
                     <rect x="465.5" y="196.8" width="5" height="31.2" class="m-metal" stroke="none"/>
-                    <rect x="504.5" y="199" width="5" height="29" class="m-metal" stroke="none"/>
                     <rect x="90" y="189" width="2" height="9" class="m-metal" stroke="none"/>
                     <rect x="77" y="196.8" width="15" height="1.2" class="m-metal" stroke="none"/>
                     <rect x="113.6" y="189" width="2" height="9" class="m-metal" stroke="none"/>
@@ -754,12 +768,12 @@
                     <text class="rs-label" x="582" y="128" text-anchor="start">thermal management</text>
                     <line class="rs-leader" x1="472" y1="150" x2="576" y2="150"/>
                     <text class="rs-label" x="582" y="154" text-anchor="start">HBM · TSV stack</text>
-                    <line class="rs-leader" x1="524" y1="186" x2="576" y2="186"/>
+                    <line class="rs-leader" x1="490" y1="186" x2="576" y2="186"/>
                     <text class="rs-label" x="582" y="190" text-anchor="start">µbump · RDL · TGV</text>
                     <line class="rs-leader" x1="524" y1="212" x2="576" y2="212"/>
-                    <text class="rs-label" x="582" y="216" text-anchor="start">glass interposer</text>
-                    <line class="rs-leader" x1="548" y1="248" x2="576" y2="248"/>
-                    <text class="rs-label" x="582" y="252" text-anchor="start">package substrate</text>
+                    <text class="rs-label" x="582" y="216" text-anchor="start">glass interposer<tspan x="582" dy="1em">laser TGV drilling</tspan></text>
+                    <line class="rs-leader" x1="548" y1="252" x2="576" y2="252"/>
+                    <text class="rs-label" x="582" y="256" text-anchor="start">package substrate</text>
                     <line class="rs-leader" x1="560" y1="280" x2="576" y2="280"/>
                     <text class="rs-label" x="582" y="284" text-anchor="start">BGA · PCB</text>
                 </g>
@@ -768,8 +782,9 @@
                   <g class="rs-thread" data-thread="system"><rect class="rs-hit" x="24" y="258" width="532" height="30"/></g>
                   <g class="rs-thread" data-thread="system"><rect class="rs-hit" x="36" y="238" width="508" height="22"/></g>
                   <g class="rs-thread" data-thread="fabrication"><rect class="rs-hit" x="60" y="228" width="460" height="10"/></g>
-                  <g class="rs-thread" data-thread="fabrication"><rect class="rs-hit" x="60" y="184" width="460" height="15"/></g>
+                  <g class="rs-thread" data-thread="fabrication"><rect class="rs-hit" x="60" y="184" width="426" height="15"/></g>
                   <g class="rs-thread" data-thread="materials"><rect class="rs-hit" x="60" y="199" width="460" height="29"/></g>
+                  <g class="rs-thread" data-thread="fabrication"><rect class="rs-hit" x="495" y="156" width="24" height="72"/></g>
                   <g class="rs-thread" data-thread="materials"><rect class="rs-hit" x="84" y="140" width="190" height="44"/></g>
                   <g class="rs-thread" data-thread="materials"><rect class="rs-hit" x="318" y="132" width="160" height="52"/></g>
                   <g class="rs-thread" data-thread="system"><rect class="rs-hit" x="84" y="82" width="190" height="58"/></g>

@@ -62,7 +62,7 @@ const RESEARCH = {
       id: 'fabrication',
       name: 'Fabrication and Processing',
       sub: 'Nano/Micro fabrication technologies and CMOS-compatible process integration',
-      approach: 'Building thin layers and the connections between them, from transferring and encapsulating silicon nanomembranes on soft substrates to forming vias, redistribution layers and bonds in a package, with reliability in mind.',
+      approach: 'Building thin layers and the connections between them, from transferring and encapsulating silicon nanomembranes on soft substrates to laser-drilling vias in glass and forming redistribution layers and bonds in a package, with reliability in mind.',
       yonsei: {
         summary: 'High-temperature CMOS processes such as thermal oxidation and doping exceed the thermal budget of polymer substrates, so they are completed on the wafer before the silicon is transferred onto a soft substrate. Since yield and reliability are often limited by interfaces and processing rather than by device design, transfer printing, encapsulation and post-transfer fabrication are designed together with the device.',
       },
