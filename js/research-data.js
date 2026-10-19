@@ -52,10 +52,10 @@ const RESEARCH = {
       // 칩을 고르면 그림 아래에 나오는 설명 — 이 갈래를 어떻게 연구하는지 한 문장으로
       approach: 'Choosing and shaping the materials that decide how a device works, from doped and nanoparticle-decorated silicon nanomembranes for sensing to glass as the core material of a chip package.',
       yonsei: {
-        summary: 'Single-crystalline silicon nanomembranes are thin enough to bend with skin and tissue, yet keep the electrical properties of bulk silicon. By tailoring the material properties to the target performance, the same silicon platform can be optimized for each application.',
+        summary: 'Single-crystalline silicon nanomembranes (SiNMs) combine the mechanical flexibility of a thin film with the high carrier mobility, stability and uniformity of bulk silicon. Since thickness, doping profile and crystal orientation determine their electrical, piezoresistive and thermal responses, the same silicon platform can be engineered for the sensitivity and stability each application requires.',
       },
       gatech: {
-        summary: 'Glass is used as the core material of the package, carrying and connecting the silicon chips as a substrate or an interposer. By choosing and shaping this core material, the package can be matched to the density and reliability its chips require.',
+        summary: 'Glass core substrates offer a path beyond the reticle limit of silicon interposers and the warpage of organic substrates, enabling large-area packages for chiplet-based AI and HPC systems. A composition-tunable coefficient of thermal expansion (CTE) between those of silicon and the PCB, high dimensional stability and low dielectric loss support fine-pitch routing across large panels, while brittleness and low thermal conductivity must be managed.',
       },
     },
     {
@@ -64,10 +64,10 @@ const RESEARCH = {
       sub: 'Nano/Micro fabrication technologies and CMOS-compatible process integration',
       approach: 'Building thin layers and the connections between them, from transferring and encapsulating silicon nanomembranes on soft substrates to forming vias, redistribution layers and bonds in a package, with reliability in mind.',
       yonsei: {
-        summary: 'Building devices on soft substrates requires adapting standard CMOS processes to thin, flexible materials. Since most failures arise at interfaces and during processing rather than from the device design, process and reliability are designed together with the device.',
+        summary: 'High-temperature CMOS processes such as thermal oxidation and doping exceed the thermal budget of polymer substrates, so they are completed on the wafer before the silicon is transferred onto a soft substrate. Since yield and reliability are often limited by interfaces and processing rather than by device design, transfer printing, encapsulation and post-transfer fabrication are designed together with the device.',
       },
       gatech: {
-        summary: 'Building a package requires processes that form fine connections both through and across its layers, from vias in the glass core and stacked dies to redistribution layers and microbumps. As these connections shrink, package reliability is considered together with each process step.',
+        summary: 'Glass core packages are built with Cu-filled through-glass vias (TGVs), multilayer redistribution layers (RDLs) formed by semi-additive processing (SAP) and laser-drilled microvias. Since glass cracking, interfacial delamination and solder joint fatigue largely originate from CTE mismatch among Cu, glass and polymer layers, process uniformity and thermo-mechanical reliability are considered together across large panels.',
       },
     },
     {
@@ -76,10 +76,10 @@ const RESEARCH = {
       sub: 'Heterogeneous integration and system-level co-design',
       approach: 'Putting devices and chips together so they work as a system, from sensors and light sources placed on the skin or in tissue to chiplets, stacked dies and microfluidic cooling designed together in a package.',
       yonsei: {
-        summary: 'A sensor becomes useful only when it works as part of a system. Integrating devices into wearable and implantable platforms turns them into working systems, where wiring, power and packaging often set the limits more than the devices themselves.',
+        summary: 'Integrating thin-film silicon devices into wearable and implantable platforms requires conformal contact with skin or tissue, stable operation under repeated deformation and long-term protection from biofluids. At the system level, interconnect layout, power delivery and encapsulation often limit performance and lifetime more than the individual devices.',
       },
       gatech: {
-        summary: 'In 2.5D/3D heterogeneous integration, chiplets and stacked dies are placed side by side and on top of each other to work as one system. Thermal management, signal and power integrity are then chosen together with that system through system-technology co-optimization (STCO).',
+        summary: 'In 2.5D/3D heterogeneous integration, logic chiplets and high-bandwidth memory (HBM) stacks are placed side by side on a large-area interposer and stacked vertically to operate as a single system. As packages grow, die-to-die links become longer and power density rises, so signal integrity, power delivery and thermal management are co-designed with the package architecture through system-technology co-optimization (STCO).',
       },
     },
   ],

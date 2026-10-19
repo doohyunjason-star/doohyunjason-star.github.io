@@ -403,8 +403,8 @@ const NEWS = [
   },
   {
     year: 2020, month: 'Mar', tag: 'position', icon: '🎉', affil: 'yonsei',
-    title: 'Entered <span class="hl">Yonsei University</span> as an Undergraduate Student',
-    body: 'Started undergraduate studies at Yonsei University, South Korea, majoring in Physics.',
+    title: 'Started My Undergraduate Studies at <span class="hl">Yonsei University</span>',
+    body: 'Enrolled at Yonsei University, South Korea, as a Physics major.',
   },
 ];
 
