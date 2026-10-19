@@ -44,6 +44,7 @@
 
   --tag-award-fg: #9A6F00;  --tag-award-bg: #FBF3DA;
   --tag-pub-fg: #2E7D32;    --tag-pub-bg: #E8F5E9;
+  --tag-oral-fg: #6A1B9A;   --tag-oral-bg: #F3E5F5;
 
   /* 글꼴은 IBM Plex Sans 한 가지로 통일. 예전 세리프/디스플레이 변수는 호환용으로 같은 글꼴을 가리킨다 */
   --sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans KR', sans-serif;
@@ -91,6 +92,7 @@
 
   --tag-award-fg: #E4C46A;  --tag-award-bg: rgba(228, 196, 106, 0.14);
   --tag-pub-fg: #7FD18A;    --tag-pub-bg: rgba(127, 209, 138, 0.14);
+  --tag-oral-fg: #CE93D8;   --tag-oral-bg: rgba(206, 147, 216, 0.14);
 
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.4);
@@ -848,7 +850,9 @@ main {
   color: var(--tag-pub-fg);
   background: var(--tag-pub-bg);
 }
+.pub-badge--oral { color: var(--tag-oral-fg); background: var(--tag-oral-bg); }
 .pub-badge--award { color: var(--tag-award-fg); background: var(--tag-award-bg); }
+.pub-badge--oral { color: var(--tag-oral-fg); background: var(--tag-oral-bg); }
 
 .pub-authors { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 8px; line-height: 1.6; }
 .pub-authors sup { font-size: 0.7em; color: var(--accent); }

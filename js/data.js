@@ -264,7 +264,7 @@ const PUBLICATIONS = [
     authors: 'Dongjun Cho†, ..., **Doohyun J. Lee**, ..., Ki Jun Yu*',
     type: 'research',
     role: 'co',
-    affil: 'gatech',
+    affil: 'yonsei',
   },
 ];
 

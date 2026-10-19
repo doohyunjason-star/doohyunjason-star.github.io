@@ -198,7 +198,7 @@
                 <div class="pub-authors">${renderAuthors(c.authors)}</div>
                 <div class="pub-venue">${escapeHtml(c.venue)}, ${c.year}</div>
                 <div class="pub-links">
-                  <span class="pub-badge">${FORMAT[c.format] || escapeHtml(c.format)}</span>
+                  <span class="pub-badge pub-badge--${c.format}">${FORMAT[c.format] || escapeHtml(c.format)}</span>
                   ${c.award ? `<span class="pub-badge pub-badge--award">🏆 ${escapeHtml(c.award)}</span>` : ''}
                   ${affilBadge(c.affil)}
                 </div>
