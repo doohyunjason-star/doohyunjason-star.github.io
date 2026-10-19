@@ -852,7 +852,6 @@ main {
 }
 .pub-badge--oral { color: var(--tag-oral-fg); background: var(--tag-oral-bg); }
 .pub-badge--award { color: var(--tag-award-fg); background: var(--tag-award-bg); }
-.pub-badge--oral { color: var(--tag-oral-fg); background: var(--tag-oral-bg); }
 
 .pub-authors { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 8px; line-height: 1.6; }
 .pub-authors sup { font-size: 0.7em; color: var(--accent); }
