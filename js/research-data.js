@@ -48,7 +48,7 @@ const RESEARCH = {
     {
       id: 'materials',
       name: 'Materials and Devices',
-      sub: 'Functional materials and the devices built from them',
+      sub: 'Electronic materials and functional devices',
       // 칩을 고르면 그림 아래에 나오는 설명 — 이 갈래를 어떻게 연구하는지 한 문장으로
       approach: 'Choosing and shaping the materials that decide how a device works, from doped and nanoparticle-decorated silicon nanomembranes for sensing to glass as the core material of a chip package.',
       yonsei: {
@@ -61,7 +61,7 @@ const RESEARCH = {
     {
       id: 'fabrication',
       name: 'Fabrication and Processing',
-      sub: 'How thin layers are made, transferred and joined',
+      sub: 'Nano/Micro fabrication technologies and CMOS-compatible process integration',
       approach: 'Building thin layers and the connections between them, from transferring and encapsulating silicon nanomembranes on soft substrates to forming vias, redistribution layers and bonds in a package, with reliability in mind.',
       yonsei: {
         summary: 'Building devices on soft substrates requires adapting standard CMOS processes to thin, flexible materials. Since most failures arise at interfaces and during processing rather than from the device design, process and reliability are designed together with the device.',
@@ -73,7 +73,7 @@ const RESEARCH = {
     {
       id: 'system',
       name: 'System and Integration',
-      sub: 'Putting devices and chips together into working systems',
+      sub: 'Heterogeneous integration and system-level co-design',
       approach: 'Putting devices and chips together so they work as a system, from sensors and light sources placed on the skin or in tissue to chiplets, stacked dies and microfluidic cooling designed together in a package.',
       yonsei: {
         summary: 'A sensor becomes useful only when it works as part of a system. Integrating devices into wearable and implantable platforms turns them into working systems, where wiring, power and packaging often set the limits more than the devices themselves.',
