@@ -396,6 +396,16 @@ const NEWS = [
     title: 'Started My Research Career at <span class="hl">Yonsei University</span> as an Undergraduate Research Assistant',
     body: 'Joined the <a href="https://bioelectronics.yonsei.ac.kr/" target="_blank" rel="noopener">Functional Bio-Integrated Electronics and Energy Management Lab (FBEE)</a> at Yonsei University, led by Prof. <a href="https://scholar.google.com/citations?user=HfU4zn8AAAAJ&hl=en" target="_blank" rel="noopener">Ki Jun Yu</a>.',
   },
+  {
+    year: 2021, month: 'Mar', tag: 'position', icon: '📘', affil: 'yonsei',
+    title: 'Started a Double Major in <span class="hl">Electrical and Electronic Engineering</span>',
+    body: 'Added Electrical and Electronic Engineering as a double major at Yonsei University.',
+  },
+  {
+    year: 2020, month: 'Mar', tag: 'position', icon: '🎉', affil: 'yonsei',
+    title: 'Entered <span class="hl">Yonsei University</span> as an Undergraduate Student',
+    body: 'Started undergraduate studies at Yonsei University, South Korea, majoring in Physics.',
+  },
 ];
 
 const NEWS_TAGS = {
