@@ -36,7 +36,7 @@ const RESEARCH = {
   // 두 단면도 패널의 머리: 위 줄 = 응용 분야, 아래 줄 = 학교, note = 패널 오른쪽 위 작은 메모
   eras: {
     yonsei: { title: 'Flexible thin-film electronics', school: 'Yonsei University' },
-    gatech: { title: 'Advanced semiconductor packaging', school: 'Georgia Institute of Technology', note: 'Schematic, not to scale' },
+    gatech: { title: 'Advanced semiconductor packaging', school: 'Georgia Institute of Technology' },
   },
   hint: {
     hover: 'Hover over a topic or a layer to highlight it.',
@@ -50,7 +50,7 @@ const RESEARCH = {
       name: 'Materials and Devices',
       sub: 'Electronic materials and functional devices',
       // 칩을 고르면 그림 아래에 나오는 설명 — 이 갈래를 어떻게 연구하는지 한 문장으로
-      approach: 'Choosing and shaping the materials that decide how a device works, from doped and nanoparticle-decorated silicon nanomembranes for sensing to glass as the core material of a chip package.',
+      approach: 'Choosing and shaping the materials that decide how a device works, from doped and nanoparticle-decorated silicon nanomembranes for sensing to glass as the core material of a chip package and the underfill between chip and interposer.',
       yonsei: {
         summary: 'Single-crystalline silicon nanomembranes (SiNMs) combine the mechanical flexibility of a thin film with the high carrier mobility, stability and uniformity of bulk silicon. Since thickness, doping profile and crystal orientation determine their electrical, piezoresistive and thermal responses, the same silicon platform can be engineered for the sensitivity and stability each application requires.',
       },

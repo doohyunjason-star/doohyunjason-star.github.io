@@ -677,10 +677,13 @@
                     <rect x="336.2" y="189" width="2" height="6.2" class="m-metal" stroke="none"/>
                     <rect x="255.2" y="194" width="83" height="1.2" class="m-metal" stroke="none"/>
                 </g>
-                <!-- 언더필 + µ범프 -->
+                <!-- 언더필 (재료이자 공정): 범프 사이를 채우고, 다이 옆벽을 타고 오르는 오목한 fillet 으로 드러낸다 -->
+                <g class="rs-thread" data-thread="materials fabrication">
+                    <path d="M77,189 Q83.5,188.5 84,175 L84,184 L274,184 L274,173 Q274.5,188.5 286,189 Z" class="m-underfill"/>
+                    <path d="M306,189 Q317.5,188.5 318,174 L318,184 L478,184 L478,175 Q478.5,188.5 486,189 Z" class="m-underfill"/>
+                </g>
+                <!-- µ범프 -->
                 <g class="rs-thread" data-thread="fabrication">
-                    <polygon points="84,184 274,184 280,189 78,189" class="m-poly"/>
-                    <polygon points="318,184 478,184 484,189 312,189" class="m-poly"/>
                     <circle cx="91" cy="186.5" r="2.3" class="m-metal" style="stroke-width:.5"/>
                     <circle cx="102.8" cy="186.5" r="2.3" class="m-metal" style="stroke-width:.5"/>
                     <circle cx="114.6" cy="186.5" r="2.3" class="m-metal" style="stroke-width:.5"/>
@@ -760,20 +763,36 @@
                     <path class="rs-heat" d="M226,106 c-4,-3 4,-6 0,-9 c-4,-3 4,-6 0,-9"/>
                     <path class="rs-heat-head" d="M223,89.5 L226,84.5 L229,89.5 Z"/>
                 </g>
-                <!-- 라벨 (오른쪽 열) -->
-                <g class="rs-thread rs-labels" data-thread="base">
+                <!-- 라벨 (오른쪽 열): 연세 그림처럼 갈래별로 묶어, 주제를 고르면 해당 라벨만 진해진다 -->
+                <g class="rs-thread rs-labels" data-thread="system">
                     <line class="rs-leader" x1="568" y1="86" x2="576" y2="86"/>
                     <text class="rs-label" x="582" y="90" text-anchor="start">system-technology<tspan x="582" dy="1em">co-optimization</tspan></text>
+                </g>
+                <g class="rs-thread rs-labels" data-thread="system">
                     <line class="rs-leader" x1="278" y1="124" x2="576" y2="124"/>
                     <text class="rs-label" x="582" y="128" text-anchor="start">thermal management</text>
+                </g>
+                <g class="rs-thread rs-labels" data-thread="materials system">
                     <line class="rs-leader" x1="472" y1="150" x2="576" y2="150"/>
                     <text class="rs-label" x="582" y="154" text-anchor="start">HBM · TSV stack</text>
-                    <line class="rs-leader" x1="490" y1="186" x2="576" y2="186"/>
-                    <text class="rs-label" x="582" y="190" text-anchor="start">µbump · RDL · TGV</text>
+                </g>
+                <g class="rs-thread rs-labels" data-thread="fabrication">
+                    <line class="rs-leader" x1="486" y1="191" x2="576" y2="191"/>
+                    <text class="rs-label" x="582" y="195" text-anchor="start">µbump · RDL · TGV</text>
+                </g>
+                <g class="rs-thread rs-labels" data-thread="materials">
                     <line class="rs-leader" x1="524" y1="212" x2="576" y2="212"/>
-                    <text class="rs-label" x="582" y="216" text-anchor="start">glass interposer<tspan x="582" dy="1em">laser TGV drilling</tspan></text>
-                    <line class="rs-leader" x1="548" y1="252" x2="576" y2="252"/>
-                    <text class="rs-label" x="582" y="256" text-anchor="start">package substrate</text>
+                    <text class="rs-label" x="582" y="216" text-anchor="start">glass interposer</text>
+                </g>
+                <!-- 둘째 줄은 공정이라 따로 묶는다 (dy 를 em 으로 줘서 모바일에서 글자가 커져도 간격이 맞음, 윗줄과 살짝 띄움) -->
+                <g class="rs-thread rs-labels" data-thread="fabrication">
+                    <text class="rs-label" x="582" y="216" text-anchor="start"><tspan x="582" dy="1.25em">laser processing</tspan></text>
+                </g>
+                <g class="rs-thread rs-labels" data-thread="system">
+                    <line class="rs-leader" x1="548" y1="254" x2="576" y2="254"/>
+                    <text class="rs-label" x="582" y="258" text-anchor="start">package substrate</text>
+                </g>
+                <g class="rs-thread rs-labels" data-thread="system">
                     <line class="rs-leader" x1="560" y1="280" x2="576" y2="280"/>
                     <text class="rs-label" x="582" y="284" text-anchor="start">BGA · PCB</text>
                 </g>
@@ -784,10 +803,18 @@
                   <g class="rs-thread" data-thread="fabrication"><rect class="rs-hit" x="60" y="228" width="460" height="10"/></g>
                   <g class="rs-thread" data-thread="fabrication"><rect class="rs-hit" x="60" y="184" width="426" height="15"/></g>
                   <g class="rs-thread" data-thread="materials"><rect class="rs-hit" x="60" y="199" width="460" height="29"/></g>
-                  <g class="rs-thread" data-thread="fabrication"><rect class="rs-hit" x="495" y="156" width="24" height="72"/></g>
-                  <g class="rs-thread" data-thread="materials"><rect class="rs-hit" x="84" y="140" width="190" height="44"/></g>
+                  <g class="rs-thread" data-thread="fabrication"><rect class="rs-hit" x="495" y="156" width="24" height="72"/></g>                  <g class="rs-thread" data-thread="materials"><rect class="rs-hit" x="84" y="140" width="190" height="44"/></g>
                   <g class="rs-thread" data-thread="materials"><rect class="rs-hit" x="318" y="132" width="160" height="52"/></g>
                   <g class="rs-thread" data-thread="system"><rect class="rs-hit" x="84" y="82" width="190" height="58"/></g>
+                  <!-- 라벨 위 hover 영역 (연세 그림과 같이 라벨에 올려도 해당 주제가 켜짐) -->
+                  <g class="rs-thread" data-thread="system"><rect class="rs-hit" x="576" y="78" width="150" height="30"/></g>
+                  <g class="rs-thread" data-thread="system"><rect class="rs-hit" x="576" y="116" width="150" height="16"/></g>
+                  <g class="rs-thread" data-thread="system"><rect class="rs-hit" x="576" y="142" width="150" height="16"/></g>
+                  <g class="rs-thread" data-thread="fabrication"><rect class="rs-hit" x="576" y="183" width="150" height="16"/></g>
+                  <g class="rs-thread" data-thread="materials"><rect class="rs-hit" x="576" y="204" width="150" height="15"/></g>
+                  <g class="rs-thread" data-thread="fabrication"><rect class="rs-hit" x="576" y="220" width="150" height="18"/></g>
+                  <g class="rs-thread" data-thread="system"><rect class="rs-hit" x="576" y="246" width="150" height="16"/></g>
+                  <g class="rs-thread" data-thread="system"><rect class="rs-hit" x="576" y="272" width="150" height="16"/></g>
               </svg>
             </div>
           </div>
