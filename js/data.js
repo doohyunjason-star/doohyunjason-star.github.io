@@ -138,7 +138,7 @@ const PUBLICATIONS = [
     type: 'review',
     role: 'first',
     affil: 'yonsei',
-    link: 'https://doi.org/10.1016/j.bios.2026.119323',
+    link: 'https://www.sciencedirect.com/science/article/pii/S0956566326009565?dgcid=coauthor',
   },
   {
     year: 2026,
@@ -241,7 +241,7 @@ const PUBLICATIONS = [
     id: 'prep-rgo-gas',
     short: 'rGO-decorated silicon nanomembrane gas sensor', // 짧은 이름
     title: 'rGO-Decorated Silicon Nanomembrane for Hazardous Gas Detection',
-    authors: 'Jongwoon Shin†, ..., **Doohyun J. Lee**, ..., Ki Jun Yu*',
+    authors: 'Min Young Lee†, ..., **Doohyun J. Lee**, ..., Ki Jun Yu*',
     type: 'research',
     role: 'co',
     affil: 'yonsei',
