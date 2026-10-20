@@ -207,8 +207,8 @@
     const years = [...new Set(pubs.map((p) => p.year))];
     $('#pubList').innerHTML =
       years.map((y) => group(`pub-year-${y}`, y, pubs.filter((p) => p.year === y).map(published).join(''))).join('') +
-      (pending.length ? group('pub-pending', 'Submitted &amp; In Preparation', pending.map(pendingItem).join(''), 'pub-year-group--label') : '') +
-      (CONFERENCES.length ? group('pub-conferences', 'Conference Presentations', CONFERENCES.map(confItem).join(''), 'pub-year-group--label') : '');
+      (CONFERENCES.length ? group('pub-conferences', 'Conference Presentations', CONFERENCES.map(confItem).join(''), 'pub-year-group--label') : '') +
+      (pending.length ? group('pub-pending', 'Submitted &amp; In Preparation', pending.map(pendingItem).join(''), 'pub-year-group--label') : '');
 
     // 통계 패널
     $('#stat-total').textContent = stats.total;
