@@ -241,7 +241,7 @@ const PUBLICATIONS = [
     id: 'prep-rgo-gas',
     short: 'rGO-decorated silicon nanomembrane gas sensor', // 짧은 이름
     title: 'rGO-Decorated Silicon Nanomembrane for Hazardous Gas Detection',
-    authors: 'Min Young Lee†, ..., **Doohyun J. Lee**, ..., Ki Jun Yu*',
+    authors: 'Jongwoon Shin†, ..., **Doohyun J. Lee**, ..., Ki Jun Yu*',
     type: 'research',
     role: 'co',
     affil: 'yonsei',
