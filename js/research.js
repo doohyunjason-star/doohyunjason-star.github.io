@@ -89,6 +89,7 @@
       .map((t) => `<button class="nj-chip rs-chip" type="button" data-thread="${t.id}" aria-pressed="false">${escapeHtml(t.name)}</button>`)
       .join('');
     $('#rsCaption').textContent = noHover.matches ? R.hint.touch : R.hint.hover;
+    $('#rsCaption').classList.add('rs-caption--hint');
 
     // 주제별 행 — 두 칸 모두 문장(summary). 연세 칸에 refs/prep 이 있으면 목록(3건 + 펼치기)도 붙인다
     $('#rsThreads').innerHTML = R.threads
@@ -142,6 +143,7 @@
         ? `<strong>${escapeHtml(t.name)}</strong>. ${escapeHtml(t.approach)} ` +
           `<button class="rs-jump" type="button" data-jump="${t.id}">${escapeHtml(t.name)} in detail</button>`
         : hint();
+      $('#rsCaption').classList.toggle('rs-caption--hint', !t);   // 안내 문구만 가운데 정렬 (주제 설명은 왼쪽 정렬 그대로)
     };
     const preview = (id) => { if (!pinned) setActive(id); };
     const restore = () => { if (!pinned) setActive(null); };

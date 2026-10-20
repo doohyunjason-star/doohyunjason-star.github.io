@@ -14,6 +14,7 @@
   --rs-light: #B39DEB;                  /* 레이저·노광 빛: 보라 (UV 노광) */
   --rs-ink: #4B525C;                      /* 외곽선 · 라벨 */
   --rs-bg: #FFFFFF;                       /* 라벨 뒤 후광 */
+  --rs-wash: 14%;                         /* 주제 행 hover 시 칸에 번지는 소속 색 농도 */
 }
 :root[data-theme="dark"] {
   --rs-si: #8391A3;
@@ -28,6 +29,7 @@
   --rs-light: #B8A6EE;
   --rs-ink: #B8B2AB;
   --rs-bg: #171B21;
+  --rs-wash: 26%;
 }
 
 /* Stage — 두 단면도를 담는 카드. 왼쪽 연세(3), 오른쪽 조지아텍(7), 바닥선을 맞춰 나란히 */
@@ -155,6 +157,7 @@
 .rs-chip { justify-content: center; text-align: center; padding-top: 10px; padding-bottom: 8px; }
 .rs-chip.is-active { color: var(--accent); border-bottom-color: var(--accent); }
 .rs-caption { grid-column: 1 / -1; min-height: 3em; font-size: 0.86rem; line-height: 1.5; color: var(--text-secondary); }
+.rs-caption--hint { display: flex; align-items: center; justify-content: center; text-align: center; }   /* 'Hover over a topic…' 안내 문구: 설명용으로 잡아 둔 높이(3em)의 가운데에 */
 .rs-caption strong { color: var(--text-primary); }
 .rs-jump {
   font: inherit;
@@ -183,11 +186,35 @@
   scroll-margin-top: calc(var(--header-height) + 16px);   /* 캡션의 'in detail' 로 이동했을 때 헤더에 가리지 않게 */
   transition: transform 0.4s var(--ease), box-shadow 0.4s ease, border-color 0.4s ease;
 }
-.rs-row:hover, .rs-row[data-reveal].is-visible:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--accent-light); }
+.rs-row:hover, .rs-row[data-reveal].is-visible:hover { transform: translateY(-4px); box-shadow: 0 14px 36px rgba(0, 0, 0, 0.08); border-color: var(--accent-light); }
 .rs-row-name { font-size: 1.1rem; font-weight: 700; line-height: 1.3; }
 .rs-row-name:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
 .rs-row-sub { margin-top: 6px; font-size: 0.84rem; line-height: 1.5; color: var(--text-muted); }
-.rs-cell { min-width: 0; padding-left: 16px; border-left: 3px solid var(--affil-color-start, var(--border)); }
+/* 칸: 왼쪽 소속 색 선(::before) + 그 선에서 번지는 옅은 소속 색(::after, 글자 뒤).
+   색 번짐과 선의 빛은 평소에도 켜 두고, 행에 올리면 두 칸이 같은 세기로 조금 더 진해진다 */
+.rs-cell { position: relative; isolation: isolate; min-width: 0; padding-left: 19px; }
+.rs-cell::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  border-radius: 3px;
+  background: var(--affil-color-start, var(--border));
+  box-shadow: 0 0 10px var(--affil-shadow, transparent);
+  transition: box-shadow 0.45s ease;
+}
+.rs-cell::after {
+  content: '';
+  position: absolute;
+  inset: 0 -12px 0 0;   /* 위아래를 세로선과 같은 길이로 맞춰, 선 밖으로 각진 모서리가 튀어나오지 않게 */
+  z-index: -1;
+  border-radius: 3px var(--radius-sm) var(--radius-sm) 3px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--affil-color-start, transparent) var(--rs-wash), transparent), transparent 80%);
+  opacity: 0.75;
+  transition: opacity 0.45s ease;
+}
+.rs-row:hover .rs-cell::before { box-shadow: 0 0 14px var(--affil-shadow, transparent); }
+.rs-row:hover .rs-cell::after { opacity: 1; }
 .rs-cell-label { display: block; margin-bottom: 8px; font-size: 1.08rem; font-weight: 700; line-height: 1.35; color: var(--affil-color-start, var(--text-muted)); }
 .rs-cell-summary { font-size: 0.98rem; line-height: 1.65; color: var(--text-primary); }
 .rs-refs { list-style: none; display: grid; gap: 8px; margin-top: 12px; }
