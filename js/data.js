@@ -269,6 +269,61 @@ const PUBLICATIONS = [
 ];
 
 /* ==========================================================================
+   게재 저널 지표 (Publications 페이지 하단 'Publication Venues' 카드)
+   --------------------------------------------------------------------------
+   jcrRelease : 출처 표기에 쓰는 JCR 발행 연도 ("Source: Clarivate JCR 2026")
+   years      : 추이 그래프의 가로축 (고정 5칸)
+   journals[] : name     — 저널명
+                quartile — 'Q1' | 'Q2' | 'Q3' | 'Q4' (최고 분위)
+                category — 해당 분위의 JCR 카테고리
+                jif      — years 와 같은 순서의 JIF. 문자열 그대로 표시되므로
+                           '15.0' 처럼 자릿수를 유지해 적고, 없는 해는 null
+   카드는 가장 최근 해 JIF 가 큰 순서로 자동 정렬됩니다 (배열 순서 무관).
+   ========================================================================== */
+const JOURNAL_METRICS = {
+  jcrRelease: 2026,
+  years: [2021, 2022, 2023, 2024, 2025],
+  journals: [
+    {
+      name: 'International Journal of Extreme Manufacturing',
+      quartile: 'Q1',
+      category: 'Engineering, Manufacturing',
+      jif: ['10.036', '14.7', '16.1', '21.3', '25.1'],
+    },
+    {
+      name: 'Science Advances',
+      quartile: 'Q1',
+      category: 'Multidisciplinary Sciences',
+      jif: ['14.98', '13.6', '11.7', '12.5', '13.9'],
+    },
+    {
+      name: 'Biosensors and Bioelectronics',
+      quartile: 'Q1',
+      category: 'Biophysics',
+      jif: ['12.545', '12.6', '10.7', '10.5', '11.8'],
+    },
+    {
+      name: 'Applied Physics Reviews',
+      quartile: 'Q1',
+      category: 'Physics, Applied',
+      jif: ['19.527', '15.0', '11.9', '11.6', '10.8'],
+    },
+    {
+      name: 'Device',
+      quartile: 'Q1',
+      category: 'Materials Science, Multidisciplinary',
+      jif: [null, null, null, '8.0', '9.0'],
+    },
+    {
+      name: 'Biomedical Engineering Letters',
+      quartile: 'Q2',
+      category: 'Engineering, Biomedical',
+      jif: ['3.9', '4.6', '3.2', '2.8', '3.4'],
+    },
+  ],
+};
+
+/* ==========================================================================
    학회 발표 — 배열 순서대로 표시 (Publications 페이지 하단, 발표 수는 자동 집계)
    --------------------------------------------------------------------------
    format : 'poster' | 'oral'

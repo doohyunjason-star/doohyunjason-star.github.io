@@ -226,6 +226,86 @@
     $('#barsType').innerHTML = row('research', 'Research', stats.research) + row('review', 'Review', stats.review);
   }
 
+  /* Publication Venues — 저널별 JIF 카드. 값은 data.js 의 문자열을 그대로 표시하고,
+     추이 그래프는 inline SVG 로 그린다 (가로축 5칸 고정, 값 없는 해는 건너뜀). */
+  function renderJournalMetrics() {
+    const grid = $('#journalMetrics');
+    if (!grid || typeof JOURNAL_METRICS === 'undefined') return;
+    const { years, journals, jcrRelease } = JOURNAL_METRICS;
+
+    // SVG 좌표계: 118×58, 점은 x=5…113 등간격, 그래프 영역 y=6…44, 연도 글자 y=55
+    const W = 118, H = 58, X0 = 5, X1 = 113, TOP = 6, BASE = 44;
+    const xAt = (i) => X0 + ((X1 - X0) * i) / (years.length - 1);
+    const f1 = (n) => n.toFixed(1);
+
+    const chart = (jif) => {
+      const pts = years
+        .map((y, i) => ({ year: y, raw: jif[i], v: parseFloat(jif[i]), x: xAt(i) }))
+        .filter((p) => p.raw != null && Number.isFinite(p.v));
+      if (!pts.length) return '';
+      const vals = pts.map((p) => p.v);
+      const max = Math.max(...vals), min = Math.min(...vals);
+      const span = Math.max(max - min, 0.25 * max, 0.1);
+      const lo = Math.max(0, min - 0.45 * span);
+      const hi = max + 0.1 * span;
+      const yAt = (v) => TOP + ((hi - v) / (hi - lo)) * (BASE - TOP);
+      const line = pts.map((p) => `${f1(p.x)},${f1(yAt(p.v))}`).join(' ');
+      const first = pts[0], last = pts[pts.length - 1];
+      const area = `${f1(first.x)},${BASE} ${line} ${f1(last.x)},${BASE}`;
+      const dots = pts
+        .map((p, i) => {
+          const isLast = i === pts.length - 1;
+          return `<circle class="jif-chart-dot${isLast ? ' jif-chart-dot--last' : ''}" cx="${f1(p.x)}" cy="${f1(yAt(p.v))}" r="${isLast ? 3.6 : 2}"><title>JIF ${p.year}: ${escapeHtml(p.raw)}</title></circle>`;
+        })
+        .join('');
+      return `
+          <svg class="jif-chart" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Journal Impact Factor trend, ${years[0]} to ${years[years.length - 1]}">
+            <polygon class="jif-chart-area" points="${area}"></polygon>
+            <polyline class="jif-chart-line" points="${line}"></polyline>
+            ${dots}
+            <text class="jif-chart-year" x="${X0}" y="55" text-anchor="start">${years[0]}</text>
+            <text class="jif-chart-year" x="${X1}" y="55" text-anchor="end">${years[years.length - 1]}</text>
+          </svg>`;
+    };
+
+    // 가장 최근 해의 JIF (null 이나 숫자가 아닌 값이면 그 앞 해로 거슬러 올라감 — 그래프와 같은 기준)
+    const jifOf = (j) => (Array.isArray(j.jif) ? j.jif : []);
+    const latest = (j) => {
+      const jif = jifOf(j);
+      for (let i = years.length - 1; i >= 0; i--) {
+        if (jif[i] != null && Number.isFinite(parseFloat(jif[i]))) return { year: years[i], raw: jif[i], v: parseFloat(jif[i]) };
+      }
+      return null;
+    };
+    const card = (j) => {
+      const cur = latest(j);
+      const q = String(j.quartile || '').toLowerCase();
+      return `
+        <article class="jif-card" data-venue="${escapeHtml(j.name)}" role="button" tabindex="0" aria-pressed="false"
+                 aria-label="${escapeHtml(j.name)} — jump to papers in this journal">
+          <h3 class="jif-name">${escapeHtml(j.name)}</h3>
+          <div class="jif-quartile">
+            <div class="jif-q jif-q--${q}">${escapeHtml(j.quartile)}</div>
+            <div class="jif-category">
+              <div class="jif-category-name">${escapeHtml(j.category)}</div>
+              <div class="jif-category-note">best quartile</div>
+            </div>
+          </div>
+          <div class="jif-trend">
+            <div class="jif-latest">
+              <div class="jif-latest-label">${cur ? `JIF ${cur.year}` : 'JIF'}</div>
+              <div class="jif-latest-value">${cur ? escapeHtml(cur.raw) : '–'}</div>
+            </div>
+            ${chart(jifOf(j))}
+          </div>
+          <div class="jif-source">Source: Clarivate JCR ${jcrRelease}</div>
+        </article>`;
+    };
+
+    const byLatest = (a, b) => ((latest(b) || {}).v || 0) - ((latest(a) || {}).v || 0);
+    grid.innerHTML = [...journals].sort(byLatest).map(card).join('');
+  }
+
   /* News — trajectory 레이아웃. 소속이 바뀌는 지점마다 era 패널을 열고, 왼쪽 spine 을 따라 카드가 한 열로 흐른다.
      카드는 접이식. */
   function renderNews() {
@@ -615,6 +695,141 @@
 
   }
 
+  /* 논문 ↔ 저널 카드 연결 hover. 논문 항목 위에 올리면 그 저널의 JIF 카드가,
+     카드 위에 올리면 그 저널에 실린 논문이 강조된다. 저널명은 .pub-venue 텍스트로 맞춘다. */
+  function bindJournalMetricInteractions() {
+    const cards = $$('#journalMetrics .jif-card');
+    if (!cards.length) return;
+    const venueOf = (item) => {
+      const t = (item.querySelector('.pub-venue') || {}).textContent || '';
+      return t.replace(/^Submitted to\s+/, '').replace(/,\s*\d{4}\s*$/, '').trim();
+    };
+    const cardOf = (item) => cards.find((c) => c.dataset.venue === venueOf(item));
+    const items = pubItems();
+    const hint = $('#jifHint');
+    const HINT_IDLE = 'Click a journal to jump to its papers.';
+    const HINT_ACTIVE = 'Click the journal again, press Esc, or click elsewhere to clear.';
+
+    // 클릭으로 고정된 저널 (카드 is-active, 나머지 is-dim; 그 저널의 논문은 venue-active)
+    let activeVenue = null;
+    const paintVenue = () => {
+      cards.forEach((c) => {
+        const on = c.dataset.venue === activeVenue;
+        c.classList.toggle('is-active', on);
+        c.classList.toggle('is-dim', Boolean(activeVenue) && !on);
+        c.classList.remove('is-linked');
+        c.setAttribute('aria-pressed', on);
+      });
+      items.forEach((item) => item.classList.toggle('venue-active', Boolean(activeVenue) && venueOf(item) === activeVenue));
+      if (hint) hint.textContent = activeVenue ? HINT_ACTIVE : HINT_IDLE;
+    };
+    const clearVenue = () => { if (activeVenue) { activeVenue = null; paintVenue(); } };
+    const scrollToItem = (item) => {
+      const header = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 0;
+      const top = window.scrollY + item.getBoundingClientRect().top - header - 28;
+      window.scrollTo({ top: Math.max(0, top), behavior: reducedMotion.matches ? 'auto' : 'smooth' });
+    };
+    const activate = (card) => {
+      const venue = card.dataset.venue;
+      if (activeVenue === venue) { clearVenue(); return; }
+      if (hasFilter()) clearFilter(); // 통계 필터와 동시에 켜지 않는다
+      activeVenue = venue;
+      paintVenue();
+      const first = items.find((item) => venueOf(item) === venue);
+      if (first) scrollToItem(first);
+    };
+
+    // hover — 고정 상태가 있으면 hover 가 끝날 때 그 상태로 되돌린다
+    items.forEach((item) => {
+      item.addEventListener('mouseenter', () => {
+        const hit = cardOf(item);
+        if (!hit) return; // 학회 발표·준비 중 원고 등 카드가 없는 항목은 그대로 둔다
+        cards.forEach((c) => {
+          c.classList.toggle('is-linked', c === hit);
+          c.classList.toggle('is-dim', c !== hit);
+        });
+      });
+      item.addEventListener('mouseleave', () => {
+        if (activeVenue) paintVenue();
+        else cards.forEach((c) => c.classList.remove('is-linked', 'is-dim'));
+      });
+    });
+    cards.forEach((c) => {
+      c.addEventListener('mouseenter', () => {
+        if (hasFilter()) return;
+        items.forEach((item) => item.classList.toggle('affil-hover', venueOf(item) === c.dataset.venue));
+      });
+      c.addEventListener('mouseleave', () => {
+        if (hasFilter()) return;
+        items.forEach((item) => item.classList.remove('affil-hover'));
+      });
+      // 클릭 / Enter / Space → 그 저널의 첫 논문으로 스크롤하고 강조 고정
+      c.addEventListener('click', (e) => { e.stopPropagation(); activate(c); });
+      c.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(c); }
+      });
+    });
+    // 해제: 카드 바깥 클릭, Esc, 통계 행 클릭(필터 시작)
+    document.addEventListener('click', (e) => { if (!e.target.closest('.jif-card')) clearVenue(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') clearVenue(); });
+    barRows().forEach((r) => r.addEventListener('click', clearVenue));
+  }
+
+  /* 오른쪽 열(#pubSide) 스티키. 열이 화면보다 짧으면 CSS sticky 그대로 두고,
+     길면 스크롤 방향에 맞춰 — 내려갈 때는 열의 아래끝이, 올라갈 때는 위끝이 — 화면에 붙도록 한다.
+     방향이 바뀌는 순간에는 position:relative 로 현재 위치에 고정해 두었다가 반대쪽 끝이 닿으면 다시 붙인다. */
+  function bindStickySidebar() {
+    const side = $('#pubSide');
+    if (!side) return;
+    const layout = side.parentElement;
+    const desktop = window.matchMedia('(min-width: 769px)');
+    const gap = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) + 28;
+
+    let lastY = window.scrollY;
+    let mode = 'top'; // 'top' | 'bottom' | 'free'
+
+    const set = (m, top) => {
+      mode = m;
+      side.style.position = m === 'free' ? 'relative' : 'sticky';
+      side.style.top = `${Math.round(top)}px`;
+    };
+    const reset = () => {
+      mode = 'top';
+      side.style.position = '';
+      side.style.top = '';
+    };
+
+    // 스크롤마다 동기로 실행 — 측정은 getBoundingClientRect 두 번뿐이라 가볍고, 한 프레임 늦게 붙는 일이 없다
+    function update() {
+      const y = window.scrollY;
+      const dir = y > lastY ? 'down' : y < lastY ? 'up' : null;
+      lastY = y;
+      if (!desktop.matches || !side.offsetParent) { if (side.style.position) reset(); return; }
+
+      const off = gap();
+      const vh = window.innerHeight;
+      const h = side.offsetHeight;
+      if (h + off <= vh) { if (side.style.position) reset(); return; } // 화면에 다 들어오면 CSS sticky 로 충분
+      if (!dir) return;
+
+      const rect = side.getBoundingClientRect();
+      const base = layout.getBoundingClientRect().top; // 열의 자연 위치 (relative 의 기준점)
+      if (dir === 'down') {
+        if (mode === 'bottom') return;
+        if (rect.bottom <= vh + 0.5) set('bottom', vh - h);
+        else if (mode !== 'free') set('free', rect.top - base);
+      } else {
+        if (mode === 'top') return;
+        if (rect.top >= off - 0.5) set('top', off);
+        else if (mode !== 'free') set('free', rect.top - base);
+      }
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', () => { reset(); lastY = window.scrollY; update(); });
+    window.addEventListener('hashchange', () => { reset(); lastY = window.scrollY; });
+    if ('ResizeObserver' in window) new ResizeObserver(() => { reset(); lastY = window.scrollY; }).observe(side);
+  }
+
   /* ---------- 6. Reveal 애니메이션 ---------- */
   const revealObserver = new IntersectionObserver(
     (entries) => {
@@ -891,9 +1106,12 @@
   renderInterests();
   renderSnapshot();
   renderPublications();
+  renderJournalMetrics();
   renderNews();
   renderCV();
   bindPublicationInteractions();
+  bindJournalMetricInteractions();
+  bindStickySidebar();
   bindNewsInteractions();
 
   $('#themeToggle').setAttribute(

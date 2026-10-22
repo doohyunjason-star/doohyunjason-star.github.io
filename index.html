@@ -859,6 +859,8 @@
             <!-- data.js → PUBLICATIONS -->
           </div>
 
+          <!-- 오른쪽 열 전체가 한 덩어리로 스크롤을 따라다닌다 (main.js → bindStickySidebar) -->
+          <div class="pub-side" id="pubSide">
           <aside
             class="pub-stats"
             id="pubStats"
@@ -891,6 +893,17 @@
               </p>
             </div>
           </aside>
+
+          <section class="jif-stack" aria-label="Publication venues">
+            <h3 class="jif-stack-title">Publication Venues</h3>
+            <div class="jif-grid" id="journalMetrics">
+              <!-- data.js → JOURNAL_METRICS (main.js 가 최신 JIF 순으로 정렬해 그림) -->
+            </div>
+            <p class="jif-stack-hint" id="jifHint" aria-live="polite">
+              Click a journal to jump to its papers.
+            </p>
+          </section>
+          </div>
         </div>
       </section>
 

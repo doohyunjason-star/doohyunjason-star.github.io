@@ -803,7 +803,8 @@ main {
   transition: transform 0.5s var(--ease), box-shadow 0.6s ease, border-color 0.6s ease, background-size 0.8s ease, opacity 0.5s ease;
 }
 .pub-item:hover,
-.pub-item.affil-hover {
+.pub-item.affil-hover,
+.pub-item.venue-active { /* venue-active: 저널 카드 클릭으로 고정된 강조 (hover 가 끝나도 유지) */
   transform: translateY(-4px);
   box-shadow: 0 8px 30px var(--affil-shadow, rgba(0, 0, 0, 0.1));
   background-image: radial-gradient(circle at 100% 100%, var(--affil-color-end, transparent) 0%, var(--bg-card) 70%);
@@ -858,7 +859,8 @@ main {
 .pub-authors .me { font-weight: 700; font-size: 1.05rem; color: var(--text-secondary); transition: color 0.8s ease; }
 .pub-authors .me sup { color: inherit; transition: color 0.8s ease; }
 .pub-item:hover .pub-authors .me,
-.pub-item.affil-hover .pub-authors .me { color: var(--affil-color-start, var(--accent)); }
+.pub-item.affil-hover .pub-authors .me,
+.pub-item.venue-active .pub-authors .me { color: var(--affil-color-start, var(--accent)); }
 
 .pub-venue { font-size: 0.82rem; font-style: italic; color: var(--text-muted); }
 
@@ -919,15 +921,18 @@ main {
   white-space: nowrap;
 }
 .pub-item:hover .pub-affil,
-.pub-item.affil-hover .pub-affil {
+.pub-item.affil-hover .pub-affil,
+.pub-item.venue-active .pub-affil {
   background: var(--affil-badge, var(--accent));
   border-color: var(--affil-badge, var(--accent));
   color: #fff;
 }
 .pub-item:hover .pub-affil::after,
-.pub-item.affil-hover .pub-affil::after { content: none; }
+.pub-item.affil-hover .pub-affil::after,
+.pub-item.venue-active .pub-affil::after { content: none; }
 .pub-item:hover .pub-affil-label,
-.pub-item.affil-hover .pub-affil-label { position: static; width: auto; height: auto; overflow: visible; clip: auto; }
+.pub-item.affil-hover .pub-affil-label,
+.pub-item.venue-active .pub-affil-label { position: static; width: auto; height: auto; overflow: visible; clip: auto; }
 /* 터치 기기: hover 가 없으므로 처음부터 학교명 표시 */
 @media (hover: none) {
   .pub-affil::after { content: none; }
@@ -1052,6 +1057,123 @@ main {
   margin-top: 10px;
   line-height: 1.5;
 }
+
+/* 오른쪽 열(통계 패널 + 저널 카드)을 한 덩어리로 묶는 스티키 래퍼.
+   열이 화면보다 길면 main.js 가 스크롤 방향에 따라 위·아래 어느 쪽을 붙일지 top 을 바꿔 준다. */
+.pub-side {
+  position: sticky;
+  top: calc(var(--header-height) + 28px);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.pub-side .pub-stats { position: static; }
+
+/* Publication Venues — 저널별 JIF 카드 (data.js → JOURNAL_METRICS, main.js → renderJournalMetrics) */
+.jif-stack-title {
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+.jif-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-start;
+}
+.pub-side .jif-grid { flex-direction: column; flex-wrap: nowrap; gap: 12px; align-items: stretch; }
+.pub-side .jif-card { width: 100%; }
+.jif-card {
+  flex: none;
+  width: 212px;
+  box-sizing: border-box;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  text-align: left;
+  font-variant-numeric: tabular-nums;
+  transition: transform 0.4s var(--ease), border-color 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease;
+}
+/* 논문 항목 hover → 그 저널 카드에 불이 들어오고 나머지는 한 단계 물러난다 (통계 행의 stat-highlight / stat-dim 과 같은 리듬).
+   카드 클릭(is-active) → 그 저널의 논문으로 스크롤하고 강조를 고정 */
+.jif-card { cursor: pointer; }
+.jif-card:hover,
+.jif-card.is-linked,
+.jif-card.is-active {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-accent);
+}
+.jif-card.is-active { background: rgba(var(--accent-rgb), 0.04); }
+.jif-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.jif-card.is-dim { opacity: 0.35; }
+.jif-stack-hint {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 10px;
+  line-height: 1.5;
+}
+.jif-name {
+  box-sizing: content-box; /* min-height 가 두 줄 높이(34px)를 뜻하도록 — 카드 높이를 맞춘다 */
+  padding: 10px 12px 8px;
+  min-height: 34px;
+  margin: 0;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.jif-quartile { display: flex; height: 76px; }
+.jif-q {
+  flex: none;
+  width: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  font-weight: 300;
+  letter-spacing: -1px;
+  color: #fff;
+}
+.jif-q--q1 { background: #8cbf55; }
+.jif-q--q2 { background: #e3cf4f; color: #3a3a3a; }
+.jif-q--q3 { background: #ee9d55; }
+.jif-q--q4 { background: #d9584b; }
+.jif-category {
+  flex: 1;
+  min-width: 0;
+  background: var(--bg);
+  padding: 7px 9px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.jif-category-name { font-size: 11.5px; line-height: 1.3; color: var(--text-secondary); }
+.jif-category-note { font-size: 10.5px; color: var(--text-muted); text-align: right; }
+.jif-trend {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 9px 10px 0 12px;
+}
+.jif-latest { flex: none; padding-bottom: 12px; }
+.jif-latest-label { font-size: 11px; font-weight: 700; }
+.jif-latest-value { font-size: 25px; font-weight: 300; line-height: 1.1; }
+.jif-chart { display: block; flex: none; overflow: visible; }
+.jif-chart-area { fill: #e9b89a; }
+:root[data-theme="dark"] .jif-chart-area { fill-opacity: 0.6; }
+.jif-chart-line { fill: none; stroke: #d0773f; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.jif-chart-dot { fill: #d0773f; }
+.jif-chart-dot--last { stroke: var(--bg-card); stroke-width: 1.2; }
+.jif-chart-year { font-size: 9px; fill: var(--text-muted); }
+.jif-source { padding: 4px 12px 8px; font-size: 10px; color: var(--text-muted); text-align: right; }
 
 
 /* ---------- 6. Personal / CV ---------- */
@@ -1662,6 +1784,11 @@ main {
 
   .pub-layout { grid-template-columns: 1fr; gap: 28px; }
   .pub-stats { position: static; order: -1; }
+  /* 모바일: 래퍼를 풀어 통계 패널은 목록 위, 저널 카드는 목록 아래에 놓는다 */
+  .pub-side { display: contents; }
+  .jif-stack { order: 1; margin-top: 12px; }
+  .pub-side .jif-grid { flex-direction: row; flex-wrap: wrap; gap: 16px; align-items: flex-start; }
+  .pub-side .jif-card { width: 212px; }
   .pub-item { padding: 20px; }
   .pub-year { font-size: 2rem; }
 
@@ -1750,4 +1877,7 @@ main {
   .pub-carousel { display: none; }
   .pub-layout { grid-template-columns: 1fr; }
   .pub-stats { position: static; }
+  .pub-side { position: static; display: block; }
+  .jif-card { break-inside: avoid; box-shadow: none; }
+  .jif-q { -webkit-print-color-adjust: exact; print-color-adjust: exact; } /* 분위 칸의 배경색이 빠지면 흰 글씨가 사라진다 */
 }
