@@ -76,7 +76,12 @@ const INTERESTS = [
     background: 'assets/img/packaging.webp',
     short:
       'Semiconductor advanced packaging and heterogeneous integration technologies — design, fabrication, and reliability of emerging package platforms.',
-    keywords: [['Signal Integrity', 'Power Integrity'], 'Interconnect Design', 'Package Reliability'],
+    keywords: [
+      '2.5D/3D Heterogeneous Integration',
+      'System-Technology Co-Optimization (STCO)',
+      'Interconnect Technology',
+      ['Signal Integrity', 'Power Integrity'],
+    ],
   },
   {
     id: 'optics',
@@ -85,7 +90,7 @@ const INTERESTS = [
     background: 'assets/img/optics.webp',
     short:
       'Microscale thermal management and glass-based packaging platforms for next-generation high-performance electronic systems.',
-    keywords: ['Glass Core Substrates', 'Through-Glass Vias', 'Microfluidic Cooling', 'High-Performance Computing'],
+    keywords: ['Thermal Management', 'Glass Core Substrates', 'Glass Interposers', 'Through-Glass Vias'],
   },
   {
     id: 'flexible',
@@ -94,7 +99,7 @@ const INTERESTS = [
     background: 'assets/img/flexible.webp',
     short:
       'Heterogeneous integration of electronic materials for thin-film devices and bio-integrated electronics.',
-    keywords: ['Silicon Nanomembranes', 'Thin-Film Transistors', 'Bio-Integrated Electronics', 'Wearable Electronics'],
+    keywords: ['Silicon Nanomembranes', 'Thin-Film Devices', 'Bio-Integrated Electronics', 'Wearable Electronics'],
   },
 ];
 
