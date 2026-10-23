@@ -982,6 +982,27 @@ main {
   text-transform: uppercase;
   color: var(--text-muted);
 }
+/* Overview 숫자 슬롯머신 — 탭이 열릴 때 자릿수마다 0부터 위로 굴러 올라가 목표 숫자에 멈춘다 (main.js → bindStatReels).
+   멈출 때 살짝 지나쳤다 되돌아오는 settle 은 bezier 의 overshoot(1.08) 로 만든다 */
+/* Overview 항목 클릭 → 목록으로 이동 (main.js → bindStatJumps). hover 시 라벨이 accent 로, 숫자가 살짝 뜬다 */
+.pub-stat-item--link { cursor: pointer; border-radius: 6px; }
+.pub-stat-item--link .pub-stat-value { transition: transform 0.3s var(--ease); }
+.pub-stat-item--link .pub-stat-label { transition: color 0.3s ease; }
+.pub-stat-item--link:hover .pub-stat-value,
+.pub-stat-item--link:focus-visible .pub-stat-value { transform: translateY(-2px); }
+.pub-stat-item--link:hover .pub-stat-label,
+.pub-stat-item--link:focus-visible .pub-stat-label { color: var(--accent); }
+.pub-stat-item--link:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+.has-reel { line-height: 1; } /* 릴 창(1em)과 줄 높이를 맞춰 숫자가 행 가운데에 오게 */
+.reel { display: inline-flex; vertical-align: top; }
+.reel-digit { display: block; height: 1em; overflow: hidden; }
+.reel-strip { display: block; transform: translateY(0); will-change: transform; }
+.reel-strip > span { display: block; height: 1em; line-height: 1; }
+.reel-digit.is-spun .reel-strip {
+  transition: transform var(--reel-dur, 2.3s) cubic-bezier(0.16, 0.9, 0.3, 1.08) var(--reel-delay, 0s);
+}
+.reel-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
 /* 하위: 세부 분석 — 여백과 얇은 선 하나로만 분리 */
 .pub-breakdown {
@@ -1170,8 +1191,41 @@ main {
 .jif-chart-area { fill: #e9b89a; }
 :root[data-theme="dark"] .jif-chart-area { fill-opacity: 0.6; }
 .jif-chart-line { fill: none; stroke: #d0773f; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
-.jif-chart-dot { fill: #d0773f; }
+.jif-chart-dot { fill: #d0773f; transition: r 0.15s ease; }
 .jif-chart-dot--last { stroke: var(--bg-card); stroke-width: 1.2; }
+/* 최신 해 점 — 고리가 퍼져 나가며 사라지는 펄스로 깜빡인다 */
+.jif-chart-pulse {
+  fill: none;
+  stroke: #d0773f;
+  stroke-width: 1.5;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: jif-pulse 1.4s ease-out infinite;
+}
+@keyframes jif-pulse {
+  0%   { transform: scale(1);   opacity: 0.9; }
+  70%  { transform: scale(2.8); opacity: 0; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .jif-chart-pulse { display: none; } }
+/* 점 hover → 점이 커지고 "연도 · 값" 라벨이 뜬다. 라벨은 카드 배경색 halo 로 선·면 위에서도 읽힌다 */
+.jif-chart-hit { fill: transparent; }
+.jif-pt:hover .jif-chart-dot { r: 3.4; }
+.jif-pt:hover .jif-chart-dot--last { r: 4.4; }
+.jif-tip {
+  font-size: 9px;
+  font-weight: 700;
+  fill: var(--text-primary);
+  paint-order: stroke;
+  stroke: var(--bg-card);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+.jif-tip-year { font-weight: 500; fill: var(--text-muted); }
+.jif-pt:hover .jif-tip { opacity: 1; }
 .jif-chart-year { font-size: 9px; fill: var(--text-muted); }
 .jif-source { padding: 4px 12px 8px; font-size: 10px; color: var(--text-muted); text-align: right; }
 

@@ -237,6 +237,11 @@
     const W = 118, H = 58, X0 = 5, X1 = 113, TOP = 6, BASE = 44;
     const xAt = (i) => X0 + ((X1 - X0) * i) / (years.length - 1);
     const f1 = (n) => n.toFixed(1);
+    // 표시용 JIF: 소수점 둘째 자리에서 반올림해 x.x 로 (10.036 → 10.0, 14.98 → 15.0). 정렬·그래프는 원래 값 사용
+    const fmtJif = (raw) => {
+      const v = parseFloat(raw);
+      return Number.isFinite(v) ? (Math.round(v * 10) / 10).toFixed(1) : String(raw);
+    };
 
     const chart = (jif) => {
       const pts = years
@@ -252,10 +257,25 @@
       const line = pts.map((p) => `${f1(p.x)},${f1(yAt(p.v))}`).join(' ');
       const first = pts[0], last = pts[pts.length - 1];
       const area = `${f1(first.x)},${BASE} ${line} ${f1(last.x)},${BASE}`;
+      // 점마다 연도 열 전체를 덮는 투명 히트 띠 + hover 라벨("연도 · 값"). 라벨은 점 위에, 점이 너무 높으면 아래에;
+      // 양 끝 점은 라벨이 SVG 밖으로 나가지 않도록 정렬을 바꾼다
+      const step = (X1 - X0) / (years.length - 1); // 연도 간 가로 간격 → 히트 띠 너비
       const dots = pts
         .map((p, i) => {
           const isLast = i === pts.length - 1;
-          return `<circle class="jif-chart-dot${isLast ? ' jif-chart-dot--last' : ''}" cx="${f1(p.x)}" cy="${f1(yAt(p.v))}" r="${isLast ? 3.6 : 2}"><title>JIF ${p.year}: ${escapeHtml(p.raw)}</title></circle>`;
+          const cx = f1(p.x), cy = f1(yAt(p.v));
+          const hx0 = Math.max(0, p.x - step / 2), hx1 = Math.min(W, p.x + step / 2);
+          const anchor = p.x < 28 ? 'start' : p.x > W - 28 ? 'end' : 'middle';
+          const tx = anchor === 'start' ? p.x - 4 : anchor === 'end' ? p.x + 4 : p.x;
+          const above = yAt(p.v) >= 16;
+          const ty = above ? yAt(p.v) - 7 : yAt(p.v) + 13;
+          return `
+            <g class="jif-pt" role="img" aria-label="JIF ${p.year}: ${fmtJif(p.raw)}">
+              <rect class="jif-chart-hit" x="${f1(hx0)}" y="0" width="${f1(hx1 - hx0)}" height="${H}"></rect>
+              ${isLast ? `<circle class="jif-chart-pulse" cx="${cx}" cy="${cy}" r="3.6"></circle>` : ''}
+              <circle class="jif-chart-dot${isLast ? ' jif-chart-dot--last' : ''}" cx="${cx}" cy="${cy}" r="${isLast ? 3.6 : 2}"></circle>
+              <text class="jif-tip" x="${f1(tx)}" y="${f1(ty)}" text-anchor="${anchor}"><tspan class="jif-tip-year">${p.year}</tspan> ${fmtJif(p.raw)}</text>
+            </g>`;
         })
         .join('');
       return `
@@ -294,7 +314,7 @@
           <div class="jif-trend">
             <div class="jif-latest">
               <div class="jif-latest-label">${cur ? `JIF ${cur.year}` : 'JIF'}</div>
-              <div class="jif-latest-value">${cur ? escapeHtml(cur.raw) : '–'}</div>
+              <div class="jif-latest-value">${cur ? fmtJif(cur.raw) : '–'}</div>
             </div>
             ${chart(jifOf(j))}
           </div>
@@ -695,6 +715,34 @@
 
   }
 
+  /* 요소를 헤더 아래 28px 위치로 부드럽게 스크롤 (저널 카드·Overview 항목 클릭 공용) */
+  function jumpTo(el) {
+    const header = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 0;
+    const top = window.scrollY + el.getBoundingClientRect().top - header - 28;
+    window.scrollTo({ top: Math.max(0, top), behavior: reducedMotion.matches ? 'auto' : 'smooth' });
+  }
+
+  /* Overview 의 Publications / Conferences 항목 클릭 → 논문 목록 맨 위 / Conference Presentations 로 이동 */
+  function bindStatJumps() {
+    const JUMPS = [
+      { value: '#stat-total', target: () => $('#pubList .pub-year-group') || $('#pubList'), label: 'Jump to the publication list' },
+      { value: '#stat-conf', target: () => $('[aria-labelledby="pub-conferences"]'), label: 'Jump to conference presentations' },
+    ];
+    JUMPS.forEach(({ value, target, label }) => {
+      const item = $(value) && $(value).closest('.pub-stat-item');
+      if (!item) return;
+      item.classList.add('pub-stat-item--link');
+      item.setAttribute('role', 'button');
+      item.tabIndex = 0;
+      item.setAttribute('aria-label', label);
+      const go = () => { const t = target(); if (t) jumpTo(t); };
+      item.addEventListener('click', go);
+      item.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); }
+      });
+    });
+  }
+
   /* 논문 ↔ 저널 카드 연결 hover. 논문 항목 위에 올리면 그 저널의 JIF 카드가,
      카드 위에 올리면 그 저널에 실린 논문이 강조된다. 저널명은 .pub-venue 텍스트로 맞춘다. */
   function bindJournalMetricInteractions() {
@@ -724,11 +772,7 @@
       if (hint) hint.textContent = activeVenue ? HINT_ACTIVE : HINT_IDLE;
     };
     const clearVenue = () => { if (activeVenue) { activeVenue = null; paintVenue(); } };
-    const scrollToItem = (item) => {
-      const header = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 0;
-      const top = window.scrollY + item.getBoundingClientRect().top - header - 28;
-      window.scrollTo({ top: Math.max(0, top), behavior: reducedMotion.matches ? 'auto' : 'smooth' });
-    };
+    const scrollToItem = jumpTo;
     const activate = (card) => {
       const venue = card.dataset.venue;
       if (activeVenue === venue) { clearVenue(); return; }
@@ -773,6 +817,55 @@
     document.addEventListener('click', (e) => { if (!e.target.closest('.jif-card')) clearVenue(); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') clearVenue(); });
     barRows().forEach((r) => r.addEventListener('click', clearVenue));
+  }
+
+  /* Overview 숫자 슬롯머신. Publications 탭이 활성화될 때마다 #stat-total / #stat-conf 의 각 자릿수를
+     0→9 가 반복되는 세로 띠로 바꿔 위로 굴린 뒤 목표 숫자에 멈춘다. 오른쪽 자리가 조금 늦게 멈춘다.
+     모션 최소화 설정이면 renderPublications 가 넣어 둔 숫자 텍스트를 그대로 둔다. */
+  function bindStatReels() {
+    const page = $('#publications');
+    if (!page) return;
+    // sel 에 여러 요소가 잡히면 step 간격으로 차례로 출발 (By Role / By Type 행)
+    const REELS = [
+      { sel: '#stat-total', delay: 0 },
+      { sel: '#stat-conf', delay: 230 },
+      { sel: '#barsRole .pub-bar-count, #barsType .pub-bar-count', delay: 380, step: 110 },
+    ];
+    const CYCLES = 2; // 멈추기 전에 0→9 를 몇 바퀴 돌릴지
+
+    const build = (el, delay) => {
+      const value = String(parseInt(el.dataset.value || el.textContent, 10) || 0);
+      el.dataset.value = value; // 다시 굴릴 때를 위해 원래 숫자 보관
+      const digits = [...value].map((d, i) => {
+        const n = parseInt(d, 10);
+        const steps = CYCLES * 10 + n; // 띠에서 멈출 칸 번호
+        const strip = Array.from({ length: steps + 1 }, (_, k) => `<span>${k % 10}</span>`).join('');
+        return `<span class="reel-digit" data-to="${steps}" style="--reel-delay:${delay + i * 130}ms;--reel-dur:${(2.0 + i * 0.36).toFixed(2)}s"><span class="reel-strip">${strip}</span></span>`;
+      });
+      el.classList.add('has-reel'); // line-height 를 1em 으로 맞춰 릴 창이 행 가운데에 오게
+      el.innerHTML = `<span class="reel-sr">${value}</span><span class="reel" aria-hidden="true">${digits.join('')}</span>`;
+    };
+    const spin = () => {
+      if (reducedMotion.matches) return;
+      const els = REELS.flatMap(({ sel, delay, step = 0 }) =>
+        $$(sel).map((el, k) => { build(el, delay + k * step); return el; }));
+      // 시작 위치(0)를 한 프레임 먼저 그려야 transition 이 걸린다
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        els.forEach((el) => $$('.reel-digit', el).forEach((d) => {
+          d.classList.add('is-spun');
+          $('.reel-strip', d).style.transform = `translateY(-${d.dataset.to}em)`;
+        }));
+      }));
+    };
+
+    // 탭이 active 가 되는 순간마다 굴린다 (떠났다가 돌아와도 다시)
+    let armed = page.classList.contains('active');
+    if (armed) spin();
+    new MutationObserver(() => {
+      const on = page.classList.contains('active');
+      if (on && !armed) spin();
+      armed = on;
+    }).observe(page, { attributes: true, attributeFilter: ['class'] });
   }
 
   /* 오른쪽 열(#pubSide) 스티키. 열이 화면보다 짧으면 CSS sticky 그대로 두고,
@@ -1112,6 +1205,8 @@
   bindPublicationInteractions();
   bindJournalMetricInteractions();
   bindStickySidebar();
+  bindStatReels();
+  bindStatJumps();
   bindNewsInteractions();
 
   $('#themeToggle').setAttribute(
