@@ -47,7 +47,9 @@ const HERO_PARAGRAPHS = [
 
   `I received my B.S. from the School of Electrical and Electronic Engineering at
    <strong class="yonsei">Yonsei University</strong> in 2026.
-   During my undergraduate studies, I worked with Professor
+   During my undergraduate studies, I worked as a research assistant at the
+   <a class="yonsei" href="https://bioelectronics.yonsei.ac.kr/" target="_blank" rel="noopener">Functional Bio-Integrated Electronics and Energy Management Lab</a>
+   with Professor
    <a class="yonsei" href="https://scholar.google.com/citations?user=HfU4zn8AAAAJ&hl=en" target="_blank" rel="noopener">Ki Jun Yu</a>
    on electronic materials and thin-film devices for flexible electronics.`,
 ];
